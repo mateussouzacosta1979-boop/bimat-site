@@ -1,809 +1,934 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BIMAT | Soluções Jurídicas e Administrativas</title>
-  <meta name="description" content="Assistência completa para benefícios previdenciários e serviços documentais: contratos, procurações, acordos extrajudiciais e mais." />
-  <meta name="theme-color" content="#0b2f4a" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Favicon (opcional) -->
-  <link rel="icon" href="assets/icone-bimat.png" />
+  <title>Bimat Soluções Jurídicas e Administrativas | INSS, Previdenciário, Contratos e Procurações</title>
+  <meta name="description" content="Atendimento 100% online para todo o Brasil. Solicitações INSS e Previdenciário, contratos e procurações com agilidade, organização e segurança. Orçamento pelo WhatsApp." />
+  <meta name="keywords" content="INSS, previdenciário, solicitações INSS, requerimento INSS, recurso INSS, cumprimento de exigência INSS, aposentadoria, pensão por morte, auxílio-doença, BPC LOAS, salário-maternidade, procuração, procuração amplos poderes, contratos, notificação extrajudicial, declaração" />
+  <meta name="theme-color" content="#0b1220" />
+
+  <meta property="og:title" content="Bimat | INSS, Previdenciário, Contratos e Procurações" />
+  <meta property="og:description" content="Atendimento online para todo o Brasil. Eu preparo tudo pra você: INSS/Previdenciário, contratos e procurações — com agilidade e clareza." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #071b2a;
-      --bg2:#0b2f4a;
-      --card:#0c263a;
-      --text:#eaf2ff;
-      --muted:#b8c7dc;
-      --gold:#d2a84a;
-      --gold2:#b88c2f;
-      --line: rgba(255,255,255,.10);
-      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --bg0:#070b13;
+      --bg1:#0b1220;
+      --card:#0f1b2f;
+      --card2:#0d1729;
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.72);
+      --muted2:rgba(234,240,255,.58);
+      --line:rgba(234,240,255,.10);
+      --glow:rgba(72,187,255,.18);
+      --accent:#46b3ff;
+      --accent2:#7c5cff;
+      --good:#4ade80;
+      --warn:#fbbf24;
+      --shadow: 0 20px 70px rgba(0,0,0,.45);
+      --shadow2: 0 10px 35px rgba(0,0,0,.35);
       --radius: 18px;
       --radius2: 26px;
       --max: 1120px;
     }
 
-    *{ box-sizing: border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(1200px 500px at 70% 0%, rgba(210,168,74,.22), transparent 60%),
-        radial-gradient(900px 500px at 15% 15%, rgba(70,140,210,.20), transparent 55%),
-        linear-gradient(180deg, #061626, #06121f 60%, #050e18);
+        radial-gradient(1000px 700px at 15% -10%, rgba(70,179,255,.22), transparent 60%),
+        radial-gradient(900px 650px at 85% 10%, rgba(124,92,255,.20), transparent 55%),
+        radial-gradient(900px 650px at 50% 115%, rgba(70,179,255,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 55%, #060a12 100%);
       overflow-x:hidden;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    img{ max-width:100%; display:block; }
-    .container{ width: min(var(--max), 92vw); margin: 0 auto; }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(var(--max), calc(100% - 44px)); margin:0 auto;}
+    .grid{display:grid; gap:18px;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      padding:12px 16px;
+      border-radius: 14px;
+      font-weight:700;
+      letter-spacing:-.01em;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(234,240,255,.18); background: rgba(255,255,255,.06);}
+    .btn.primary{
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 18px 55px rgba(70,179,255,.14);
+    }
+    .btn.primary:hover{box-shadow: 0 24px 70px rgba(70,179,255,.18);}
+    .btn.ghost{background: rgba(255,255,255,.02);}
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-weight:600;
+      font-size: 13px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight:800;
+      letter-spacing: .02em;
+      background: rgba(74,222,128,.12);
+      border:1px solid rgba(74,222,128,.20);
+      color: rgba(234,240,255,.92);
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(700px 240px at 0% 0%, rgba(70,179,255,.18), transparent 55%),
+        radial-gradient(520px 240px at 100% 0%, rgba(124,92,255,.16), transparent 55%);
+      opacity:.65;
+      pointer-events:none;
+    }
+    .card > *{position:relative; z-index:1;}
+    .soft{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.02);
+      border:1px solid rgba(234,240,255,.08);
+      box-shadow: var(--shadow);
+    }
 
     /* Header */
-    .topbar{
-      position: sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(6,18,31,.65);
-      border-bottom: 1px solid var(--line);
+    header{
+      position:sticky; top:0; z-index:60;
+      backdrop-filter: blur(12px);
+      background: rgba(7,11,19,.55);
+      border-bottom:1px solid rgba(234,240,255,.08);
     }
-    .topbar .inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding: 12px 0;
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
     }
     .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 220px;
+      display:flex; align-items:center; gap:12px; min-width: 240px;
     }
-    .brand .mark{
-      width:44px; height:44px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      display:grid;
-      place-items:center;
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 18px 60px rgba(70,179,255,.12);
+      border:1px solid rgba(234,240,255,.16);
+      position:relative;
       overflow:hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
-    .brand .mark img{ width:100%; height:100%; object-fit:cover; }
-    .brand .name{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
+    .logo::after{
+      content:"";
+      position:absolute; inset:-20%;
+      background: radial-gradient(closest-side, rgba(255,255,255,.20), transparent 65%);
+      transform: rotate(25deg);
+      opacity:.7;
     }
-    .brand .name strong{
-      letter-spacing:.3px;
-      font-size: 15px;
+    .brand h1{
+      margin:0;
+      font-size: 14px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
-    .brand .name span{
+    .brand p{
+      margin:3px 0 0;
       font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: -0.01em;
+    }
+    .navlinks{
+      display:flex; align-items:center; gap:16px;
+      flex:1;
+      justify-content:center;
+    }
+    .navlinks a{
+      font-size: 13px;
       color: var(--muted);
-      letter-spacing:.8px;
-      text-transform: uppercase;
+      font-weight:700;
+      padding:8px 10px;
+      border-radius: 12px;
+      transition: background .15s ease, color .15s ease;
+      border:1px solid transparent;
     }
-
-    nav{
-      display:flex;
-      align-items:center;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content:center;
-    }
-    nav a{
-      font-size: 13px;
-      color: rgba(234,242,255,.88);
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      transition: .2s ease;
-      white-space: nowrap;
-    }
-    nav a:hover{
-      border-color: rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-
-    .header-cta{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width: 260px;
-      justify-content:flex-end;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 11px 14px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 13px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+    .navlinks a:hover{
       color: var(--text);
-      cursor:pointer;
-      transition: .18s ease;
-      user-select:none;
+      background: rgba(255,255,255,.04);
+      border-color: rgba(234,240,255,.10);
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
-    .btn:active{ transform: translateY(0px); }
+    .navcta{display:flex; align-items:center; gap:10px; justify-content:flex-end; min-width: 240px;}
 
-    .btn.primary{
-      border-color: rgba(210,168,74,.35);
-      background: linear-gradient(180deg, rgba(210,168,74,.95), rgba(184,140,47,.92));
-      color: #0b2133;
-      box-shadow: 0 14px 40px rgba(210,168,74,.20);
+    .hamburger{display:none;}
+    @media (max-width: 980px){
+      .navlinks{display:none;}
+      .navcta .btn.ghost{display:none;}
+      .hamburger{
+        display:inline-flex;
+        width:44px; height:44px;
+        border-radius: 14px;
+        border:1px solid var(--line);
+        background: rgba(255,255,255,.03);
+        align-items:center; justify-content:center;
+      }
+      .brand{min-width:auto}
+      .navcta{min-width:auto}
     }
-    .btn.primary:hover{ filter: brightness(1.02); transform: translateY(-1px); }
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: rgba(234,242,255,.9);
-      font-size: 12px;
-      font-weight: 650;
+    /* Mobile drawer */
+    .drawer{
+      position:fixed; inset:0; z-index:80;
+      display:none;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
     }
-    .dot{ width:8px; height:8px; border-radius:50%; background: #39d98a; box-shadow: 0 0 0 4px rgba(57,217,138,.15); }
+    .drawer.open{display:block;}
+    .drawerPanel{
+      position:absolute; right:14px; left:14px; top:78px;
+      border-radius: 22px;
+      padding:14px;
+      background: rgba(10,16,28,.92);
+      border:1px solid rgba(234,240,255,.10);
+      box-shadow: var(--shadow);
+    }
+    .drawerPanel a{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(234,240,255,.08);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .drawerPanel a:last-child{margin-bottom:0;}
+    .drawerPanel small{color: var(--muted2); font-weight:700;}
+    .drawerBtns{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
 
     /* Hero */
-    .hero{
-      position:relative;
-      padding: 44px 0 22px;
-    }
-    .hero-grid{
+    .hero{padding: 34px 0 10px;}
+    .heroGrid{
       display:grid;
-      grid-template-columns: 1.25fr .95fr;
-      gap: 28px;
-      align-items: stretch;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
     }
-    .hero-card{
-      border-radius: var(--radius2);
-      padding: 26px;
-      background:
-        radial-gradient(900px 360px at 20% 0%, rgba(210,168,74,.22), transparent 55%),
-        radial-gradient(900px 420px at 90% 10%, rgba(80,170,255,.18), transparent 50%),
-        linear-gradient(180deg, rgba(12,38,58,.86), rgba(9,28,43,.86));
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns: 1fr;}
     }
-    .hero-card::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background:
-        linear-gradient(120deg, rgba(210,168,74,.18), transparent 40%),
-        linear-gradient(40deg, rgba(90,160,230,.12), transparent 55%);
-      pointer-events:none;
-      mix-blend-mode: screen;
-      opacity:.85;
+    .heroMain{padding: 26px;}
+    .heroMain .toprow{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom: 14px;
     }
-
-    .hero h1{
-      margin: 12px 0 10px;
-      font-size: clamp(28px, 4.2vw, 44px);
+    .kpiRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 18px;
+    }
+    .kpi{
+      flex: 1 1 180px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(234,240,255,.10);
+      background: rgba(255,255,255,.02);
+    }
+    .kpi b{display:block; font-size: 14px; letter-spacing:-.02em;}
+    .kpi span{display:block; margin-top:6px; font-size: 12px; color: var(--muted2); font-weight:650; line-height:1.4;}
+    .heroTitle{
+      margin: 10px 0 0;
+      font-size: clamp(28px, 3.2vw, 44px);
+      letter-spacing: -0.04em;
       line-height: 1.05;
-      letter-spacing: .2px;
     }
-    .hero h1 .gold{ color: var(--gold); }
-    .hero p{
-      margin:0;
-      color: rgba(234,242,255,.88);
+    .heroSub{
+      margin: 14px 0 0;
+      color: var(--muted);
       font-size: 15px;
       line-height: 1.6;
-      max-width: 58ch;
+      max-width: 60ch;
     }
-    .hero ul{
-      margin: 18px 0 18px;
-      padding:0;
-      list-style:none;
-      display:grid;
-      gap: 10px;
-    }
-    .hero li{
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      color: rgba(234,242,255,.90);
-      font-size: 14px;
-    }
-    .check{
-      width:22px;
-      height:22px;
-      border-radius: 7px;
-      display:grid;
-      place-items:center;
-      background: rgba(57,217,138,.12);
-      border: 1px solid rgba(57,217,138,.22);
-      flex: 0 0 22px;
-      margin-top: 1px;
-    }
-    .check svg{ width:14px; height:14px; fill: #39d98a; }
-
-    .hero-actions{
-      display:flex;
-      gap: 12px;
-      flex-wrap:wrap;
-      margin-top: 16px;
-      position:relative;
-      z-index:2;
-    }
-
-    /* Form card */
-    .form-card{
-      border-radius: var(--radius2);
-      padding: 18px;
-      background:
-        linear-gradient(180deg, rgba(12,38,58,.92), rgba(9,28,43,.92));
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .form-card .logo-row{
-      display:flex;
+    .heroCtas{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top: 18px;
       align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      margin-bottom: 12px;
     }
-    .form-card .logo-row img{
-      height: 28px;
-      width:auto;
-      opacity:.95;
-    }
-    .form-card h3{
-      margin: 10px 0 6px;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-    .form-card p{
-      margin: 0 0 12px;
-      color: rgba(234,242,255,.78);
+    .heroNote{
+      margin-top: 12px;
+      color: var(--muted2);
       font-size: 13px;
       line-height: 1.5;
     }
-    .field{
+
+    .heroSide{
+      padding: 22px;
       display:flex;
       flex-direction:column;
-      gap:6px;
-      margin-bottom: 10px;
-    }
-    .field label{
-      font-size: 12px;
-      color: rgba(234,242,255,.78);
-    }
-    .field input, .field select, .field textarea{
-      width:100%;
-      border-radius: 14px;
-      padding: 12px 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      outline:none;
-      font-size: 14px;
-      transition: .18s ease;
-    }
-    .field textarea{ min-height: 90px; resize: vertical; }
-    .field input:focus, .field select:focus, .field textarea:focus{
-      border-color: rgba(210,168,74,.35);
-      box-shadow: 0 0 0 4px rgba(210,168,74,.12);
-    }
-    .form-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 8px;
-    }
-    .tiny{
-      font-size: 11px;
-      color: rgba(234,242,255,.68);
-      line-height: 1.45;
-      margin-top: 10px;
-    }
-
-    /* Section */
-    section{ padding: 28px 0; }
-    .section-title{
-      display:flex;
-      align-items:flex-end;
       justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 14px;
+      gap:14px;
     }
-    .section-title h2{
-      margin:0;
-      font-size: 22px;
-      letter-spacing:.2px;
-    }
-    .section-title p{
-      margin:0;
-      color: rgba(234,242,255,.78);
-      font-size: 13px;
-      line-height:1.5;
-      max-width: 64ch;
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    .grid-3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .grid-4{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .card{
-      background: rgba(12,38,58,.75);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
+    .sideBox{
       padding: 16px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.22);
-      transition:.18s ease;
-      position:relative;
-      overflow:hidden;
+      border-radius: 18px;
+      border:1px solid rgba(234,240,255,.10);
+      background: rgba(255,255,255,.02);
     }
-    .card:hover{ transform: translateY(-2px); background: rgba(12,38,58,.82); }
-    .card .icon{
-      width:40px; height:40px;
-      border-radius: 14px;
-      display:grid;
-      place-items:center;
-      background: rgba(210,168,74,.12);
-      border: 1px solid rgba(210,168,74,.18);
-      margin-bottom: 10px;
-    }
-    .card .icon svg{ width:20px; height:20px; fill: var(--gold); }
-    .card h3{ margin:0 0 6px; font-size: 15px; }
-    .card p{
+    .sideBox h3{
       margin:0;
-      color: rgba(234,242,255,.78);
+      font-size: 14px;
+      letter-spacing: -.02em;
+    }
+    .sideBox p{
+      margin:10px 0 0;
+      color: var(--muted);
       font-size: 13px;
       line-height: 1.55;
     }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(210,168,74,.22);
-      background: rgba(210,168,74,.10);
-      color: rgba(255,242,214,.95);
-    }
-
-    /* Steps */
-    .steps{
+    .checklist{
+      margin-top: 12px;
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap:10px;
     }
-    .step{
-      border-radius: var(--radius);
-      padding: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
+    .check{
+      display:flex; gap:10px; align-items:flex-start;
+      font-size: 13px;
+      color: var(--muted);
+      line-height:1.55;
     }
-    .step .num{
-      width:34px; height:34px;
-      border-radius: 12px;
-      display:grid;
-      place-items:center;
-      background: rgba(90,160,230,.14);
-      border: 1px solid rgba(90,160,230,.22);
-      font-weight: 900;
-      margin-bottom: 10px;
+    .dot{
+      width:18px; height:18px; flex:0 0 18px;
+      border-radius: 6px;
+      border:1px solid rgba(74,222,128,.25);
+      background: rgba(74,222,128,.12);
+      display:flex; align-items:center; justify-content:center;
+      margin-top:2px;
     }
-    .step h4{ margin:0 0 6px; font-size: 14px; }
-    .step p{ margin:0; color: rgba(234,242,255,.78); font-size: 13px; line-height:1.55; }
+    .dot svg{width:12px; height:12px;}
 
-    /* CTA band */
-    .cta-band{
-      margin-top: 8px;
-      border-radius: var(--radius2);
-      padding: 18px;
-      border: 1px solid rgba(210,168,74,.22);
+    /* Sections */
+    section{padding: 42px 0;}
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;
+      margin-bottom: 16px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+      line-height:1.15;
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.5;
+      max-width: 70ch;
+    }
+
+    .services{grid-template-columns: repeat(12, 1fr);}
+    .serviceCard{grid-column: span 4; padding: 18px;}
+    .serviceCard h3{margin:10px 0 0; font-size: 16px; letter-spacing:-.02em;}
+    .serviceCard p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6;}
+    .serviceCard ul{margin: 12px 0 0; padding: 0 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.7;}
+    .ico{
+      width:42px; height:42px;
+      border-radius: 16px;
+      border:1px solid rgba(234,240,255,.12);
       background:
-        radial-gradient(700px 240px at 20% 0%, rgba(210,168,74,.22), transparent 60%),
-        linear-gradient(180deg, rgba(12,38,58,.90), rgba(9,28,43,.90));
-      box-shadow: var(--shadow);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      flex-wrap:wrap;
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.18), transparent 60%),
+        linear-gradient(135deg, rgba(70,179,255,.18), rgba(124,92,255,.18));
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.25);
     }
-    .cta-band strong{ font-size: 15px; }
-    .cta-band span{ color: rgba(234,242,255,.78); font-size: 13px; }
+    .ico svg{width:18px; height:18px; opacity:.95;}
+    @media (max-width: 980px){.serviceCard{grid-column: span 12;}}
+
+    /* How it works */
+    .steps{grid-template-columns: repeat(12, 1fr);}
+    .step{grid-column: span 4; padding: 18px;}
+    .step b{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:34px; height:34px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(234,240,255,.10);
+      font-size: 14px;
+    }
+    .step h3{margin:12px 0 0; font-size: 15px; letter-spacing:-.02em;}
+    .step p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6;}
+    @media (max-width: 980px){.step{grid-column: span 12;}}
+
+    /* Differentials */
+    .diffGrid{grid-template-columns: repeat(12, 1fr);}
+    .diff{grid-column: span 6; padding: 18px; display:flex; gap:14px;}
+    .diff h3{margin:0; font-size: 15px; letter-spacing:-.02em;}
+    .diff p{margin:8px 0 0; color: var(--muted); font-size: 13px; line-height:1.6;}
+    .spark{
+      width:44px; height:44px; border-radius: 16px;
+      border:1px solid rgba(234,240,255,.12);
+      background: rgba(255,255,255,.03);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.25);
+      flex:0 0 44px;
+    }
+    .spark svg{width:18px; height:18px;}
+    @media (max-width: 980px){.diff{grid-column: span 12;}}
+
+    /* Testimonials */
+    .testGrid{grid-template-columns: repeat(12, 1fr);}
+    .test{grid-column: span 4; padding: 18px;}
+    .stars{display:flex; gap:3px; opacity:.95;}
+    .stars svg{width:16px; height:16px;}
+    .quote{margin: 12px 0 0; color: var(--text); font-weight:700; letter-spacing:-.02em; line-height:1.35; font-size: 14px;}
+    .subquote{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.6;}
+    .author{margin-top: 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; color: var(--muted2); font-size: 12px; font-weight:700;}
+    @media (max-width: 980px){.test{grid-column: span 12;}}
 
     /* FAQ */
+    .faq{display:grid; gap:12px;}
     details{
-      background: rgba(12,38,58,.60);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      padding: 12px 14px;
+      border:1px solid rgba(234,240,255,.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
     }
-    details summary{
+    summary{
       cursor:pointer;
-      font-weight: 800;
-      font-size: 13px;
-      color: rgba(234,242,255,.92);
+      padding: 14px 14px;
       list-style:none;
+      font-weight:800;
+      letter-spacing:-.02em;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      user-select:none;
     }
-    details summary::-webkit-details-marker { display:none; }
-    details p{
-      margin: 10px 0 0;
-      color: rgba(234,242,255,.78);
+    summary::-webkit-details-marker{display:none;}
+    details .ans{
+      padding: 0 14px 14px 14px;
+      color: var(--muted);
       font-size: 13px;
-      line-height: 1.6;
+      line-height:1.7;
     }
+    .caret{
+      width:34px; height:34px;
+      border-radius: 14px;
+      border:1px solid rgba(234,240,255,.10);
+      background: rgba(255,255,255,.02);
+      display:flex; align-items:center; justify-content:center;
+      transition: transform .15s ease;
+      flex:0 0 34px;
+    }
+    details[open] .caret{transform: rotate(180deg);}
+
+    /* CTA */
+    .ctaBox{padding: 22px;}
+    .ctaBox h2{margin:0; font-size: 20px; letter-spacing:-.03em;}
+    .ctaBox p{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.6; max-width: 78ch;}
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top: 14px; align-items:center;}
+    .mini{color: var(--muted2); font-size: 12px; font-weight:700; margin-top: 10px;}
 
     /* Footer */
     footer{
-      padding: 26px 0 34px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      margin-top: 18px;
-      background: rgba(0,0,0,.10);
+      padding: 26px 0 44px;
+      border-top:1px solid rgba(234,240,255,.08);
+      background: rgba(0,0,0,.15);
     }
-    .footer-grid{
+    .footerGrid{
       display:grid;
-      grid-template-columns: 1.3fr 1fr 1fr;
-      gap: 16px;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
       align-items:start;
     }
-    .muted{ color: rgba(234,242,255,.72); font-size: 13px; line-height: 1.6; }
-    .footer-title{ font-weight: 900; margin:0 0 10px; font-size: 13px; letter-spacing:.4px; text-transform: uppercase; color: rgba(234,242,255,.82); }
-    .footer-links{ display:grid; gap:8px; }
-    .footer-links a{ color: rgba(234,242,255,.78); font-size: 13px; }
-    .footer-links a:hover{ color: rgba(234,242,255,.95); text-decoration: underline; text-underline-offset: 4px; }
+    @media (max-width: 980px){.footerGrid{grid-template-columns: 1fr;}}
+    .footTitle{margin:0; font-size: 14px; letter-spacing:-.02em;}
+    .footP{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.6;}
+    .footList{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:8px;}
+    .footList li{color: var(--muted2); font-size: 13px; font-weight:700;}
+    .footList a{color: var(--text); font-weight:800;}
+    .fineprint{
+      margin-top: 14px;
+      color: rgba(234,240,255,.48);
+      font-size: 12px;
+      line-height:1.55;
+      border-top:1px dashed rgba(234,240,255,.12);
+      padding-top: 14px;
+    }
 
-    /* Whats floating */
-    .float{
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 100;
+    /* WhatsApp floating button */
+    .wafloat{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:90;
       display:flex;
       flex-direction:column;
-      gap: 10px;
+      gap:10px;
       align-items:flex-end;
     }
-    .float .fab{
+    .wabtn{
       display:flex;
       align-items:center;
       gap:10px;
-      border-radius: 999px;
-      padding: 12px 14px;
-      border: 1px solid rgba(57,217,138,.30);
-      background: linear-gradient(180deg, rgba(57,217,138,.95), rgba(34,184,120,.92));
-      color: #062018;
-      font-weight: 900;
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      padding:12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(234,240,255,.10);
+      background: rgba(12,22,38,.85);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
     }
-    .float .fab svg{ width:18px; height:18px; fill:#062018; }
+    .wabtn:hover{transform: translateY(-1px); border-color: rgba(234,240,255,.18); background: rgba(12,22,38,.92);}
+    .waico{
+      width:40px; height:40px;
+      border-radius: 16px;
+      background: rgba(34,197,94,.14);
+      border:1px solid rgba(34,197,94,.22);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .wabtn b{display:block; font-size: 13px; letter-spacing:-.02em;}
+    .wabtn span{display:block; font-size: 12px; color: var(--muted2); font-weight:700; margin-top:2px;}
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .header-cta{ display:none; }
-      .grid-4{ grid-template-columns: repeat(2, 1fr); }
-      .grid-3{ grid-template-columns: 1fr; }
-      .grid-2{ grid-template-columns: 1fr; }
-      .steps{ grid-template-columns: 1fr; }
-      .footer-grid{ grid-template-columns: 1fr; }
-      nav{ display:none; }
-    }
+    /* Reveal animation */
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease;}
+    .reveal.show{opacity:1; transform: translateY(0);}
   </style>
 </head>
 
 <body>
-  <!-- Header -->
-  <header class="topbar">
-    <div class="container">
-      <div class="inner">
-        <a class="brand" href="#inicio" aria-label="BIMAT - Início">
-          <div class="mark">
-            <img src="assets/icone-bimat.png" alt="Ícone BIMAT" />
-          </div>
-          <div class="name">
-            <strong>BIMAT</strong>
-            <span>Soluções Jurídicas e Administrativas</span>
-          </div>
-        </a>
+  <!-- Mobile Drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawerPanel soft" role="dialog" aria-modal="true" aria-label="Menu">
+      <a href="#servicos" onclick="closeDrawer()">
+        Serviços <small>INSS • Previdenciário • Contratos • Procurações</small>
+      </a>
+      <a href="#como-funciona" onclick="closeDrawer()">
+        Como funciona <small>3 passos simples</small>
+      </a>
+      <a href="#diferenciais" onclick="closeDrawer()">
+        Diferenciais <small>agilidade e clareza</small>
+      </a>
+      <a href="#avaliacoes" onclick="closeDrawer()">
+        Avaliações <small>depoimentos</small>
+      </a>
+      <a href="#faq" onclick="closeDrawer()">
+        Dúvidas <small>perguntas frequentes</small>
+      </a>
 
-        <nav aria-label="Navegação principal">
-          <a href="#beneficios">Benefícios</a>
+      <div class="drawerBtns">
+        <a class="btn primary" href="#contato" onclick="closeDrawer()">Solicitar orçamento</a>
+        <a class="btn" id="drawerWhats" href="#" onclick="closeDrawer()">Falar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container">
+      <div class="nav">
+        <div class="brand" aria-label="Bimat">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>Bimat Soluções Jurídicas e Administrativas</h1>
+            <p>Atendimento online • Todo o Brasil</p>
+          </div>
+        </div>
+
+        <nav class="navlinks" aria-label="Navegação">
           <a href="#servicos">Serviços</a>
           <a href="#como-funciona">Como funciona</a>
+          <a href="#diferenciais">Diferenciais</a>
+          <a href="#avaliacoes">Avaliações</a>
           <a href="#faq">Dúvidas</a>
           <a href="#contato">Contato</a>
         </nav>
 
-        <div class="header-cta">
-          <span class="pill"><span class="dot"></span>Atendimento rápido</span>
-          <a class="btn primary" href="#contato">Solicitar avaliação</a>
+        <div class="navcta">
+          <a class="btn ghost" href="#contato">Solicitar orçamento</a>
+          <a class="btn primary" id="topWhats" href="#">Falar no WhatsApp</a>
+          <button class="hamburger" aria-label="Abrir menu" onclick="openDrawer()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <main id="inicio" class="hero">
+  <!-- HERO -->
+  <main class="hero">
     <div class="container">
-      <div class="hero-grid">
-        <div class="hero-card">
-          <span class="badge">Assistência completa e organizada</span>
+      <div class="heroGrid">
+        <div class="card heroMain reveal">
+          <div class="toprow">
+            <span class="pill">
+              <span class="badge">100% Online</span>
+              INSS • Previdenciário • Contratos • Procurações
+            </span>
+            <span class="pill" title="Contato direto pelo WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 4h16v16H4z" stroke="currentColor" opacity=".25"/>
+                <path d="M7.5 12h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 7.5v9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Orçamento rápido
+            </span>
+          </div>
 
-          <h1>
-            Conquiste seus <span class="gold">benefícios previdenciários</span><br>
-            com mais tranquilidade e clareza.
-          </h1>
-
-          <p>
-            Nós ajudamos você a entender o caminho, reunir a documentação, organizar as informações e
-            acompanhar cada etapa com orientação prática — do início ao protocolo e acompanhamento.
+          <h2 class="heroTitle">INSS e solicitações previdenciárias prontas — sem burocracia.</h2>
+          <p class="heroSub">
+            Você chama no WhatsApp, envia as informações e documentos, e eu preparo tudo com organização, clareza e agilidade.
+            Atendimento para <b>todo o Brasil</b> com checklist completo e orientação de uso.
           </p>
 
-          <ul>
-            <li>
-              <span class="check" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8-8 1.4 1.4z"/></svg>
-              </span>
-              Triagem e diagnóstico do seu caso (checklist de documentos e próximos passos).
-            </li>
-            <li>
-              <span class="check" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8-8 1.4 1.4z"/></svg>
-              </span>
-              Organização e conferência documental para reduzir erros e retrabalho.
-            </li>
-            <li>
-              <span class="check" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8-8 1.4 1.4z"/></svg>
-              </span>
-              Atendimento humanizado e comunicação clara (sem “juridiquês”).
-            </li>
-          </ul>
-
-          <div class="hero-actions">
-            <button class="btn primary" id="btnWhatsHero" type="button">
-              <span aria-hidden="true">💬</span> Fale no WhatsApp agora
-            </button>
-            <a class="btn" href="#beneficios">
-              <span aria-hidden="true">📌</span> Ver benefícios atendidos
+          <div class="heroCtas">
+            <a class="btn primary" id="heroWhats" href="#">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 11.5a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M20 4v6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Falar no WhatsApp
             </a>
+            <a class="btn" href="#servicos">Ver serviços</a>
+            <a class="btn ghost" href="#como-funciona">Como funciona</a>
+          </div>
+
+          <div class="heroNote">
+            📲 WhatsApp direto: <b>(11) 99319-3084</b> • Atendimento: seg–sex, 09h às 18h
+          </div>
+
+          <div class="kpiRow">
+            <div class="kpi">
+              <b>Serviço pronto</b>
+              <span>Você contrata e eu preparo tudo — com organização e padrão profissional.</span>
+            </div>
+            <div class="kpi">
+              <b>Checklist completo</b>
+              <span>Você sabe exatamente o que enviar para evitar atrasos e retrabalho.</span>
+            </div>
+            <div class="kpi">
+              <b>Clareza e agilidade</b>
+              <span>Resposta direta, prazos definidos e orientação simples para usar o material.</span>
+            </div>
           </div>
         </div>
 
-        <!-- Form -->
-        <aside class="form-card" aria-label="Formulário de avaliação">
-          <div class="logo-row">
-            <img src="assets/logo-bimat.png" alt="BIMAT - Soluções Jurídicas e Administrativas" />
-            <span class="pill"><span class="dot"></span>Online</span>
+        <aside class="card heroSide reveal">
+          <div class="sideBox">
+            <h3>Atendimento com segurança e encaminhamento quando necessário</h3>
+            <p>
+              Quando a demanda exigir atuação jurídica, o cliente será orientado e poderá ser encaminhado
+              para escritório de advocacia parceiro, garantindo o atendimento adequado para cada caso.
+            </p>
           </div>
 
-          <h3>Solicite uma avaliação</h3>
-          <p>Preencha os dados e nós retornamos com o melhor caminho para o seu caso.</p>
+          <div class="sideBox">
+            <h3>O que você resolve aqui</h3>
+            <div class="checklist">
+              <div class="check">
+                <div class="dot" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div><b>INSS / Previdenciário:</b> requerimentos, recursos administrativos, exigências e organização documental.</div>
+              </div>
 
-          <form id="leadForm">
-            <div class="field">
-              <label for="nome">Nome</label>
-              <input id="nome" name="nome" autocomplete="name" placeholder="Seu nome completo" required />
-            </div>
+              <div class="check">
+                <div class="dot" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div><b>Contratos:</b> prestação de serviços, compra e venda, locação, termos e documentos profissionais.</div>
+              </div>
 
-            <div class="field">
-              <label for="whats">WhatsApp</label>
-              <input id="whats" name="whats" inputmode="tel" placeholder="(11) 99319-3084" required />
-            </div>
+              <div class="check">
+                <div class="dot" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div><b>Procurações:</b> particulares e orientação para procurações públicas (bancos, INSS, cartórios e amplos poderes).</div>
+              </div>
 
-            <div class="field">
-              <label for="tipo">O que você precisa?</label>
-              <select id="tipo" name="tipo" required>
-                <option value="" selected disabled>Selecione uma opção</option>
-                <option>Benefícios previdenciários (orientação e documentação)</option>
-                <option>Procuração</option>
-                <option>Contrato</option>
-                <option>Acordo extrajudicial</option>
-                <option>Outro serviço</option>
-              </select>
+              <div class="check">
+                <div class="dot" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div><b>Orientação clara:</b> material pronto + instruções simples para assinatura e uso.</div>
+              </div>
             </div>
+          </div>
 
-            <div class="field">
-              <label for="msg">Conte um pouco (opcional)</label>
-              <textarea id="msg" name="msg" placeholder="Ex.: aposentadoria, BPC/LOAS, pensão, revisão documental, etc."></textarea>
+          <div class="sideBox">
+            <h3>Resposta rápida</h3>
+            <p>Orçamento direto e objetivo pelo WhatsApp, com checklist e prazo definido.</p>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" id="sideWhats" href="#">Falar no WhatsApp</a>
+              <a class="btn" href="#contato">Solicitar orçamento</a>
             </div>
-
-            <div class="form-actions">
-              <button class="btn primary" type="submit">Enviar no WhatsApp</button>
-              <a class="btn" href="#contato">Ver contatos</a>
-            </div>
-
-            <div class="tiny">
-              Ao enviar, você será direcionado ao WhatsApp para confirmar a mensagem.
-              Não solicitamos senhas e nem dados bancários.
-            </div>
-          </form>
+          </div>
         </aside>
-      </div>
-
-      <div class="cta-band">
-        <div>
-          <strong>Precisa de ajuda para organizar seu pedido?</strong><br>
-          <span>Checklist, orientação e acompanhamento com comunicação simples e objetiva.</span>
-        </div>
-        <button class="btn primary" id="btnWhatsBand" type="button">Chamar no WhatsApp</button>
       </div>
     </div>
   </main>
 
-  <!-- Benefícios -->
-  <section id="beneficios">
-    <div class="container">
-      <div class="section-title">
-        <div>
-          <h2>Benefícios previdenciários</h2>
-          <p>
-            Atendemos diversos tipos de solicitações, com foco em organização documental, orientação de etapas e
-            acompanhamento do processo.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-4">
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2 2 7v6c0 5 3.8 9.7 10 9 6.2.7 10-4 10-9V7l-10-5zm0 2.2L20 8v5c0 3.9-2.7 7.6-8 6.9C6.7 20.6 4 16.9 4 13V8l8-3.8z"/></svg>
-          </div>
-          <h3>Aposentadorias</h3>
-          <p>Orientação e checklist de documentos, conferência de informações e acompanhamento das etapas.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 21s-8-4.4-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.6-8 11-8 11z"/></svg>
-          </div>
-          <h3>Benefício por incapacidade</h3>
-          <p>Organização de laudos/exames, histórico e documentos para apresentação consistente do caso.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M7 2h10v2h3v18H4V4h3V2zm2 2h6V2H9v2zm-3 6h12v2H6v-2zm0 4h12v2H6v-2z"/></svg>
-          </div>
-          <h3>Pensão por morte</h3>
-          <p>Checklist de documentação, orientação de etapas e apoio para evitar pendências e exigências.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v2h2a3 3 0 0 1 3 3v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-9a3 3 0 0 1 3-3h2V5a4 4 0 0 1 4-4zm2 6V5a2 2 0 0 0-4 0v2h4z"/></svg>
-          </div>
-          <h3>BPC/LOAS</h3>
-          <p>Orientação e organização documental, com foco em informações consistentes e bem apresentadas.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Serviços -->
+  <!-- SERVIÇOS -->
   <section id="servicos">
     <div class="container">
-      <div class="section-title">
+      <div class="sectionHead reveal">
         <div>
-          <h2>Serviços jurídicos e administrativos</h2>
+          <h2>Serviços — eu preparo tudo pra você</h2>
           <p>
-            Além da assistência previdenciária, oferecemos serviços documentais e administrativos com padrão profissional,
-            clareza e agilidade.
+            Atendimento 100% online para todo o Brasil. Você explica a demanda, envia as informações e documentos,
+            e eu entrego o material pronto, organizado e profissional.
           </p>
+        </div>
+        <div class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2v20" stroke="currentColor" opacity=".25"/>
+            <path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          INSS & Previdenciário • Contratos • Procurações
         </div>
       </div>
 
-      <div class="grid-4">
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 10h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
+      <div class="grid services">
+        <article class="card serviceCard reveal">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2 3 6.5v11L12 22l9-4.5v-11L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M12 22V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 6.5 12 12 3 6.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
           </div>
-          <h3>Contratos</h3>
-          <p>Elaboração e revisão de contratos com linguagem clara e estrutura profissional.</p>
-        </div>
+          <h3>INSS / Previdenciário</h3>
+          <p>Solicitações administrativas no INSS com checklist completo e organização documental.</p>
+          <ul>
+            <li>Aposentadorias (idade, tempo, especial e outras)</li>
+            <li>Pensão por morte</li>
+            <li>Auxílio-doença / incapacidade temporária</li>
+            <li>BPC/LOAS</li>
+            <li>Salário-maternidade</li>
+            <li>Cumprimento de exigência (INSS)</li>
+            <li>Recurso administrativo (INSS)</li>
+          </ul>
+        </article>
 
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M21 8V7l-3 3-2-2 3-3h-1a7 7 0 0 0-7 7c0 .5.1 1 .2 1.5L3 21l6.5-8.2c.5.1 1 .2 1.5.2a7 7 0 0 0 7-7z"/></svg>
+        <article class="card serviceCard reveal">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M14 2v6h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M8 13h8M8 17h8M8 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Contratos e Documentos</h3>
+          <p>Documentos bem escritos, claros e profissionais — prontos para assinatura e uso.</p>
+          <ul>
+            <li>Contrato de prestação de serviços</li>
+            <li>Compra e venda</li>
+            <li>Locação</li>
+            <li>Confissão de dívida / Termo de acordo</li>
+            <li>Notificação extrajudicial</li>
+            <li>Declarações em geral</li>
+          </ul>
+        </article>
+
+        <article class="card serviceCard reveal">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 1v22" stroke="currentColor" opacity=".25"/>
+              <path d="M7 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 10h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 14h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
           </div>
           <h3>Procurações</h3>
-          <p>Procurações com poderes bem descritos, organização e adequação conforme a finalidade.</p>
+          <p>Procurações particulares personalizadas e orientação quando for necessária procuração pública.</p>
+          <ul>
+            <li>Procuração para bancos</li>
+            <li>Procuração para INSS</li>
+            <li>Procuração para cartórios</li>
+            <li>Procuração de amplos poderes</li>
+            <li>Compra e venda / representação</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Como funciona — simples, rápido e claro</h2>
+          <p>Você me chama no WhatsApp, envia o necessário e eu preparo tudo com padrão profissional.</p>
+        </div>
+      </div>
+
+      <div class="grid steps">
+        <div class="card step reveal">
+          <b>1</b>
+          <h3>Você explica a demanda</h3>
+          <p>Me diga o que precisa e eu envio um checklist do que deve ser enviado.</p>
         </div>
 
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2 1 7l11 5 9-4.1V17h2V7L12 2zm0 12L3 9v8l9 5 9-5V9l-9 5z"/></svg>
-          </div>
-          <h3>Acordos extrajudiciais</h3>
-          <p>Formalização de acordos com objetividade, cláusulas claras e foco em prevenção de conflitos.</p>
+        <div class="card step reveal">
+          <b>2</b>
+          <h3>Análise e orçamento</h3>
+          <p>Eu avalio, retorno com prazo + valor e sigo com o preparo do material.</p>
         </div>
 
-        <div class="card">
-          <div class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 17h-2v-2h2v2zm2.1-7.2-.9.9A3 3 0 0 0 13 15h-2v-.5a4.5 4.5 0 0 1 1.3-3.2l1.2-1.2a1.9 1.9 0 1 0-3.2-1.3H8.3a3.8 3.8 0 1 1 6.8 2.6z"/></svg>
-          </div>
-          <h3>Orientação documental</h3>
-          <p>Checklists, organização, digitalização e preparo de pastas/arquivos para processos e rotinas.</p>
+        <div class="card step reveal">
+          <b>3</b>
+          <h3>Entrega pronta e orientada</h3>
+          <p>Você recebe o documento pronto, organizado e com instruções para assinatura e uso.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Como funciona -->
-  <section id="como-funciona">
+  <!-- DIFERENCIAIS -->
+  <section id="diferenciais">
     <div class="container">
-      <div class="section-title">
+      <div class="sectionHead reveal">
         <div>
-          <h2>Como funciona na prática</h2>
-          <p>Um processo simples, rápido e bem guiado, para você não ficar perdido(a) nas etapas.</p>
+          <h2>Por que escolher a Bimat?</h2>
+          <p>Atendimento profissional com clareza, agilidade e segurança — sem enrolação e com prazos definidos.</p>
         </div>
       </div>
 
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <h4>Triagem e diagnóstico</h4>
-          <p>Você nos conta o objetivo e nós montamos um checklist do que é necessário e os próximos passos.</p>
+      <div class="grid diffGrid">
+        <div class="card diff reveal">
+          <div class="spark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2v20" stroke="currentColor" opacity=".25"/>
+              <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Agilidade com responsabilidade</h3>
+            <p>Resposta rápida, prazo definido e material entregue com padrão profissional.</p>
+          </div>
         </div>
 
-        <div class="step">
-          <div class="num">2</div>
-          <h4>Organização e conferência</h4>
-          <p>Reunimos e organizamos documentos e informações, evitando inconsistências e exigências.</p>
+        <div class="card diff reveal">
+          <div class="spark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l9 4.5v11L12 22 3 17.5v-11L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Checklist completo</h3>
+            <p>Você recebe um passo a passo do que enviar para evitar atrasos e retrabalho.</p>
+          </div>
         </div>
 
-        <div class="step">
-          <div class="num">3</div>
-          <h4>Protocolo e acompanhamento</h4>
-          <p>Orientação para envio e acompanhamento, com comunicação clara até a conclusão.</p>
+        <div class="card diff reveal">
+          <div class="spark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 7v10" stroke="currentColor" opacity=".25"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Documentos claros e bem escritos</h3>
+            <p>Texto organizado e formatação profissional, prontos para uso.</p>
+          </div>
+        </div>
+
+        <div class="card diff reveal">
+          <div class="spark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 1a4 4 0 0 1 4 4v3h3a4 4 0 0 1 0 8h-3v3a4 4 0 0 1-8 0v-3H8a4 4 0 0 1 0-8h3V5a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Encaminhamento quando necessário</h3>
+            <p>Se a demanda exigir atuação jurídica, você será orientado e poderá ser encaminhado para escritório parceiro.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÕES -->
+  <section id="avaliacoes">
+    <div class="container">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Avaliações</h2>
+          <p>Quando você criar o perfil no Google, substituímos por avaliações reais. Por enquanto, cards-modelo.</p>
         </div>
       </div>
 
-      <div class="cta-band" style="margin-top:14px;">
-        <div>
-          <strong>Quer começar hoje?</strong><br>
-          <span>Chame no WhatsApp e receba um checklist inicial.</span>
-        </div>
-        <button class="btn primary" id="btnWhatsSteps" type="button">Quero meu checklist</button>
+      <div class="grid testGrid">
+        <article class="card test reveal">
+          <div class="stars" aria-label="5 estrelas">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+          </div>
+          <div class="quote">“Atendimento rápido e extremamente organizado.”</div>
+          <div class="subquote">Recebi checklist, orientação clara e tudo foi entregue dentro do prazo. Recomendo muito.</div>
+          <div class="author"><span>Cliente</span><span>INSS</span></div>
+        </article>
+
+        <article class="card test reveal">
+          <div class="stars" aria-label="5 estrelas">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+          </div>
+          <div class="quote">“Contrato perfeito e com linguagem simples.”</div>
+          <div class="subquote">Eu precisava de algo profissional e claro. Ficou excelente, com orientação para assinatura e uso.</div>
+          <div class="author"><span>Cliente</span><span>Contratos</span></div>
+        </article>
+
+        <article class="card test reveal">
+          <div class="stars" aria-label="5 estrelas">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+          </div>
+          <div class="quote">“Procuração pronta em poucas horas.”</div>
+          <div class="subquote">Atendimento direto e ágil. Recebi o documento pronto, bem formatado e aceito no local.</div>
+          <div class="author"><span>Cliente</span><span>Procurações</span></div>
+        </article>
       </div>
     </div>
   </section>
@@ -811,215 +936,184 @@
   <!-- FAQ -->
   <section id="faq">
     <div class="container">
-      <div class="section-title">
+      <div class="sectionHead reveal">
         <div>
           <h2>Dúvidas frequentes</h2>
-          <p>Respostas rápidas para você entender como trabalhamos e o que esperar do atendimento.</p>
+          <p>Respostas diretas para você contratar com segurança e tranquilidade.</p>
         </div>
       </div>
 
-      <div class="grid-2">
+      <div class="faq reveal">
         <details>
-          <summary>
-            O atendimento é presencial ou online?
-            <span aria-hidden="true">+</span>
+          <summary>O atendimento é online para todo o Brasil?
+            <span class="caret" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
           </summary>
-          <p>Atendemos de forma online e também podemos combinar conforme a necessidade. O foco é agilizar e organizar o processo.</p>
+          <div class="ans">Sim. Você pode contratar de qualquer lugar do Brasil, enviando as informações e documentos pelo WhatsApp.</div>
         </details>
 
         <details>
-          <summary>
-            Vocês pedem senha do gov.br ou dados bancários?
-            <span aria-hidden="true">+</span>
+          <summary>Você só orienta ou faz o serviço completo?
+            <span class="caret" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
           </summary>
-          <p>Não. Nunca solicitamos senhas. Caso seja necessário acesso, orientamos com segurança e transparência.</p>
+          <div class="ans">Eu preparo o serviço completo: solicitações no INSS/Previdenciário, contratos, procurações e documentos. Tudo pronto e com orientação de uso.</div>
         </details>
 
         <details>
-          <summary>
-            Quais benefícios vocês atendem?
-            <span aria-hidden="true">+</span>
+          <summary>Em quanto tempo fica pronto?
+            <span class="caret" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
           </summary>
-          <p>Ajudamos na organização e orientação para diversos benefícios previdenciários. Cada caso é analisado para definir o melhor caminho e a documentação correta.</p>
+          <div class="ans">Depende do serviço. Após receber as informações e documentos, eu informo prazo e valor antes de iniciar.</div>
         </details>
 
         <details>
-          <summary>
-            Vocês fazem contratos e procurações?
-            <span aria-hidden="true">+</span>
+          <summary>Como envio meus documentos?
+            <span class="caret" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
           </summary>
-          <p>Sim. Elaboramos documentos com estrutura profissional e linguagem clara, conforme a finalidade informada.</p>
+          <div class="ans">Pelo WhatsApp. Você recebe um checklist do que deve enviar, e eu organizo tudo para preparar a solicitação.</div>
+        </details>
+
+        <details>
+          <summary>Se for necessário advogado, o que acontece?
+            <span class="caret" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </summary>
+          <div class="ans">Quando a demanda exigir atuação jurídica, você será orientado e poderá ser encaminhado para escritório de advocacia parceiro.</div>
         </details>
       </div>
-
-      <p class="tiny" style="margin-top:12px;">
-        <strong>Observação importante:</strong> a BIMAT presta <u>serviços administrativos e documentais</u>. Quando houver necessidade de atuação privativa de advogado,
-        orientamos o cliente a buscar um profissional habilitado.
-      </p>
     </div>
   </section>
 
-  <!-- Contato -->
+  <!-- CTA FINAL -->
+  <section>
+    <div class="container">
+      <div class="card ctaBox reveal">
+        <h2>Precisa resolver INSS, procuração ou contrato com urgência?</h2>
+        <p>Clique abaixo e me diga o que você precisa. Eu retorno com checklist e orçamento rápido.</p>
+        <div class="ctaRow">
+          <a class="btn primary" id="ctaWhats" href="#">Falar no WhatsApp</a>
+          <a class="btn" href="#contato">Solicitar orçamento</a>
+        </div>
+        <div class="mini">📲 WhatsApp: <b>(11) 99319-3084</b> • seg–sex, 09h às 18h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
   <section id="contato">
     <div class="container">
-      <div class="section-title">
+      <div class="sectionHead reveal">
         <div>
           <h2>Contato</h2>
-          <p>Fale conosco e explique o que você precisa. Vamos te orientar com clareza e objetividade.</p>
+          <p>Atendimento online para todo o Brasil. Clique no WhatsApp e me diga o que você precisa.</p>
         </div>
       </div>
 
-      <div class="grid-2">
-        <div class="card">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-            <div class="mark" style="width:48px;height:48px;">
-              <img src="assets/icone-bimat.png" alt="Ícone BIMAT" />
-            </div>
-            <div>
-              <div style="font-weight:900;">BIMAT</div>
-              <div class="muted" style="font-size:12px;">Soluções Jurídicas e Administrativas</div>
-            </div>
-          </div>
+      <div class="card ctaBox reveal">
+        <h2>Fale agora pelo WhatsApp</h2>
+        <p>Resposta rápida, checklist de documentos e orçamento direto. Sem burocracia.</p>
 
-          <p class="muted">
-            Atendimento rápido via WhatsApp e e-mail. Se preferir, envie uma breve descrição do seu caso e nós retornamos.
-          </p>
-
-          <div style="display:grid;gap:10px;margin-top:12px;">
-            <a class="btn primary" id="btnWhatsContact" href="#" style="width:fit-content;">💬 WhatsApp: (11) 99319-3084</a>
-            <a class="btn" href="mailto:contato@bimat.com.br" style="width:fit-content;">✉️ contato@bimat.com.br</a>
-          </div>
+        <div class="ctaRow">
+          <a class="btn primary" id="contactWhats" href="#">Iniciar conversa</a>
+          <a class="btn" href="#servicos">Ver serviços</a>
         </div>
 
-        <div class="card">
-          <h3 style="margin:0 0 10px;">Mensagem rápida</h3>
-          <p class="muted" style="margin:0 0 12px;">
-            Clique para enviar uma mensagem pronta no WhatsApp. Você pode editar antes de enviar.
-          </p>
-
-          <div class="grid-2" style="gap:10px;">
-            <button class="btn" type="button" onclick="quickMsg('Olá! Vim pelo site da BIMAT e gostaria de ajuda com benefícios previdenciários. Podemos conversar?')">
-              Benefício previdenciário
-            </button>
-            <button class="btn" type="button" onclick="quickMsg('Olá! Vim pelo site da BIMAT e gostaria de fazer uma procuração. Pode me orientar?')">
-              Procuração
-            </button>
-            <button class="btn" type="button" onclick="quickMsg('Olá! Vim pelo site da BIMAT e gostaria de elaborar/revisar um contrato. Como funciona?')">
-              Contrato
-            </button>
-            <button class="btn" type="button" onclick="quickMsg('Olá! Vim pelo site da BIMAT e gostaria de formalizar um acordo extrajudicial. Pode me orientar?')">
-              Acordo extrajudicial
-            </button>
-          </div>
-        </div>
+        <ul class="footList" style="margin-top:14px;">
+          <li>📍 Atendimento: <b>Todo o Brasil (online)</b></li>
+          <li>📲 WhatsApp: <b>(11) 99319-3084</b></li>
+          <li>🕐 Horário: <b>Segunda a sexta, 09h às 18h</b></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="container">
-      <div class="footer-grid">
+      <div class="footerGrid">
         <div>
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-            <div class="mark" style="width:46px;height:46px;">
-              <img src="assets/icone-bimat.png" alt="Ícone BIMAT" />
-            </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="logo" aria-hidden="true"></div>
             <div>
-              <div style="font-weight:900;">BIMAT</div>
-              <div class="muted" style="font-size:12px;">Soluções Jurídicas e Administrativas</div>
+              <div class="footTitle">Bimat Soluções Jurídicas e Administrativas</div>
+              <div class="footP">INSS • Previdenciário • Contratos • Procurações</div>
             </div>
           </div>
-          <p class="muted">
-            Assistência para solicitação de benefícios previdenciários e serviços documentais com padrão profissional.
-          </p>
-        </div>
 
-        <div>
-          <div class="footer-title">Navegação</div>
-          <div class="footer-links">
-            <a href="#beneficios">Benefícios</a>
-            <a href="#servicos">Serviços</a>
-            <a href="#como-funciona">Como funciona</a>
-            <a href="#faq">Dúvidas</a>
-            <a href="#contato">Contato</a>
+          <div class="fineprint">
+            Observação: quando necessário, o cliente poderá ser orientado e encaminhado para escritório de advocacia parceiro.
           </div>
         </div>
 
         <div>
-          <div class="footer-title">Contato</div>
-          <div class="footer-links">
-            <a href="mailto:contato@bimat.com.br">contato@bimat.com.br</a>
-            <a href="#" id="footerWhats">(11) 99319-3084</a>
-          </div>
-          <p class="tiny" style="margin-top:10px;">
-            © <span id="year"></span> BIMAT. Todos os direitos reservados.
-          </p>
+          <div class="footTitle">Atendimento</div>
+          <p class="footP">100% online para todo o Brasil. Clique e fale agora pelo WhatsApp.</p>
+          <ul class="footList">
+            <li><a id="footerWhats" href="#">📲 WhatsApp: (11) 99319-3084</a></li>
+            <li>🕐 seg–sex • 09h às 18h</li>
+          </ul>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Floating WhatsApp -->
-  <div class="float" aria-label="Atalho WhatsApp">
-    <a class="fab" id="fabWhats" href="#" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.2L2 22l4.9-1.2A11 11 0 1 0 20.5 3.5zm-8.6 18a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-2.9.7.8-2.8-.2-.3a9.1 9.1 0 1 1 7.2 3.9zm5.3-6.8c-.3-.2-1.7-.8-2-1s-.5-.2-.7.2-.8 1-.9 1.1-.4.2-.7 0a7.4 7.4 0 0 1-2.2-1.4 8.3 8.3 0 0 1-1.5-1.9c-.2-.4 0-.6.2-.7l.5-.6c.2-.2.2-.4.3-.6s0-.4 0-.6-.7-1.7-1-2.3c-.3-.6-.6-.5-.7-.5H6.8c-.2 0-.6.1-.9.4s-1.1 1-1.1 2.5 1.1 2.9 1.2 3.1a10.7 10.7 0 0 0 4.1 4.1c.5.2 1 .4 1.3.5.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.4s.2-1.3.1-1.4-.3-.2-.6-.4z"/></svg>
-      Fale no WhatsApp
+  <div class="wafloat" aria-label="WhatsApp flutuante">
+    <a class="wabtn" id="floatWhats" href="#">
+      <span class="waico" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.5 3.5A11 11 0 0 0 3.8 18.9L3 22l3.2-.8A11 11 0 0 0 20.5 3.5Zm-8.5 19a9 9 0 0 1-4.6-1.3l-.3-.2-2.7.7.7-2.6-.2-.3A9 9 0 1 1 12 22.5Z"/>
+          <path d="M17.2 15.9c-.3-.2-1.7-.9-2-.9s-.5-.2-.7.2-.8.9-1 .9-.4 0-.7-.2a7.2 7.2 0 0 1-2.1-1.3 7.8 7.8 0 0 1-1.4-1.8c-.1-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6s-.7-1.7-1-2.3c-.3-.6-.6-.5-.8-.5H7.4c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.2 4.5.7.3 1.3.5 1.8.6.8.2 1.6.2 2.2.1.7-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.1-1.4-.1-.2-.3-.3-.6-.5Z"/>
+        </svg>
+      </span>
+      <div>
+        <b>Falar no WhatsApp</b>
+        <span>Orçamento rápido e checklist</span>
+      </div>
     </a>
   </div>
 
   <script>
-    // Config
-    const PHONE_RAW = "5511993193084"; // 55 + DDD + número
-    const DEFAULT_MSG = "Olá! Vim pelo site da BIMAT e gostaria de uma avaliação. Podemos conversar?";
+    // WhatsApp config
+    const WHATS_NUMBER = "5511993193084";
+    const WHATS_TEXT = "Olá, vim pelo site da Bimat e gostaria de um orçamento para solicitação no INSS / Previdenciário, contrato ou procuração.";
+    const WHATS_LINK = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(WHATS_TEXT)}`;
 
-    function waLink(message){
-      const text = encodeURIComponent(message || DEFAULT_MSG);
-      return `https://wa.me/${PHONE_RAW}?text=${text}`;
-    }
-
-    // Quick message buttons
-    function quickMsg(message){
-      window.open(waLink(message), "_blank", "noopener");
-    }
-    window.quickMsg = quickMsg;
-
-    // Bind WhatsApp CTAs
-    const binds = ["btnWhatsHero","btnWhatsBand","btnWhatsSteps","btnWhatsContact","fabWhats","footerWhats"];
-    binds.forEach(id=>{
+    const whatsIds = ["topWhats","heroWhats","sideWhats","ctaWhats","contactWhats","drawerWhats","footerWhats","floatWhats"];
+    whatsIds.forEach(id => {
       const el = document.getElementById(id);
-      if(!el) return;
-      if(el.tagName.toLowerCase() === "a"){
-        el.href = waLink(DEFAULT_MSG);
-        el.target = "_blank";
-      }else{
-        el.addEventListener("click", ()=> window.open(waLink(DEFAULT_MSG), "_blank", "noopener"));
-      }
+      if(el) el.href = WHATS_LINK;
     });
 
-    // Lead form -> WhatsApp
-    document.getElementById("leadForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      const nome = (document.getElementById("nome").value || "").trim();
-      const whats = (document.getElementById("whats").value || "").trim();
-      const tipo = (document.getElementById("tipo").value || "").trim();
-      const msg  = (document.getElementById("msg").value || "").trim();
+    // Drawer
+    const drawer = document.getElementById("drawer");
+    window.openDrawer = function(){
+      drawer.classList.add("open");
+      drawer.setAttribute("aria-hidden","false");
+    }
+    window.closeDrawer = function(){
+      drawer.classList.remove("open");
+      drawer.setAttribute("aria-hidden","true");
+    }
+    drawer.addEventListener("click", (e) => { if(e.target === drawer) window.closeDrawer(); });
 
-      const full =
-`Olá! Vim pelo site da BIMAT e gostaria de uma avaliação.
-
-Nome: ${nome}
-WhatsApp: ${whats}
-Necessidade: ${tipo}
-Detalhes: ${msg || "—"}
-
-Pode me orientar sobre os próximos passos?`;
-
-      window.open(waLink(full), "_blank", "noopener");
-    });
-
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // Reveal on scroll
+    const reveals = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.12});
+    reveals.forEach(el=>io.observe(el));
   </script>
 </body>
 </html>
