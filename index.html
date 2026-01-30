@@ -5,50 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Bimat Soluções Jurídicas e Administrativas | INSS, Previdenciário, Contratos e Procurações</title>
-  <meta name="description" content="Atendimento 100% online para todo o Brasil. Solicitações INSS e Previdenciário, contratos e procurações com agilidade, organização e segurança. Orçamento pelo WhatsApp." />
+  <meta name="description" content="Atendimento 100% online para todo o Brasil. Solicitações no INSS e Previdenciário, contratos e procurações com agilidade, organização e segurança. Orçamento pelo WhatsApp." />
   <meta name="keywords" content="INSS, previdenciário, solicitações INSS, requerimento INSS, recurso INSS, cumprimento de exigência INSS, aposentadoria, pensão por morte, auxílio-doença, BPC LOAS, salário-maternidade, procuração, procuração amplos poderes, contratos, notificação extrajudicial, declaração" />
-  <meta name="theme-color" content="#0b1220" />
+  <meta name="theme-color" content="#2563EB" />
 
   <meta property="og:title" content="Bimat | INSS, Previdenciário, Contratos e Procurações" />
   <meta property="og:description" content="Atendimento online para todo o Brasil. Eu preparo tudo pra você: INSS/Previdenciário, contratos e procurações — com agilidade e clareza." />
   <meta property="og:type" content="website" />
+
+  <!-- Favicon (usa o seu logo) -->
+  <link rel="icon" href="./Ativos/logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-
-    .logoImg{
-  width:40px;
-  height:40px;
-  border-radius:14px;
-  object-fit:contain;
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(234,240,255,.16);
-  box-shadow: 0 18px 60px rgba(70,179,255,.10);
-  padding:6px;
-}
-
     :root{
-      --bg0:#070b13;
-      --bg1:#0b1220;
-      --card:#0f1b2f;
-      --card2:#0d1729;
-      --text:#eaf0ff;
-      --muted:rgba(234,240,255,.72);
-      --muted2:rgba(234,240,255,.58);
-      --line:rgba(234,240,255,.10);
-      --glow:rgba(72,187,255,.18);
-      --accent:#46b3ff;
-      --accent2:#7c5cff;
-      --good:#4ade80;
-      --warn:#fbbf24;
-      --shadow: 0 20px 70px rgba(0,0,0,.45);
-      --shadow2: 0 10px 35px rgba(0,0,0,.35);
-      --radius: 18px;
-      --radius2: 26px;
-      --max: 1120px;
+      --bg:#F7F9FC;
+      --paper:#FFFFFF;
+      --text:#0F172A;
+      --muted:#475569;
+      --muted2:#64748B;
+      --line:#E2E8F0;
+      --shadow: 0 12px 30px rgba(2,6,23,.08);
+      --shadow2: 0 8px 18px rgba(2,6,23,.07);
+      --radius:18px;
+      --radius2:26px;
+      --max:1120px;
+      --accent:#2563EB;   /* azul */
+      --accent2:#16A34A;  /* verde */
+      --softAccent: rgba(37,99,235,.10);
+      --softGreen: rgba(22,163,74,.10);
     }
 
     *{box-sizing:border-box}
@@ -58,61 +46,78 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1000px 700px at 15% -10%, rgba(70,179,255,.22), transparent 60%),
-        radial-gradient(900px 650px at 85% 10%, rgba(124,92,255,.20), transparent 55%),
-        radial-gradient(900px 650px at 50% 115%, rgba(70,179,255,.12), transparent 60%),
-        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 55%, #060a12 100%);
+        radial-gradient(900px 600px at 10% -10%, rgba(37,99,235,.10), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(22,163,74,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg) 0%, #FFFFFF 38%, var(--bg) 100%);
       overflow-x:hidden;
     }
 
     a{color:inherit; text-decoration:none}
     .container{width:min(var(--max), calc(100% - 44px)); margin:0 auto;}
     .grid{display:grid; gap:18px;}
+
+    /* Buttons */
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      background: var(--paper);
       color:var(--text);
       padding:12px 16px;
       border-radius: 14px;
-      font-weight:700;
+      font-weight:800;
       letter-spacing:-.01em;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
       user-select:none;
       white-space:nowrap;
+      box-shadow: 0 1px 0 rgba(2,6,23,.03);
     }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(234,240,255,.18); background: rgba(255,255,255,.06);}
+    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow2); border-color: rgba(37,99,235,.25);}
     .btn.primary{
-      border: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 18px 55px rgba(70,179,255,.14);
+      border:none;
+      color:#fff;
+      background: linear-gradient(135deg, var(--accent), #1D4ED8);
+      box-shadow: 0 14px 30px rgba(37,99,235,.18);
     }
-    .btn.primary:hover{box-shadow: 0 24px 70px rgba(70,179,255,.18);}
-    .btn.ghost{background: rgba(255,255,255,.02);}
+    .btn.primary:hover{box-shadow: 0 18px 42px rgba(37,99,235,.22);}
+    .btn.soft{
+      background: rgba(37,99,235,.08);
+      border-color: rgba(37,99,235,.18);
+      color: #0B2C8F;
+    }
+    .btn.green{
+      border:none;
+      color:#fff;
+      background: linear-gradient(135deg, var(--accent2), #15803D);
+      box-shadow: 0 14px 30px rgba(22,163,74,.16);
+    }
+
     .pill{
       display:inline-flex; align-items:center; gap:10px;
       padding:8px 12px;
       border:1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,.75);
       color: var(--muted);
-      font-weight:600;
+      font-weight:800;
       font-size: 13px;
+      box-shadow: 0 1px 0 rgba(2,6,23,.03);
     }
     .badge{
       display:inline-flex; align-items:center; justify-content:center;
       padding:6px 10px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing: .02em;
-      background: rgba(74,222,128,.12);
-      border:1px solid rgba(74,222,128,.20);
-      color: rgba(234,240,255,.92);
+      background: var(--softGreen);
+      border:1px solid rgba(22,163,74,.20);
+      color: #0F5132;
     }
+
+    /* Cards */
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      background: rgba(255,255,255,.88);
       border:1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow2);
@@ -123,25 +128,25 @@
       content:"";
       position:absolute; inset:-1px;
       background:
-        radial-gradient(700px 240px at 0% 0%, rgba(70,179,255,.18), transparent 55%),
-        radial-gradient(520px 240px at 100% 0%, rgba(124,92,255,.16), transparent 55%);
-      opacity:.65;
+        radial-gradient(700px 240px at 0% 0%, rgba(37,99,235,.10), transparent 55%),
+        radial-gradient(520px 240px at 100% 0%, rgba(22,163,74,.08), transparent 55%);
+      opacity:.75;
       pointer-events:none;
     }
     .card > *{position:relative; z-index:1;}
     .soft{
       border-radius: var(--radius2);
-      background: rgba(255,255,255,.02);
-      border:1px solid rgba(234,240,255,.08);
+      background: rgba(255,255,255,.92);
+      border:1px solid rgba(226,232,240,.90);
       box-shadow: var(--shadow);
     }
 
     /* Header */
     header{
       position:sticky; top:0; z-index:60;
-      backdrop-filter: blur(12px);
-      background: rgba(7,11,19,.55);
-      border-bottom:1px solid rgba(234,240,255,.08);
+      backdrop-filter: blur(10px);
+      background: rgba(247,249,252,.75);
+      border-bottom:1px solid rgba(226,232,240,.85);
     }
     .nav{
       display:flex; align-items:center; justify-content:space-between;
@@ -149,24 +154,17 @@
       gap:14px;
     }
     .brand{
-      display:flex; align-items:center; gap:12px; min-width: 240px;
+      display:flex; align-items:center; gap:12px; min-width: 260px;
     }
-    .logo{
-      width:40px; height:40px; border-radius:14px;
-      background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.35), transparent 60%),
-        linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 18px 60px rgba(70,179,255,.12);
-      border:1px solid rgba(234,240,255,.16);
-      position:relative;
-      overflow:hidden;
-    }
-    .logo::after{
-      content:"";
-      position:absolute; inset:-20%;
-      background: radial-gradient(closest-side, rgba(255,255,255,.20), transparent 65%);
-      transform: rotate(25deg);
-      opacity:.7;
+    .logoImg{
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      object-fit:contain;
+      background: #fff;
+      border:1px solid rgba(226,232,240,.95);
+      box-shadow: 0 10px 25px rgba(2,6,23,.10);
+      padding:6px;
     }
     .brand h1{
       margin:0;
@@ -179,6 +177,7 @@
       font-size: 12px;
       color: var(--muted2);
       letter-spacing: -0.01em;
+      font-weight:700;
     }
     .navlinks{
       display:flex; align-items:center; gap:16px;
@@ -188,30 +187,31 @@
     .navlinks a{
       font-size: 13px;
       color: var(--muted);
-      font-weight:700;
+      font-weight:900;
       padding:8px 10px;
       border-radius: 12px;
-      transition: background .15s ease, color .15s ease;
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
       border:1px solid transparent;
     }
     .navlinks a:hover{
       color: var(--text);
-      background: rgba(255,255,255,.04);
-      border-color: rgba(234,240,255,.10);
+      background: rgba(37,99,235,.06);
+      border-color: rgba(37,99,235,.12);
     }
-    .navcta{display:flex; align-items:center; gap:10px; justify-content:flex-end; min-width: 240px;}
+    .navcta{display:flex; align-items:center; gap:10px; justify-content:flex-end; min-width: 260px;}
 
     .hamburger{display:none;}
     @media (max-width: 980px){
       .navlinks{display:none;}
-      .navcta .btn.ghost{display:none;}
+      .navcta .btn.soft{display:none;}
       .hamburger{
         display:inline-flex;
         width:44px; height:44px;
         border-radius: 14px;
         border:1px solid var(--line);
-        background: rgba(255,255,255,.03);
+        background: rgba(255,255,255,.9);
         align-items:center; justify-content:center;
+        box-shadow: 0 1px 0 rgba(2,6,23,.03);
       }
       .brand{min-width:auto}
       .navcta{min-width:auto}
@@ -221,7 +221,7 @@
     .drawer{
       position:fixed; inset:0; z-index:80;
       display:none;
-      background: rgba(0,0,0,.55);
+      background: rgba(2,6,23,.40);
       backdrop-filter: blur(6px);
     }
     .drawer.open{display:block;}
@@ -229,29 +229,29 @@
       position:absolute; right:14px; left:14px; top:78px;
       border-radius: 22px;
       padding:14px;
-      background: rgba(10,16,28,.92);
-      border:1px solid rgba(234,240,255,.10);
+      background: rgba(255,255,255,.96);
+      border:1px solid rgba(226,232,240,.95);
       box-shadow: var(--shadow);
     }
     .drawerPanel a{
       display:flex; align-items:center; justify-content:space-between;
       padding:12px 12px;
       border-radius: 14px;
-      border:1px solid rgba(234,240,255,.08);
-      background: rgba(255,255,255,.03);
+      border:1px solid rgba(226,232,240,.95);
+      background: rgba(248,250,252,.75);
       color: var(--text);
-      font-weight:800;
+      font-weight:900;
       margin-bottom:10px;
     }
     .drawerPanel a:last-child{margin-bottom:0;}
-    .drawerPanel small{color: var(--muted2); font-weight:700;}
+    .drawerPanel small{color: var(--muted2); font-weight:800;}
     .drawerBtns{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
 
     /* Hero */
-    .hero{padding: 34px 0 10px;}
+    .hero{padding: 32px 0 10px;}
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.15fr .85fr;
       gap:18px;
       align-items:stretch;
     }
@@ -263,19 +263,6 @@
       display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
       margin-bottom: 14px;
     }
-    .kpiRow{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top: 18px;
-    }
-    .kpi{
-      flex: 1 1 180px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(234,240,255,.10);
-      background: rgba(255,255,255,.02);
-    }
-    .kpi b{display:block; font-size: 14px; letter-spacing:-.02em;}
-    .kpi span{display:block; margin-top:6px; font-size: 12px; color: var(--muted2); font-weight:650; line-height:1.4;}
     .heroTitle{
       margin: 10px 0 0;
       font-size: clamp(28px, 3.2vw, 44px);
@@ -286,8 +273,9 @@
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.7;
       max-width: 60ch;
+      font-weight:650;
     }
     .heroCtas{
       display:flex; gap:12px; flex-wrap:wrap;
@@ -299,7 +287,21 @@
       color: var(--muted2);
       font-size: 13px;
       line-height: 1.5;
+      font-weight:750;
     }
+    .kpiRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 18px;
+    }
+    .kpi{
+      flex: 1 1 180px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(226,232,240,.95);
+      background: rgba(248,250,252,.75);
+    }
+    .kpi b{display:block; font-size: 14px; letter-spacing:-.02em;}
+    .kpi span{display:block; margin-top:6px; font-size: 12px; color: var(--muted2); font-weight:750; line-height:1.4;}
 
     .heroSide{
       padding: 22px;
@@ -311,8 +313,8 @@
     .sideBox{
       padding: 16px;
       border-radius: 18px;
-      border:1px solid rgba(234,240,255,.10);
-      background: rgba(255,255,255,.02);
+      border:1px solid rgba(226,232,240,.95);
+      background: rgba(248,250,252,.75);
     }
     .sideBox h3{
       margin:0;
@@ -323,8 +325,10 @@
       margin:10px 0 0;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.55;
+      line-height: 1.65;
+      font-weight:650;
     }
+
     .checklist{
       margin-top: 12px;
       display:grid;
@@ -334,13 +338,14 @@
       display:flex; gap:10px; align-items:flex-start;
       font-size: 13px;
       color: var(--muted);
-      line-height:1.55;
+      line-height:1.6;
+      font-weight:650;
     }
     .dot{
       width:18px; height:18px; flex:0 0 18px;
       border-radius: 6px;
-      border:1px solid rgba(74,222,128,.25);
-      background: rgba(74,222,128,.12);
+      border:1px solid rgba(22,163,74,.22);
+      background: rgba(22,163,74,.12);
       display:flex; align-items:center; justify-content:center;
       margin-top:2px;
     }
@@ -362,24 +367,24 @@
       margin:0;
       color: var(--muted);
       font-size: 13px;
-      line-height:1.5;
-      max-width: 70ch;
+      line-height:1.6;
+      max-width: 75ch;
+      font-weight:650;
     }
 
+    /* Services */
     .services{grid-template-columns: repeat(12, 1fr);}
     .serviceCard{grid-column: span 4; padding: 18px;}
-    .serviceCard h3{margin:10px 0 0; font-size: 16px; letter-spacing:-.02em;}
-    .serviceCard p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6;}
-    .serviceCard ul{margin: 12px 0 0; padding: 0 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.7;}
+    .serviceCard h3{margin:12px 0 0; font-size: 16px; letter-spacing:-.02em;}
+    .serviceCard p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; font-weight:650;}
+    .serviceCard ul{margin: 12px 0 0; padding: 0 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.8; font-weight:650;}
     .ico{
       width:42px; height:42px;
       border-radius: 16px;
-      border:1px solid rgba(234,240,255,.12);
-      background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(135deg, rgba(70,179,255,.18), rgba(124,92,255,.18));
+      border:1px solid rgba(37,99,235,.18);
+      background: rgba(37,99,235,.08);
       display:flex; align-items:center; justify-content:center;
-      box-shadow: 0 18px 60px rgba(0,0,0,.25);
+      box-shadow: 0 8px 18px rgba(2,6,23,.06);
     }
     .ico svg{width:18px; height:18px; opacity:.95;}
     @media (max-width: 980px){.serviceCard{grid-column: span 12;}}
@@ -391,25 +396,27 @@
       display:inline-flex; align-items:center; justify-content:center;
       width:34px; height:34px;
       border-radius: 14px;
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(234,240,255,.10);
+      background: rgba(37,99,235,.10);
+      border:1px solid rgba(37,99,235,.18);
       font-size: 14px;
+      color: #0B2C8F;
+      font-weight:900;
     }
     .step h3{margin:12px 0 0; font-size: 15px; letter-spacing:-.02em;}
-    .step p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6;}
+    .step p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; font-weight:650;}
     @media (max-width: 980px){.step{grid-column: span 12;}}
 
     /* Differentials */
     .diffGrid{grid-template-columns: repeat(12, 1fr);}
     .diff{grid-column: span 6; padding: 18px; display:flex; gap:14px;}
     .diff h3{margin:0; font-size: 15px; letter-spacing:-.02em;}
-    .diff p{margin:8px 0 0; color: var(--muted); font-size: 13px; line-height:1.6;}
+    .diff p{margin:8px 0 0; color: var(--muted); font-size: 13px; line-height:1.65; font-weight:650;}
     .spark{
       width:44px; height:44px; border-radius: 16px;
-      border:1px solid rgba(234,240,255,.12);
-      background: rgba(255,255,255,.03);
+      border:1px solid rgba(226,232,240,.95);
+      background: rgba(248,250,252,.80);
       display:flex; align-items:center; justify-content:center;
-      box-shadow: 0 18px 60px rgba(0,0,0,.25);
+      box-shadow: 0 8px 18px rgba(2,6,23,.06);
       flex:0 0 44px;
     }
     .spark svg{width:18px; height:18px;}
@@ -418,45 +425,48 @@
     /* Testimonials */
     .testGrid{grid-template-columns: repeat(12, 1fr);}
     .test{grid-column: span 4; padding: 18px;}
-    .stars{display:flex; gap:3px; opacity:.95;}
+    .stars{display:flex; gap:3px; opacity:.95; color:#F59E0B;}
     .stars svg{width:16px; height:16px;}
-    .quote{margin: 12px 0 0; color: var(--text); font-weight:700; letter-spacing:-.02em; line-height:1.35; font-size: 14px;}
-    .subquote{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.6;}
-    .author{margin-top: 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; color: var(--muted2); font-size: 12px; font-weight:700;}
+    .quote{margin: 12px 0 0; color: var(--text); font-weight:900; letter-spacing:-.02em; line-height:1.35; font-size: 14px;}
+    .subquote{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.65; font-weight:650;}
+    .author{margin-top: 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; color: var(--muted2); font-size: 12px; font-weight:900;}
     @media (max-width: 980px){.test{grid-column: span 12;}}
 
     /* FAQ */
     .faq{display:grid; gap:12px;}
     details{
-      border:1px solid rgba(234,240,255,.10);
+      border:1px solid rgba(226,232,240,.95);
       border-radius: 16px;
-      background: rgba(255,255,255,.02);
+      background: rgba(255,255,255,.88);
       overflow:hidden;
+      box-shadow: 0 6px 16px rgba(2,6,23,.05);
     }
     summary{
       cursor:pointer;
       padding: 14px 14px;
       list-style:none;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:-.02em;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
       user-select:none;
+      color: var(--text);
     }
     summary::-webkit-details-marker{display:none;}
     details .ans{
       padding: 0 14px 14px 14px;
       color: var(--muted);
       font-size: 13px;
-      line-height:1.7;
+      line-height:1.75;
+      font-weight:650;
     }
     .caret{
       width:34px; height:34px;
       border-radius: 14px;
-      border:1px solid rgba(234,240,255,.10);
-      background: rgba(255,255,255,.02);
+      border:1px solid rgba(226,232,240,.95);
+      background: rgba(248,250,252,.85);
       display:flex; align-items:center; justify-content:center;
       transition: transform .15s ease;
       flex:0 0 34px;
@@ -466,15 +476,16 @@
     /* CTA */
     .ctaBox{padding: 22px;}
     .ctaBox h2{margin:0; font-size: 20px; letter-spacing:-.03em;}
-    .ctaBox p{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.6; max-width: 78ch;}
+    .ctaBox p{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; max-width: 78ch; font-weight:650;}
     .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top: 14px; align-items:center;}
-    .mini{color: var(--muted2); font-size: 12px; font-weight:700; margin-top: 10px;}
+    .mini{color: var(--muted2); font-size: 12px; font-weight:900; margin-top: 10px;}
 
     /* Footer */
     footer{
       padding: 26px 0 44px;
-      border-top:1px solid rgba(234,240,255,.08);
-      background: rgba(0,0,0,.15);
+      border-top:1px solid rgba(226,232,240,.95);
+      background: rgba(255,255,255,.70);
+      backdrop-filter: blur(10px);
     }
     .footerGrid{
       display:grid;
@@ -484,17 +495,18 @@
     }
     @media (max-width: 980px){.footerGrid{grid-template-columns: 1fr;}}
     .footTitle{margin:0; font-size: 14px; letter-spacing:-.02em;}
-    .footP{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.6;}
+    .footP{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; font-weight:650;}
     .footList{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:8px;}
-    .footList li{color: var(--muted2); font-size: 13px; font-weight:700;}
-    .footList a{color: var(--text); font-weight:800;}
+    .footList li{color: var(--muted2); font-size: 13px; font-weight:900;}
+    .footList a{color: var(--accent); font-weight:900;}
     .fineprint{
       margin-top: 14px;
-      color: rgba(234,240,255,.48);
+      color: rgba(15,23,42,.60);
       font-size: 12px;
-      line-height:1.55;
-      border-top:1px dashed rgba(234,240,255,.12);
+      line-height:1.65;
+      border-top:1px dashed rgba(148,163,184,.55);
       padding-top: 14px;
+      font-weight:650;
     }
 
     /* WhatsApp floating button */
@@ -514,22 +526,23 @@
       gap:10px;
       padding:12px 14px;
       border-radius: 16px;
-      border:1px solid rgba(234,240,255,.10);
-      background: rgba(12,22,38,.85);
+      border:1px solid rgba(226,232,240,.95);
+      background: rgba(255,255,255,.92);
       backdrop-filter: blur(10px);
       box-shadow: var(--shadow2);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
     }
-    .wabtn:hover{transform: translateY(-1px); border-color: rgba(234,240,255,.18); background: rgba(12,22,38,.92);}
+    .wabtn:hover{transform: translateY(-1px); border-color: rgba(22,163,74,.28); background: rgba(255,255,255,.98);}
     .waico{
       width:40px; height:40px;
       border-radius: 16px;
-      background: rgba(34,197,94,.14);
-      border:1px solid rgba(34,197,94,.22);
+      background: rgba(22,163,74,.12);
+      border:1px solid rgba(22,163,74,.22);
       display:flex; align-items:center; justify-content:center;
+      color:#0F5132;
     }
     .wabtn b{display:block; font-size: 13px; letter-spacing:-.02em;}
-    .wabtn span{display:block; font-size: 12px; color: var(--muted2); font-weight:700; margin-top:2px;}
+    .wabtn span{display:block; font-size: 12px; color: var(--muted2); font-weight:800; margin-top:2px;}
 
     /* Reveal animation */
     .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease;}
@@ -541,21 +554,11 @@
   <!-- Mobile Drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
     <div class="drawerPanel soft" role="dialog" aria-modal="true" aria-label="Menu">
-      <a href="#servicos" onclick="closeDrawer()">
-        Serviços <small>INSS • Previdenciário • Contratos • Procurações</small>
-      </a>
-      <a href="#como-funciona" onclick="closeDrawer()">
-        Como funciona <small>3 passos simples</small>
-      </a>
-      <a href="#diferenciais" onclick="closeDrawer()">
-        Diferenciais <small>agilidade e clareza</small>
-      </a>
-      <a href="#avaliacoes" onclick="closeDrawer()">
-        Avaliações <small>depoimentos</small>
-      </a>
-      <a href="#faq" onclick="closeDrawer()">
-        Dúvidas <small>perguntas frequentes</small>
-      </a>
+      <a href="#servicos" onclick="closeDrawer()">Serviços <small>INSS • Previdenciário • Contratos • Procurações</small></a>
+      <a href="#como-funciona" onclick="closeDrawer()">Como funciona <small>3 passos simples</small></a>
+      <a href="#diferenciais" onclick="closeDrawer()">Diferenciais <small>agilidade e clareza</small></a>
+      <a href="#avaliacoes" onclick="closeDrawer()">Avaliações <small>depoimentos</small></a>
+      <a href="#faq" onclick="closeDrawer()">Dúvidas <small>perguntas frequentes</small></a>
 
       <div class="drawerBtns">
         <a class="btn primary" href="#contato" onclick="closeDrawer()">Solicitar orçamento</a>
@@ -564,16 +567,17 @@
     </div>
   </div>
 
+  <!-- Header -->
   <header>
     <div class="container">
       <div class="nav">
-        <div class="brand" aria-label="Bimat">
+        <a class="brand" href="#topo" aria-label="Bimat">
           <img class="logoImg" src="./Ativos/logo.png" alt="Bimat" />
           <div>
             <h1>Bimat Soluções Jurídicas e Administrativas</h1>
             <p>Atendimento online • Todo o Brasil</p>
           </div>
-        </div>
+        </a>
 
         <nav class="navlinks" aria-label="Navegação">
           <a href="#servicos">Serviços</a>
@@ -585,7 +589,7 @@
         </nav>
 
         <div class="navcta">
-          <a class="btn ghost" href="#contato">Solicitar orçamento</a>
+          <a class="btn soft" href="#contato">Solicitar orçamento</a>
           <a class="btn primary" id="topWhats" href="#">Falar no WhatsApp</a>
           <button class="hamburger" aria-label="Abrir menu" onclick="openDrawer()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -598,7 +602,7 @@
   </header>
 
   <!-- HERO -->
-  <main class="hero">
+  <main class="hero" id="topo">
     <div class="container">
       <div class="heroGrid">
         <div class="card heroMain reveal">
@@ -624,7 +628,7 @@
           </p>
 
           <div class="heroCtas">
-            <a class="btn primary" id="heroWhats" href="#">
+            <a class="btn green" id="heroWhats" href="#">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M20 11.5a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 <path d="M20 4v6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -632,7 +636,7 @@
               Falar no WhatsApp
             </a>
             <a class="btn" href="#servicos">Ver serviços</a>
-            <a class="btn ghost" href="#como-funciona">Como funciona</a>
+            <a class="btn soft" href="#como-funciona">Como funciona</a>
           </div>
 
           <div class="heroNote">
@@ -709,7 +713,7 @@
             <h3>Resposta rápida</h3>
             <p>Orçamento direto e objetivo pelo WhatsApp, com checklist e prazo definido.</p>
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" id="sideWhats" href="#">Falar no WhatsApp</a>
+              <a class="btn green" id="sideWhats" href="#">Falar no WhatsApp</a>
               <a class="btn" href="#contato">Solicitar orçamento</a>
             </div>
           </div>
@@ -906,6 +910,7 @@
       <div class="sectionHead reveal">
         <div>
           <h2>Avaliações</h2>
+          <p>Quando você criar o perfil no Google, substituímos por avaliações reais. Por enquanto, cards-modelo.</p>
         </div>
       </div>
 
@@ -920,25 +925,33 @@
           </div>
           <div class="quote">“Atendimento rápido e extremamente organizado.”</div>
           <div class="subquote">Recebi checklist, orientação clara e tudo foi entregue dentro do prazo. Recomendo muito.</div>
-          <div class="author"><span>Maria Jose Fonseca</span><span>INSS</span></div>
+          <div class="author"><span>Cliente</span><span>INSS</span></div>
         </article>
 
         <article class="card test reveal">
           <div class="stars" aria-label="5 estrelas">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
           </div>
           <div class="quote">“Contrato perfeito e com linguagem simples.”</div>
           <div class="subquote">Eu precisava de algo profissional e claro. Ficou excelente, com orientação para assinatura e uso.</div>
-          <div class="author"><span>Pedro Domingues</span><span>Contratos</span></div>
+          <div class="author"><span>Cliente</span><span>Contratos</span></div>
         </article>
 
         <article class="card test reveal">
           <div class="stars" aria-label="5 estrelas">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
           </div>
           <div class="quote">“Procuração pronta em poucas horas.”</div>
           <div class="subquote">Atendimento direto e ágil. Recebi o documento pronto, bem formatado e aceito no local.</div>
-          <div class="author"><span>Jorge Silva Santos</span><span>Procurações</span></div>
+          <div class="author"><span>Cliente</span><span>Procurações</span></div>
         </article>
       </div>
     </div>
@@ -1010,7 +1023,7 @@
         <h2>Precisa resolver INSS, procuração ou contrato com urgência?</h2>
         <p>Clique abaixo e me diga o que você precisa. Eu retorno com checklist e orçamento rápido.</p>
         <div class="ctaRow">
-          <a class="btn primary" id="ctaWhats" href="#">Falar no WhatsApp</a>
+          <a class="btn green" id="ctaWhats" href="#">Falar no WhatsApp</a>
           <a class="btn" href="#contato">Solicitar orçamento</a>
         </div>
         <div class="mini">📲 WhatsApp: <b>(11) 99319-3084</b> • seg–sex, 09h às 18h</div>
@@ -1033,7 +1046,7 @@
         <p>Resposta rápida, checklist de documentos e orçamento direto. Sem burocracia.</p>
 
         <div class="ctaRow">
-          <a class="btn primary" id="contactWhats" href="#">Iniciar conversa</a>
+          <a class="btn green" id="contactWhats" href="#">Iniciar conversa</a>
           <a class="btn" href="#servicos">Ver serviços</a>
         </div>
 
@@ -1075,6 +1088,7 @@
     </div>
   </footer>
 
+  <!-- WhatsApp Floating -->
   <div class="wafloat" aria-label="WhatsApp flutuante">
     <a class="wabtn" id="floatWhats" href="#">
       <span class="waico" aria-hidden="true">
@@ -1128,8 +1142,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
