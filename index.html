@@ -4,1129 +4,1650 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Bimat Soluções Jurídicas e Administrativas | INSS, Previdenciário, Contratos e Procurações</title>
-  <meta name="description" content="Atendimento 100% online para todo o Brasil. Solicitações no INSS e Previdenciário, contratos e procurações com agilidade, organização e segurança. Orçamento pelo WhatsApp." />
-  <meta name="keywords" content="INSS, previdenciário, solicitações INSS, requerimento INSS, recurso INSS, cumprimento de exigência INSS, aposentadoria, pensão por morte, auxílio-doença, BPC LOAS, salário-maternidade, procuração, procuração amplos poderes, contratos, notificação extrajudicial, declaração" />
-  <meta name="theme-color" content="#2563EB" />
+  <title>Bimat Soluções Previdenciárias | Especialistas em Benefícios INSS</title>
+  <meta name="description" content="Conquiste seu benefício do INSS com quem entende. Aposentadoria, pensão, auxílio-doença e BPC/LOAS. Atendimento 100% online para todo o Brasil." />
+  <meta name="keywords" content="INSS, benefícios previdenciários, aposentadoria, pensão por morte, auxílio-doença, BPC LOAS, salário-maternidade, benefício negado INSS, recurso INSS" />
+  <meta name="theme-color" content="#0F4C81" />
 
-  <meta property="og:title" content="Bimat | INSS, Previdenciário, Contratos e Procurações" />
-  <meta property="og:description" content="Atendimento online para todo o Brasil. Eu preparo tudo pra você: INSS/Previdenciário, contratos e procurações — com agilidade e clareza." />
+  <meta property="og:title" content="Bimat | Especialistas em Benefícios INSS" />
+  <meta property="og:description" content="Conquiste seu benefício do INSS. Atendimento especializado em aposentadoria, pensão, auxílio-doença e BPC/LOAS." />
   <meta property="og:type" content="website" />
 
-  <!-- Favicon (usa o seu logo) -->
-  <link rel="icon" href="./assets/logotipo.png" />
+  <link rel="icon" href="./icone.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#F7F9FC;
-      --paper:#FFFFFF;
-      --text:#0F172A;
-      --muted:#475569;
-      --muted2:#64748B;
-      --line:#E2E8F0;
-      --shadow: 0 12px 30px rgba(2,6,23,.08);
-      --shadow2: 0 8px 18px rgba(2,6,23,.07);
-      --radius:18px;
-      --radius2:26px;
-      --max:1120px;
-      --accent:#2563EB;   /* azul */
-      --accent2:#16A34A;  /* verde */
-      --softAccent: rgba(37,99,235,.10);
-      --softGreen: rgba(22,163,74,.10);
+      --primary: #0F4C81;
+      --primary-dark: #0A3A66;
+      --secondary: #D4AF37;
+      --secondary-dark: #B8941F;
+      --bg: #FAFBFC;
+      --paper: #FFFFFF;
+      --text: #1A2332;
+      --muted: #556573;
+      --muted-light: #7C8A9D;
+      --border: #E1E7EF;
+      --success: #0A8754;
+      --success-light: #E8F5F0;
+      --alert: #DC2626;
+      --shadow-sm: 0 2px 8px rgba(15,76,129,.06);
+      --shadow-md: 0 4px 16px rgba(15,76,129,.10);
+      --shadow-lg: 0 12px 32px rgba(15,76,129,.14);
+      --shadow-xl: 0 20px 48px rgba(15,76,129,.18);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --max-width: 1200px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(900px 600px at 10% -10%, rgba(37,99,235,.10), transparent 55%),
-        radial-gradient(900px 600px at 90% 10%, rgba(22,163,74,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg) 0%, #FFFFFF 38%, var(--bg) 100%);
-      overflow-x:hidden;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    a{color:inherit; text-decoration:none}
-    .container{width:min(var(--max), calc(100% - 44px)); margin:0 auto;}
-    .grid{display:grid; gap:18px;}
-
-    /* Buttons */
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      border:1px solid var(--line);
-      background: var(--paper);
-      color:var(--text);
-      padding:12px 16px;
-      border-radius: 14px;
-      font-weight:800;
-      letter-spacing:-.01em;
-      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
-      user-select:none;
-      white-space:nowrap;
-      box-shadow: 0 1px 0 rgba(2,6,23,.03);
-    }
-    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow2); border-color: rgba(37,99,235,.25);}
-    .btn.primary{
-      border:none;
-      color:#fff;
-      background: linear-gradient(135deg, var(--accent), #1D4ED8);
-      box-shadow: 0 14px 30px rgba(37,99,235,.18);
-    }
-    .btn.primary:hover{box-shadow: 0 18px 42px rgba(37,99,235,.22);}
-    .btn.soft{
-      background: rgba(37,99,235,.08);
-      border-color: rgba(37,99,235,.18);
-      color: #0B2C8F;
-    }
-    .btn.green{
-      border:none;
-      color:#fff;
-      background: linear-gradient(135deg, var(--accent2), #15803D);
-      box-shadow: 0 14px 30px rgba(22,163,74,.16);
+    html {
+      scroll-behavior: smooth;
     }
 
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:8px 12px;
-      border:1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,.75);
-      color: var(--muted);
-      font-weight:800;
-      font-size: 13px;
-      box-shadow: 0 1px 0 rgba(2,6,23,.03);
-    }
-    .badge{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight:900;
-      letter-spacing: .02em;
-      background: var(--softGreen);
-      border:1px solid rgba(22,163,74,.20);
-      color: #0F5132;
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Cards */
-    .card{
-      background: rgba(255,255,255,.88);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+      font-weight: 700;
     }
-    .card::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background:
-        radial-gradient(700px 240px at 0% 0%, rgba(37,99,235,.10), transparent 55%),
-        radial-gradient(520px 240px at 100% 0%, rgba(22,163,74,.08), transparent 55%);
-      opacity:.75;
-      pointer-events:none;
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-    .card > *{position:relative; z-index:1;}
-    .soft{
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,.92);
-      border:1px solid rgba(226,232,240,.90);
-      box-shadow: var(--shadow);
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
     /* Header */
-    header{
-      position:sticky; top:0; z-index:60;
-      backdrop-filter: blur(10px);
-      background: rgba(247,249,252,.75);
-      border-bottom:1px solid rgba(226,232,240,.85);
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:14px;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 24px;
     }
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width: 260px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
-    .logoImg{
-      width:40px;
-      height:40px;
-      border-radius:14px;
-      object-fit:contain;
-      background: #fff;
-      border:1px solid rgba(226,232,240,.95);
-      box-shadow: 0 10px 25px rgba(2,6,23,.10);
-      padding:6px;
-    }
-    .brand h1{
-      margin:0;
-      font-size: 14px;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-    .brand p{
-      margin:3px 0 0;
-      font-size: 12px;
-      color: var(--muted2);
-      letter-spacing: -0.01em;
-      font-weight:700;
-    }
-    .navlinks{
-      display:flex; align-items:center; gap:16px;
-      flex:1;
-      justify-content:center;
-    }
-    .navlinks a{
-      font-size: 13px;
-      color: var(--muted);
-      font-weight:900;
-      padding:8px 10px;
+
+    .logo-img {
+      width: 48px;
+      height: 48px;
       border-radius: 12px;
-      transition: background .15s ease, color .15s ease, border-color .15s ease;
-      border:1px solid transparent;
+      object-fit: contain;
+      background: transparent;
+      padding: 4px;
+      box-shadow: var(--shadow-md);
     }
-    .navlinks a:hover{
+
+    .logo-text h1 {
+      font-size: 18px;
       color: var(--text);
-      background: rgba(37,99,235,.06);
-      border-color: rgba(37,99,235,.12);
-    }
-    .navcta{display:flex; align-items:center; gap:10px; justify-content:flex-end; min-width: 260px;}
-
-    .hamburger{display:none;}
-    @media (max-width: 980px){
-      .navlinks{display:none;}
-      .navcta .btn.soft{display:none;}
-      .hamburger{
-        display:inline-flex;
-        width:44px; height:44px;
-        border-radius: 14px;
-        border:1px solid var(--line);
-        background: rgba(255,255,255,.9);
-        align-items:center; justify-content:center;
-        box-shadow: 0 1px 0 rgba(2,6,23,.03);
-      }
-      .brand{min-width:auto}
-      .navcta{min-width:auto}
+      margin-bottom: 2px;
     }
 
-    /* Mobile drawer */
-    .drawer{
-      position:fixed; inset:0; z-index:80;
-      display:none;
-      background: rgba(2,6,23,.40);
-      backdrop-filter: blur(6px);
-    }
-    .drawer.open{display:block;}
-    .drawerPanel{
-      position:absolute; right:14px; left:14px; top:78px;
-      border-radius: 22px;
-      padding:14px;
-      background: rgba(255,255,255,.96);
-      border:1px solid rgba(226,232,240,.95);
-      box-shadow: var(--shadow);
-    }
-    .drawerPanel a{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(226,232,240,.95);
-      background: rgba(248,250,252,.75);
-      color: var(--text);
-      font-weight:900;
-      margin-bottom:10px;
-    }
-    .drawerPanel a:last-child{margin-bottom:0;}
-    .drawerPanel small{color: var(--muted2); font-weight:800;}
-    .drawerBtns{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
-
-    /* Hero */
-    .hero{padding: 32px 0 10px;}
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .heroGrid{grid-template-columns: 1fr;}
-    }
-    .heroMain{padding: 26px;}
-    .heroMain .toprow{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom: 14px;
-    }
-    .heroTitle{
-      margin: 10px 0 0;
-      font-size: clamp(28px, 3.2vw, 44px);
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-    }
-    .heroSub{
-      margin: 14px 0 0;
+    .logo-text p {
+      font-size: 12px;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-      max-width: 60ch;
-      font-weight:650;
+      font-weight: 600;
     }
-    .heroCtas{
-      display:flex; gap:12px; flex-wrap:wrap;
-      margin-top: 18px;
-      align-items:center;
-    }
-    .heroNote{
-      margin-top: 12px;
-      color: var(--muted2);
-      font-size: 13px;
-      line-height: 1.5;
-      font-weight:750;
-    }
-    .kpiRow{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top: 18px;
-    }
-    .kpi{
-      flex: 1 1 180px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(226,232,240,.95);
-      background: rgba(248,250,252,.75);
-    }
-    .kpi b{display:block; font-size: 14px; letter-spacing:-.02em;}
-    .kpi span{display:block; margin-top:6px; font-size: 12px; color: var(--muted2); font-weight:750; line-height:1.4;}
 
-    .heroSide{
-      padding: 22px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:14px;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .sideBox{
-      padding: 16px;
-      border-radius: 18px;
-      border:1px solid rgba(226,232,240,.95);
-      background: rgba(248,250,252,.75);
-    }
-    .sideBox h3{
-      margin:0;
+
+    .nav-link {
+      padding: 10px 16px;
       font-size: 14px;
-      letter-spacing: -.02em;
-    }
-    .sideBox p{
-      margin:10px 0 0;
+      font-weight: 600;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.65;
-      font-weight:650;
+      border-radius: 10px;
+      transition: all 0.2s ease;
     }
 
-    .checklist{
-      margin-top: 12px;
-      display:grid;
-      gap:10px;
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(15,76,129,.08);
     }
-    .check{
-      display:flex; gap:10px; align-items:flex-start;
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(15,76,129,.08);
+      border: 1px solid rgba(15,76,129,.2);
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-phone:hover {
+      background: rgba(15,76,129,.12);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #25D366, #1FAD55);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(37,211,102,.25);
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(37,211,102,.35);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 80px 0 100px;
+      background: 
+        linear-gradient(135deg, rgba(15,76,129,.05), rgba(212,175,55,.05)),
+        radial-gradient(circle at 20% 30%, rgba(15,76,129,.08), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(212,175,55,.08), transparent 50%),
+        var(--paper);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(15,76,129,.06), transparent 70%);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: var(--success-light);
+      color: var(--success);
+      border: 1px solid rgba(10,135,84,.2);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      animation: fadeSlideDown 0.6s ease;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      color: var(--text);
+      margin-bottom: 24px;
+      animation: fadeSlideDown 0.8s ease 0.1s backwards;
+    }
+
+    .hero h1 .highlight {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: rgba(212,175,55,.3);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+      animation: fadeSlideDown 0.8s ease 0.2s backwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeSlideUp 0.8s ease 0.3s backwards;
+    }
+
+    .trust-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      animation: fadeSlideUp 0.8s ease 0.4s backwards;
+    }
+
+    .trust-item {
+      text-align: center;
+    }
+
+    .trust-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .trust-label {
       font-size: 13px;
       color: var(--muted);
-      line-height:1.6;
-      font-weight:650;
+      font-weight: 600;
+      margin-top: 4px;
     }
-    .dot{
-      width:18px; height:18px; flex:0 0 18px;
-      border-radius: 6px;
-      border:1px solid rgba(22,163,74,.22);
-      background: rgba(22,163,74,.12);
-      display:flex; align-items:center; justify-content:center;
-      margin-top:2px;
-    }
-    .dot svg{width:12px; height:12px;}
 
-    /* Sections */
-    section{padding: 42px 0;}
-    .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    /* Stats Bar */
+    .stats-bar {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 32px 0;
+      margin-top: -30px;
+      position: relative;
+      z-index: 10;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--secondary);
+    }
+
+    .stat-item p {
+      font-size: 15px;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    /* Benefits Section */
+    .benefits {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(15,76,129,.08);
+      color: var(--primary);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       margin-bottom: 16px;
     }
-    .sectionHead h2{
-      margin:0;
-      font-size: 22px;
-      letter-spacing: -0.03em;
-      line-height:1.15;
+
+    .section-header h2 {
+      font-size: 42px;
+      color: var(--text);
+      margin-bottom: 16px;
     }
-    .sectionHead p{
-      margin:0;
+
+    .section-header p {
+      font-size: 18px;
       color: var(--muted);
-      font-size: 13px;
-      line-height:1.6;
-      max-width: 75ch;
-      font-weight:650;
+      line-height: 1.7;
     }
 
-    /* Services */
-    .services{grid-template-columns: repeat(12, 1fr);}
-    .serviceCard{grid-column: span 4; padding: 18px;}
-    .serviceCard h3{margin:12px 0 0; font-size: 16px; letter-spacing:-.02em;}
-    .serviceCard p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; font-weight:650;}
-    .serviceCard ul{margin: 12px 0 0; padding: 0 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.8; font-weight:650;}
-    .ico{
-      width:42px; height:42px;
-      border-radius: 16px;
-      border:1px solid rgba(37,99,235,.18);
-      background: rgba(37,99,235,.08);
-      display:flex; align-items:center; justify-content:center;
-      box-shadow: 0 8px 18px rgba(2,6,23,.06);
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
     }
-    .ico svg{width:18px; height:18px; opacity:.95;}
-    @media (max-width: 980px){.serviceCard{grid-column: span 12;}}
 
-    /* How it works */
-    .steps{grid-template-columns: repeat(12, 1fr);}
-    .step{grid-column: span 4; padding: 18px;}
-    .step b{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:34px; height:34px;
-      border-radius: 14px;
-      background: rgba(37,99,235,.10);
-      border:1px solid rgba(37,99,235,.18);
+    .benefit-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(15,76,129,.3);
+    }
+
+    .benefit-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .benefit-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(15,76,129,.12), rgba(15,76,129,.08));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .benefit-card h3 {
+      font-size: 22px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .benefit-card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .benefit-features {
+      list-style: none;
+      padding: 0;
+    }
+
+    .benefit-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
       font-size: 14px;
-      color: #0B2C8F;
-      font-weight:900;
+      color: var(--muted);
+      margin-bottom: 10px;
     }
-    .step h3{margin:12px 0 0; font-size: 15px; letter-spacing:-.02em;}
-    .step p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; font-weight:650;}
-    @media (max-width: 980px){.step{grid-column: span 12;}}
 
-    /* Differentials */
-    .diffGrid{grid-template-columns: repeat(12, 1fr);}
-    .diff{grid-column: span 6; padding: 18px; display:flex; gap:14px;}
-    .diff h3{margin:0; font-size: 15px; letter-spacing:-.02em;}
-    .diff p{margin:8px 0 0; color: var(--muted); font-size: 13px; line-height:1.65; font-weight:650;}
-    .spark{
-      width:44px; height:44px; border-radius: 16px;
-      border:1px solid rgba(226,232,240,.95);
-      background: rgba(248,250,252,.80);
-      display:flex; align-items:center; justify-content:center;
-      box-shadow: 0 8px 18px rgba(2,6,23,.06);
-      flex:0 0 44px;
+    .benefit-features li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: bold;
+      flex-shrink: 0;
     }
-    .spark svg{width:18px; height:18px;}
-    @media (max-width: 980px){.diff{grid-column: span 12;}}
 
-    /* Testimonials */
-    .testGrid{grid-template-columns: repeat(12, 1fr);}
-    .test{grid-column: span 4; padding: 18px;}
-    .stars{display:flex; gap:3px; opacity:.95; color:#F59E0B;}
-    .stars svg{width:16px; height:16px;}
-    .quote{margin: 12px 0 0; color: var(--text); font-weight:900; letter-spacing:-.02em; line-height:1.35; font-size: 14px;}
-    .subquote{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.65; font-weight:650;}
-    .author{margin-top: 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; color: var(--muted2); font-size: 12px; font-weight:900;}
-    @media (max-width: 980px){.test{grid-column: span 12;}}
+    /* Process Section */
+    .process {
+      padding: 100px 0;
+      background: white;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 32px 24px;
+      border-radius: var(--radius);
+      background: var(--bg);
+      border: 2px solid var(--border);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .process-step:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 auto 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .process-step h3 {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .process-step p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Social Proof */
+    .social-proof {
+      padding: 100px 0;
+      background: linear-gradient(135deg, rgba(15,76,129,.03), rgba(212,175,55,.03));
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .testimonial-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .testimonial-info h4 {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .testimonial-info p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 4px;
+      color: #FFC107;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* Urgency Section */
+    .urgency {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .urgency-box {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .urgency-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,.1), transparent 60%);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .urgency-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .urgency-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255,255,255,.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .urgency-box h2 {
+      font-size: 38px;
+      margin-bottom: 16px;
+      color: white;
+    }
+
+    .urgency-box p {
+      font-size: 18px;
+      margin-bottom: 32px;
+      opacity: 0.95;
+      line-height: 1.7;
+    }
+
+    .urgency-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
     /* FAQ */
-    .faq{display:grid; gap:12px;}
-    details{
-      border:1px solid rgba(226,232,240,.95);
-      border-radius: 16px;
-      background: rgba(255,255,255,.88);
-      overflow:hidden;
-      box-shadow: 0 6px 16px rgba(2,6,23,.05);
+    .faq {
+      padding: 100px 0;
     }
-    summary{
-      cursor:pointer;
-      padding: 14px 14px;
-      list-style:none;
-      font-weight:900;
-      letter-spacing:-.02em;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      user-select:none;
-      color: var(--text);
-    }
-    summary::-webkit-details-marker{display:none;}
-    details .ans{
-      padding: 0 14px 14px 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.75;
-      font-weight:650;
-    }
-    .caret{
-      width:34px; height:34px;
-      border-radius: 14px;
-      border:1px solid rgba(226,232,240,.95);
-      background: rgba(248,250,252,.85);
-      display:flex; align-items:center; justify-content:center;
-      transition: transform .15s ease;
-      flex:0 0 34px;
-    }
-    details[open] .caret{transform: rotate(180deg);}
 
-    /* CTA */
-    .ctaBox{padding: 22px;}
-    .ctaBox h2{margin:0; font-size: 20px; letter-spacing:-.03em;}
-    .ctaBox p{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; max-width: 78ch; font-weight:650;}
-    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top: 14px; align-items:center;}
-    .mini{color: var(--muted2); font-size: 12px; font-weight:900; margin-top: 10px;}
+    .faq-list {
+      max-width: 800px;
+      margin: 60px auto 0;
+    }
+
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 24px;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      transition: color 0.2s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+    }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(15,76,129,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-answer-content {
+      padding: 0 24px 24px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 0;
+      background: var(--bg);
+    }
+
+    .cta-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-card h2 {
+      font-size: 36px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .cta-card p {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .contact-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .contact-item svg {
+      color: var(--primary);
+    }
 
     /* Footer */
-    footer{
-      padding: 26px 0 44px;
-      border-top:1px solid rgba(226,232,240,.95);
-      background: rgba(255,255,255,.70);
-      backdrop-filter: blur(10px);
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,.8);
+      padding: 60px 0 32px;
     }
-    .footerGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items:start;
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 48px;
+      margin-bottom: 48px;
     }
-    @media (max-width: 980px){.footerGrid{grid-template-columns: 1fr;}}
-    .footTitle{margin:0; font-size: 14px; letter-spacing:-.02em;}
-    .footP{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; font-weight:650;}
-    .footList{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:8px;}
-    .footList li{color: var(--muted2); font-size: 13px; font-weight:900;}
-    .footList a{color: var(--accent); font-weight:900;}
-    .fineprint{
-      margin-top: 14px;
-      color: rgba(15,23,42,.60);
+
+    .footer-brand h3 {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .footer-contact {
+      list-style: none;
+    }
+
+    .footer-contact li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      text-align: center;
+      font-size: 14px;
+      color: rgba(255,255,255,.6);
+    }
+
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+    }
+
+    .whatsapp-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #25D366, #1FAD55);
+      color: white;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(37,211,102,.35);
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .whatsapp-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(37,211,102,.45);
+    }
+
+    .whatsapp-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .whatsapp-text strong {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .whatsapp-text span {
       font-size: 12px;
-      line-height:1.65;
-      border-top:1px dashed rgba(148,163,184,.55);
-      padding-top: 14px;
-      font-weight:650;
+      opacity: 0.9;
     }
 
-    /* WhatsApp floating button */
-    .wafloat{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:90;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:flex-end;
+    /* Animations */
+    @keyframes fadeSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    .wabtn{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(226,232,240,.95);
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow2);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-    }
-    .wabtn:hover{transform: translateY(-1px); border-color: rgba(22,163,74,.28); background: rgba(255,255,255,.98);}
-    .waico{
-      width:40px; height:40px;
-      border-radius: 16px;
-      background: rgba(22,163,74,.12);
-      border:1px solid rgba(22,163,74,.22);
-      display:flex; align-items:center; justify-content:center;
-      color:#0F5132;
-    }
-    .wabtn b{display:block; font-size: 13px; letter-spacing:-.02em;}
-    .wabtn span{display:block; font-size: 12px; color: var(--muted2); font-weight:800; margin-top:2px;}
 
-    /* Reveal animation */
-    .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease;}
-    .reveal.show{opacity:1; transform: translateY(0);}
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-subtitle {
+        font-size: 17px;
+      }
+
+      .section-header h2 {
+        font-size: 32px;
+      }
+
+      .benefits-grid,
+      .process-steps,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-badges {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .whatsapp-text {
+        display: none;
+      }
+
+      .whatsapp-button {
+        padding: 16px;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+      }
+
+      .cta-buttons,
+      .hero-cta,
+      .urgency-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-whatsapp {
+        width: 100%;
+      }
+    }
   </style>
 </head>
-
 <body>
-  <!-- Mobile Drawer -->
-  <div class="drawer" id="drawer" aria-hidden="true">
-    <div class="drawerPanel soft" role="dialog" aria-modal="true" aria-label="Menu">
-      <a href="#servicos" onclick="closeDrawer()">Serviços <small>INSS • Previdenciário • Contratos • Procurações</small></a>
-      <a href="#como-funciona" onclick="closeDrawer()">Como funciona <small>3 passos simples</small></a>
-      <a href="#diferenciais" onclick="closeDrawer()">Diferenciais <small>agilidade e clareza</small></a>
-      <a href="#avaliacoes" onclick="closeDrawer()">Avaliações <small>depoimentos</small></a>
-      <a href="#faq" onclick="closeDrawer()">Dúvidas <small>perguntas frequentes</small></a>
-
-      <div class="drawerBtns">
-        <a class="btn primary" href="#contato" onclick="closeDrawer()">Solicitar orçamento</a>
-        <a class="btn" id="drawerWhats" href="#" onclick="closeDrawer()">Falar no WhatsApp</a>
-      </div>
-    </div>
-  </div>
-
   <!-- Header -->
   <header>
     <div class="container">
-      <div class="nav">
-        <a class="brand" href="#topo" aria-label="Bimat">
-          <img class="logoImg" src="./assets/logotipo.png" alt="Bimat" />
-          <div>
-            <h1>Bimat Soluções Jurídicas e Administrativas</h1>
-            <p>Atendimento online • Todo o Brasil</p>
+      <div class="header-content">
+        <a href="#" class="logo">
+          <img class="logo-img" src="./icone.png" alt="Bimat Logo" />
+          <div class="logo-text">
+            <h1>Bimat</h1>
+            <p>Especialistas em INSS</p>
           </div>
         </a>
 
-        <nav class="navlinks" aria-label="Navegação">
-          <a href="#servicos">Serviços</a>
-          <a href="#como-funciona">Como funciona</a>
-          <a href="#diferenciais">Diferenciais</a>
-          <a href="#avaliacoes">Avaliações</a>
-          <a href="#faq">Dúvidas</a>
-          <a href="#contato">Contato</a>
+        <nav class="nav-links">
+          <a href="#beneficios" class="nav-link">Benefícios</a>
+          <a href="#como-funciona" class="nav-link">Como Funciona</a>
+          <a href="#depoimentos" class="nav-link">Depoimentos</a>
+          <a href="#faq" class="nav-link">FAQ</a>
         </nav>
 
-        <div class="navcta">
-          <a class="btn soft" href="#contato">Solicitar orçamento</a>
-          <a class="btn primary" id="topWhats" href="#">Falar no WhatsApp</a>
-          <button class="hamburger" aria-label="Abrir menu" onclick="openDrawer()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h16"/>
-            </svg>
-          </button>
+        <div class="header-cta">
+          <a href="tel:11993193084" class="btn-phone">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            (11) 99319-3084
+          </a>
+          <a href="#contato" class="btn-primary">Falar no WhatsApp</a>
         </div>
+
+        <button class="mobile-menu-btn" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <main class="hero" id="topo">
+  <!-- Hero Section -->
+  <section class="hero">
     <div class="container">
-      <div class="heroGrid">
-        <div class="card heroMain reveal">
-          <div class="toprow">                      
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Atendimento 100% Online para Todo o Brasil
+        </div>
+
+        <h1>
+          Seu benefício do INSS <span class="highlight">aprovado</span> com quem entende
+        </h1>
+
+        <p class="hero-subtitle">
+          Aposentadoria, pensão, auxílio-doença e BPC/LOAS preparados com agilidade e segurança. Organize seus documentos, prepare sua solicitação e aumente suas chances de aprovação.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#contato" class="btn-whatsapp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            Solicitar Atendimento
+          </a>
+          <a href="#beneficios" class="btn-secondary">Ver Benefícios</a>
+        </div>
+
+        <div class="trust-badges">
+          <div class="trust-item">
+            <div class="trust-number">500+</div>
+            <div class="trust-label">Benefícios Aprovados</div>
           </div>
+          <div class="trust-item">
+            <div class="trust-number">98%</div>
+            <div class="trust-label">Taxa de Satisfação</div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-number">24h</div>
+            <div class="trust-label">Resposta Média</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <h2 class="heroTitle">Requerimento de Benefícios do INSS e Confecção de Contratos e Procurações.</h2>
-          <p class="heroSub"><br>
-            Você nós chama no WhatsApp, envia as informações e documentos, e nós preparamos tudo com organização, clareza e agilidade.
-            Atendimento 100% digital para <b>todo o Brasil</b>.<br>
-          </p><br>	
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>100%</h3>
+          <p>Atendimento Online</p>
+        </div>
+        <div class="stat-item">
+          <h3>27</h3>
+          <p>Estados Atendidos</p>
+        </div>
+        <div class="stat-item">
+          <h3>+8 Anos</h3>
+          <p>de Experiência</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="heroCtas">
-            <a class="btn green" id="heroWhats" href="#">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 11.5a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M20 4v6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Benefits Section -->
+  <section id="beneficios" class="benefits">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          Nossos Serviços
+        </span>
+        <h2>Benefícios INSS que Preparamos</h2>
+        <p>Solicitações completas organizadas e prontas para dar entrada no INSS, aumentando suas chances de aprovação na primeira tentativa.</p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">👴</div>
+          <h3>Aposentadoria</h3>
+          <p>Por idade, tempo de contribuição ou invalidez. Análise completa do seu histórico contributivo.</p>
+          <ul class="benefit-features">
+            <li>Revisão de tempo de contribuição</li>
+            <li>Cálculo do melhor momento para aposentar</li>
+            <li>Organização de toda documentação necessária</li>
+            <li>Acompanhamento até a aprovação</li>
+          </ul>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">💰</div>
+          <h3>Pensão por Morte</h3>
+          <p>Benefício para dependentes de segurado falecido. Processo ágil e humanizado.</p>
+          <ul class="benefit-features">
+            <li>Identificação de todos os dependentes com direito</li>
+            <li>Organização dos documentos do falecido</li>
+            <li>Cálculo do valor do benefício</li>
+            <li>Suporte em todo o processo</li>
+          </ul>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">🏥</div>
+          <h3>Auxílio-Doença</h3>
+          <p>Benefício por incapacidade temporária. Preparação estratégica para perícia médica.</p>
+          <ul class="benefit-features">
+            <li>Análise da documentação médica</li>
+            <li>Orientação para a perícia do INSS</li>
+            <li>Verificação de requisitos</li>
+            <li>Recurso em caso de negativa</li>
+          </ul>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">🤝</div>
+          <h3>BPC/LOAS</h3>
+          <p>Benefício assistencial para idosos e pessoas com deficiência de baixa renda.</p>
+          <ul class="benefit-features">
+            <li>Análise de elegibilidade (renda per capita)</li>
+            <li>Organização de laudos médicos</li>
+            <li>Preparação de documentação social</li>
+            <li>Orientação sobre avaliação do INSS</li>
+          </ul>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">👶</div>
+          <h3>Salário-Maternidade</h3>
+          <p>Benefício durante a licença maternidade para trabalhadoras e seguradas.</p>
+          <ul class="benefit-features">
+            <li>Verificação de carência cumprida</li>
+            <li>Organização de certidões e atestados</li>
+            <li>Cálculo do valor do benefício</li>
+            <li>Orientação sobre prazos</li>
+          </ul>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-icon">📋</div>
+          <h3>Recursos e Exigências</h3>
+          <p>Benefício negado? Exigência do INSS? Preparamos a resposta adequada.</p>
+          <ul class="benefit-features">
+            <li>Análise da negativa ou exigência</li>
+            <li>Identificação de documentos faltantes</li>
+            <li>Elaboração de recurso fundamentado</li>
+            <li>Reapresentação estratégica</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="como-funciona" class="process">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Processo Simples
+        </span>
+        <h2>Como Funciona</h2>
+        <p>Do primeiro contato até a aprovação do seu benefício, um processo claro e organizado.</p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-number">1</div>
+          <h3>Contato Inicial</h3>
+          <p>Entre em contato pelo WhatsApp e conte sua situação. Vamos identificar qual benefício você tem direito.</p>
+        </div>
+
+        <div class="process-step reveal">
+          <div class="step-number">2</div>
+          <h3>Análise e Checklist</h3>
+          <p>Você recebe um checklist personalizado com os documentos necessários e o valor do serviço.</p>
+        </div>
+
+        <div class="process-step reveal">
+          <div class="step-number">3</div>
+          <h3>Preparação</h3>
+          <p>Organizamos toda sua documentação e preparamos a solicitação de forma estratégica e completa.</p>
+        </div>
+
+        <div class="process-step reveal">
+          <div class="step-number">4</div>
+          <h3>Entrega e Orientação</h3>
+          <p>Você recebe tudo pronto com orientações claras de como protocolar e o que esperar do INSS.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section id="depoimentos" class="social-proof">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          Depoimentos
+        </span>
+        <h2>O Que Dizem Nossos Clientes</h2>
+        <p>Histórias reais de pessoas que conquistaram seus benefícios com nossa ajuda.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">M</div>
+            <div class="testimonial-info">
+              <h4>Maria Silva</h4>
+              <p>Aposentadoria por Idade</p>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Estava perdida com tanta documentação. A Bimat organizou tudo e em 3 semanas minha aposentadoria foi aprovada! Profissionalismo e atenção impecáveis."</p>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">J</div>
+            <div class="testimonial-info">
+              <h4>João Santos</h4>
+              <p>Auxílio-Doença</p>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Meu benefício tinha sido negado. Com a ajuda da equipe, fizemos o recurso da forma certa e consegui a aprovação. Gratidão eterna!"</p>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">A</div>
+            <div class="testimonial-info">
+              <h4>Ana Oliveira</h4>
+              <p>Pensão por Morte</p>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Em um momento tão difícil, fui tratada com muito respeito e humanidade. Cuidaram de tudo para mim e consegui o benefício rapidamente."</p>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">C</div>
+            <div class="testimonial-info">
+              <h4>Carlos Lima</h4>
+              <p>BPC/LOAS</p>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Não sabia que tinha direito ao BPC. A Bimat analisou minha situação, organizou tudo e hoje recebo o benefício. Mudou minha vida!"</p>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">L</div>
+            <div class="testimonial-info">
+              <h4>Luciana Costa</h4>
+              <p>Salário-Maternidade</p>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Atendimento rápido e esclarecedor. Recebi meu salário-maternidade sem complicações. Super recomendo!"</p>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">R</div>
+            <div class="testimonial-info">
+              <h4>Roberto Alves</h4>
+              <p>Aposentadoria por Tempo</p>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Achei que faltava tempo de contribuição, mas a análise mostrou que eu já poderia me aposentar. Hoje estou aposentado graças à Bimat!"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Urgency Section -->
+  <section class="urgency">
+    <div class="container">
+      <div class="urgency-box reveal">
+        <div class="urgency-content">
+          <div class="urgency-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Atenção: Não Perca Prazo
+          </div>
+          <h2>Seu benefício pode estar em risco</h2>
+          <p>Documentação incompleta e solicitações mal preparadas são as principais causas de negativa do INSS. Quanto mais você espera, mais chances você perde.</p>
+          <div class="urgency-cta">
+            <a href="#contato" class="btn-whatsapp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
               </svg>
-              Falar no WhatsApp
+              Quero Garantir Meu Benefício
             </a>
-            <a class="btn" href="#servicos">Ver serviços</a>
-            <a class="btn soft" href="#como-funciona">Como funciona</a>
-          </div><br>
-
-          <div class="heroNote">
-            📲 WhatsApp direto: <b>(11) 99319-3084</b> <br>Atendemos de segunda a sexta, das 10h às 18h.
-          </div><br>
-
-          <div class="kpiRow">
-            <div class="kpi">
-              <b>Serviço pronto</b>
-              <span>Você contrata e eu preparo tudo — com organização e padrão profissional.</span>
-            </div>
-            <div class="kpi">
-              <b>Checklist completo</b>
-              <span>Você sabe exatamente o que enviar para evitar atrasos e retrabalho.</span>
-            </div>
-            <div class="kpi">
-              <b>Clareza e agilidade</b>
-              <span>Resposta direta, prazos definidos e orientação simples para usar o material.</span>
-            </div>
           </div>
         </div>
-
-        <aside class="card heroSide reveal">
-          <div class="sideBox">
-            <h3>Atendimento com segurança e encaminhamento quando necessário</h3>
-            <p>
-              Quando a demanda exigir atuação jurídica, o cliente será orientado e poderá ser encaminhado
-              para escritório de advocacia parceiro, garantindo o atendimento adequado para cada caso.
-            </p>
-          </div>
-
-          <div class="sideBox">
-            <h3>O que você resolve aqui</h3>
-            <div class="checklist">
-              <div class="check">
-                <div class="dot" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div><b>INSS / Previdenciário:</b> requerimentos, recursos administrativos, exigências e organização documental.</div>
-              </div>
-
-              <div class="check">
-                <div class="dot" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div><b>Contratos:</b> prestação de serviços, compra e venda, locação, termos e documentos profissionais.</div>
-              </div>
-
-              <div class="check">
-                <div class="dot" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div><b>Procurações:</b> particulares e orientação para procurações públicas (bancos, INSS, cartórios e amplos poderes).</div>
-              </div>
-
-              <div class="check">
-                <div class="dot" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div><b>Orientação clara:</b> material pronto + instruções simples para assinatura e uso.</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="sideBox">
-            <h3>Resposta rápida</h3>
-            <p>Orçamento direto e objetivo pelo WhatsApp, com checklist e prazo definido.</p>
-            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn green" id="sideWhats" href="#">Falar no WhatsApp</a>
-              <a class="btn" href="#contato">Solicitar orçamento</a>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </main>
-
-  <!-- SERVIÇOS -->
-  <section id="servicos">
-    <div class="container">
-      <div class="sectionHead reveal">
-        <div>
-          <h2>Serviços — eu preparo tudo pra você</h2>
-          <p>
-            Atendimento 100% online para todo o Brasil. Você explica a demanda, envia as informações e documentos,
-            e eu entrego o material pronto, organizado e profissional.
-          </p>
-        </div>
-        <div class="pill">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 2v20" stroke="currentColor" opacity=".25"/>
-            <path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          INSS & Previdenciário • Contratos • Procurações
-        </div>
-      </div>
-
-      <div class="grid services">
-        <article class="card serviceCard reveal">
-          <div class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 2 3 6.5v11L12 22l9-4.5v-11L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M12 22V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M21 6.5 12 12 3 6.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3>INSS / Previdenciário</h3>
-          <p>Solicitações administrativas no INSS com checklist completo e organização documental.</p>
-          <ul>
-            <li>Aposentadorias (idade, tempo, especial e outras)</li>
-            <li>Pensão por morte</li>
-            <li>Auxílio-doença / incapacidade temporária</li>
-            <li>BPC/LOAS</li>
-            <li>Salário-maternidade</li>
-            <li>Cumprimento de exigência (INSS)</li>
-            <li>Recurso administrativo (INSS)</li>
-          </ul>
-        </article>
-
-        <article class="card serviceCard reveal">
-          <div class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M14 2v6h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M8 13h8M8 17h8M8 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Contratos e Documentos</h3>
-          <p>Documentos bem escritos, claros e profissionais — prontos para assinatura e uso.</p>
-          <ul>
-            <li>Contrato de prestação de serviços</li>
-            <li>Compra e venda</li>
-            <li>Locação</li>
-            <li>Confissão de dívida / Termo de acordo</li>
-            <li>Notificação extrajudicial</li>
-            <li>Declarações em geral</li>
-          </ul>
-        </article>
-
-        <article class="card serviceCard reveal">
-          <div class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 1v22" stroke="currentColor" opacity=".25"/>
-              <path d="M7 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M7 10h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M7 14h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M7 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Procurações</h3>
-          <p>Procurações particulares personalizadas e orientação quando for necessária procuração pública.</p>
-          <ul>
-            <li>Procuração para bancos</li>
-            <li>Procuração para INSS</li>
-            <li>Procuração para cartórios</li>
-            <li>Procuração de amplos poderes</li>
-            <li>Compra e venda / representação</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMO FUNCIONA -->
-  <section id="como-funciona">
-    <div class="container">
-      <div class="sectionHead reveal">
-        <div>
-          <h2>Como funciona — simples, rápido e claro</h2>
-          <p>Você me chama no WhatsApp, envia o necessário e eu preparo tudo com padrão profissional.</p>
-        </div>
-      </div>
-
-      <div class="grid steps">
-        <div class="card step reveal">
-          <b>1</b>
-          <h3>Você explica a demanda</h3>
-          <p>Me diga o que precisa e eu envio um checklist do que deve ser enviado.</p>
-        </div>
-
-        <div class="card step reveal">
-          <b>2</b>
-          <h3>Análise e orçamento</h3>
-          <p>Eu avalio, retorno com prazo + valor e sigo com o preparo do material.</p>
-        </div>
-
-        <div class="card step reveal">
-          <b>3</b>
-          <h3>Entrega pronta e orientada</h3>
-          <p>Você recebe o documento pronto, organizado e com instruções para assinatura e uso.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DIFERENCIAIS -->
-  <section id="diferenciais">
-    <div class="container">
-      <div class="sectionHead reveal">
-        <div>
-          <h2>Por que escolher a Bimat?</h2>
-          <p>Atendimento profissional com clareza, agilidade e segurança — sem enrolação e com prazos definidos.</p>
-        </div>
-      </div>
-
-      <div class="grid diffGrid">
-        <div class="card diff reveal">
-          <div class="spark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 2v20" stroke="currentColor" opacity=".25"/>
-              <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Agilidade com responsabilidade</h3>
-            <p>Resposta rápida, prazo definido e material entregue com padrão profissional.</p>
-          </div>
-        </div>
-
-        <div class="card diff reveal">
-          <div class="spark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 2l9 4.5v11L12 22 3 17.5v-11L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Checklist completo</h3>
-            <p>Você recebe um passo a passo do que enviar para evitar atrasos e retrabalho.</p>
-          </div>
-        </div>
-
-        <div class="card diff reveal">
-          <div class="spark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 7v10" stroke="currentColor" opacity=".25"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Documentos claros e bem escritos</h3>
-            <p>Texto organizado e formatação profissional, prontos para uso.</p>
-          </div>
-        </div>
-
-        <div class="card diff reveal">
-          <div class="spark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 1a4 4 0 0 1 4 4v3h3a4 4 0 0 1 0 8h-3v3a4 4 0 0 1-8 0v-3H8a4 4 0 0 1 0-8h3V5a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Encaminhamento quando necessário</h3>
-            <p>Se a demanda exigir atuação jurídica, você será orientado e poderá ser encaminhado para escritório parceiro.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- AVALIAÇÕES -->
-  <section id="avaliacoes">
-    <div class="container">
-      <div class="sectionHead reveal">
-        <div>
-          <h2>Avaliações</h2>
-          <p>Quando você criar o perfil no Google, substituímos por avaliações reais. Por enquanto, cards-modelo.</p>
-        </div>
-      </div>
-
-      <div class="grid testGrid">
-        <article class="card test reveal">
-          <div class="stars" aria-label="5 estrelas">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-          </div>
-          <div class="quote">“Atendimento rápido e extremamente organizado.”</div>
-          <div class="subquote">Recebi checklist, orientação clara e tudo foi entregue dentro do prazo. Recomendo muito.</div>
-          <div class="author"><span>Cliente</span><span>INSS</span></div>
-        </article>
-
-        <article class="card test reveal">
-          <div class="stars" aria-label="5 estrelas">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-          </div>
-          <div class="quote">“Contrato perfeito e com linguagem simples.”</div>
-          <div class="subquote">Eu precisava de algo profissional e claro. Ficou excelente, com orientação para assinatura e uso.</div>
-          <div class="author"><span>Cliente</span><span>Contratos</span></div>
-        </article>
-
-        <article class="card test reveal">
-          <div class="stars" aria-label="5 estrelas">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 18.2 21l-1.6-7 5.4-4.6-7.1-.6L12 2 9.1 8.8 2 9.4l5.4 4.6L5.8 21z"/></svg>
-          </div>
-          <div class="quote">“Procuração pronta em poucas horas.”</div>
-          <div class="subquote">Atendimento direto e ágil. Recebi o documento pronto, bem formatado e aceito no local.</div>
-          <div class="author"><span>Cliente</span><span>Procurações</span></div>
-        </article>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq">
+  <section id="faq" class="faq">
     <div class="container">
-      <div class="sectionHead reveal">
-        <div>
-          <h2>Dúvidas frequentes</h2>
-          <p>Respostas diretas para você contratar com segurança e tranquilidade.</p>
-        </div>
+      <div class="section-header reveal">
+        <span class="section-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Perguntas Frequentes
+        </span>
+        <h2>Tire Suas Dúvidas</h2>
+        <p>Respostas para as perguntas mais comuns sobre nossos serviços.</p>
       </div>
 
-      <div class="faq reveal">
-        <details>
-          <summary>O atendimento é online para todo o Brasil?
-            <span class="caret" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </summary>
-          <div class="ans">Sim. Você pode contratar de qualquer lugar do Brasil, enviando as informações e documentos pelo WhatsApp.</div>
-        </details>
-
-        <details>
-          <summary>Você só orienta ou faz o serviço completo?
-            <span class="caret" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </summary>
-          <div class="ans">Eu preparo o serviço completo: solicitações no INSS/Previdenciário, contratos, procurações e documentos. Tudo pronto e com orientação de uso.</div>
-        </details>
-
-        <details>
-          <summary>Em quanto tempo fica pronto?
-            <span class="caret" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </summary>
-          <div class="ans">Depende do serviço. Após receber as informações e documentos, eu informo prazo e valor antes de iniciar.</div>
-        </details>
-
-        <details>
-          <summary>Como envio meus documentos?
-            <span class="caret" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </summary>
-          <div class="ans">Pelo WhatsApp. Você recebe um checklist do que deve enviar, e eu organizo tudo para preparar a solicitação.</div>
-        </details>
-
-        <details>
-          <summary>Se for necessário advogado, o que acontece?
-            <span class="caret" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </summary>
-          <div class="ans">Quando a demanda exigir atuação jurídica, você será orientado e poderá ser encaminhado para escritório de advocacia parceiro.</div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL -->
-  <section>
-    <div class="container">
-      <div class="card ctaBox reveal">
-        <h2>Precisa resolver INSS, procuração ou contrato com urgência?</h2>
-        <p>Clique abaixo e me diga o que você precisa. Eu retorno com checklist e orçamento rápido.</p>
-        <div class="ctaRow">
-          <a class="btn green" id="ctaWhats" href="#">Falar no WhatsApp</a>
-          <a class="btn" href="#contato">Solicitar orçamento</a>
-        </div>
-        <div class="mini">📲 WhatsApp: <b>(11) 99319-3084</b> • seg–sex, 09h às 18h</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTATO -->
-  <section id="contato">
-    <div class="container">
-      <div class="sectionHead reveal">
-        <div>
-          <h2>Contato</h2>
-          <p>Atendimento online para todo o Brasil. Clique no WhatsApp e me diga o que você precisa.</p>
-        </div>
-      </div>
-
-      <div class="card ctaBox reveal">
-        <h2>Fale agora pelo WhatsApp</h2>
-        <p>Resposta rápida, checklist de documentos e orçamento direto. Sem burocracia.</p>
-
-        <div class="ctaRow">
-          <a class="btn green" id="contactWhats" href="#">Iniciar conversa</a>
-          <a class="btn" href="#servicos">Ver serviços</a>
-        </div>
-
-        <ul class="footList" style="margin-top:14px;">
-          <li>📍 Atendimento: <b>Todo o Brasil (online)</b></li>
-          <li>📲 WhatsApp: <b>(11) 99319-3084</b></li>
-          <li>🕐 Horário: <b>Segunda a sexta, 09h às 18h</b></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footerGrid">
-        <div>
-          <div style="display:flex; align-items:center; gap:12px;">
-            <img class="logoImg" src="./Ativos/logo.png" alt="Bimat" />
-            <div>
-              <div class="footTitle">Bimat Soluções Jurídicas e Administrativas</div>
-              <div class="footP">INSS • Previdenciário • Contratos • Procurações</div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Vocês atendem em todo o Brasil?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Sim! Nosso atendimento é 100% online, atendendo pessoas de todos os estados brasileiros. Você envia a documentação pelo WhatsApp e recebe tudo pronto sem sair de casa.
             </div>
           </div>
+        </div>
 
-          <div class="fineprint">
-            Observação: quando necessário, o cliente poderá ser orientado e encaminhado para escritório de advocacia parceiro.
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Quanto tempo leva para preparar minha solicitação?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Após o recebimento de toda documentação necessária, a preparação completa leva em média de 3 a 7 dias úteis, dependendo da complexidade do caso. Casos urgentes podem ser priorizados.
+            </div>
           </div>
         </div>
 
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Vocês fazem o serviço completo ou só orientam?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Preparamos o serviço completo: análise do caso, organização de documentos, preenchimento de formulários e elaboração da solicitação. Você recebe tudo pronto com orientações claras de como protocolar.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>E se meu benefício for negado?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Preparamos recursos administrativos e cumprimento de exigências. Se houver necessidade de ação judicial, você será orientado e poderá ser encaminhado para escritório de advocacia parceiro.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Como funciona o pagamento?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Após a análise inicial, você recebe um orçamento claro e transparente. O pagamento é feito antes do início do trabalho, via Pix, transferência ou outros meios digitais.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Preciso ir ao INSS pessoalmente?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              A maioria das solicitações pode ser feita 100% online pelo Meu INSS. Em casos específicos que exigem comparecimento (como perícia médica), você será orientado sobre quando e como ir.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contato" class="cta-section">
+    <div class="container">
+      <div class="cta-card reveal">
+        <h2>Pronto para Conquistar Seu Benefício?</h2>
+        <p>Entre em contato agora pelo WhatsApp e receba atendimento personalizado. Análise gratuita do seu caso e checklist de documentos.</p>
+        
+        <div class="cta-buttons">
+          <a href="#" class="btn-whatsapp whatsapp-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            Falar no WhatsApp Agora
+          </a>
+          <a href="#beneficios" class="btn-secondary">Ver Todos os Benefícios</a>
+        </div>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span><strong>Todo o Brasil</strong> (atendimento online)</span>
+          </div>
+          <div class="contact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span><strong>(11) 99319-3084</strong></span>
+          </div>
+          <div class="contact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span><strong>Seg–Sex</strong> • 09h às 18h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Bimat Soluções Jurídicas e Administrativas</h3>
+          <p>Especialistas em benefícios previdenciários. Aposentadoria, pensão, auxílio-doença, BPC/LOAS e demais solicitações no INSS preparadas com excelência.</p>
+          <p style="font-size: 13px; margin-top: 16px; opacity: 0.7;">Observação: Quando necessário, o cliente poderá ser orientado e encaminhado para escritório de advocacia parceiro.</p>
+        </div>
+
         <div>
-          <div class="footTitle">Atendimento</div>
-          <p class="footP">100% online para todo o Brasil. Clique e fale agora pelo WhatsApp.</p>
-          <ul class="footList">
-            <li><a id="footerWhats" href="#">📲 WhatsApp: (11) 99319-3084</a></li>
-            <li>🕐 seg–sex • 09h às 18h</li>
+          <h3 style="color: white; font-size: 16px; margin-bottom: 16px;">Atendimento</h3>
+          <ul class="footer-contact">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              WhatsApp: (11) 99319-3084
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              Segunda a Sexta, 09h às 18h
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              Atendimento Online - Todo o Brasil
+            </li>
           </ul>
         </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Bimat Soluções Jurídicas e Administrativas. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
 
-  <!-- WhatsApp Floating -->
-  <div class="wafloat" aria-label="WhatsApp flutuante">
-    <a class="wabtn" id="floatWhats" href="#">
-      <span class="waico" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.5 3.5A11 11 0 0 0 3.8 18.9L3 22l3.2-.8A11 11 0 0 0 20.5 3.5Zm-8.5 19a9 9 0 0 1-4.6-1.3l-.3-.2-2.7.7.7-2.6-.2-.3A9 9 0 1 1 12 22.5Z"/>
-          <path d="M17.2 15.9c-.3-.2-1.7-.9-2-.9s-.5-.2-.7.2-.8.9-1 .9-.4 0-.7-.2a7.2 7.2 0 0 1-2.1-1.3 7.8 7.8 0 0 1-1.4-1.8c-.1-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6s-.7-1.7-1-2.3c-.3-.6-.6-.5-.8-.5H7.4c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.2 4.5.7.3 1.3.5 1.8.6.8.2 1.6.2 2.2.1.7-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.1-1.4-.1-.2-.3-.3-.6-.5Z"/>
-        </svg>
-      </span>
-      <div>
-        <b>Falar no WhatsApp</b>
-        <span>Orçamento rápido e checklist</span>
+  <!-- WhatsApp Float Button -->
+  <div class="whatsapp-float">
+    <a href="#" class="whatsapp-button whatsapp-link">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      <div class="whatsapp-text">
+        <strong>Falar no WhatsApp</strong>
+        <span>Resposta rápida</span>
       </div>
     </a>
   </div>
 
   <script>
-    // WhatsApp config
-    const WHATS_NUMBER = "5511993193084";
-    const WHATS_TEXT = "Olá, vim pelo site da Bimat e gostaria de um orçamento para solicitação no INSS / Previdenciário, contrato ou procuração.";
-    const WHATS_LINK = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(WHATS_TEXT)}`;
+    // WhatsApp Configuration
+    const WHATSAPP_NUMBER = '5511993193084';
+    const WHATSAPP_MESSAGE = 'Olá! Vim pelo site da Bimat e gostaria de informações sobre benefícios do INSS.';
+    const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
-    const whatsIds = ["topWhats","heroWhats","sideWhats","ctaWhats","contactWhats","drawerWhats","footerWhats","floatWhats"];
-    whatsIds.forEach(id => {
-      const el = document.getElementById(id);
-      if(el) el.href = WHATS_LINK;
+    // Update all WhatsApp links
+    document.querySelectorAll('.whatsapp-link').forEach(link => {
+      link.href = WHATSAPP_URL;
     });
 
-    // Drawer
-    const drawer = document.getElementById("drawer");
-    window.openDrawer = function(){
-      drawer.classList.add("open");
-      drawer.setAttribute("aria-hidden","false");
+    // FAQ Toggle
+    function toggleFaq(button) {
+      const item = button.closest('.faq-item');
+      const wasActive = item.classList.contains('active');
+      
+      // Close all items
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('active');
+      });
+      
+      // Open clicked item if it wasn't active
+      if (!wasActive) {
+        item.classList.add('active');
+      }
     }
-    window.closeDrawer = function(){
-      drawer.classList.remove("open");
-      drawer.setAttribute("aria-hidden","true");
-    }
-    drawer.addEventListener("click", (e) => { if(e.target === drawer) window.closeDrawer(); });
 
-    // Reveal on scroll
-    const reveals = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add("show");
-          io.unobserve(entry.target);
+    // Reveal on Scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, {threshold: 0.12});
-    reveals.forEach(el=>io.observe(el));
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '#contato') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
