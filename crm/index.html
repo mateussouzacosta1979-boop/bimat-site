@@ -920,6 +920,60 @@ function initFirebase() {
   try { if (firebase.apps.length===0) firebase.initializeApp(FIREBASE_CONFIG); auth=firebase.auth(); db=firebase.firestore(); storage=firebase.storage(); } catch(e) { console.warn('Firebase init:', e.message); }
 }
 
+// =================== FIRESTORE HELPERS (BIMAT single-tenant) ===================
+function isFirestoreReady(){
+  return (!USE_DEMO) && !!db && !!auth && !!currentUser;
+}
+function _toISO(v){
+  // Firestore Timestamp -> ISO; Date -> ISO; string -> string
+  if(!v) return v;
+  try{
+    if (typeof v === 'string') return v;
+    if (v instanceof Date) return v.toISOString();
+    // compat Timestamp has toDate()
+    if (typeof v.toDate === 'function') return v.toDate().toISOString();
+  }catch(e){}
+  return v;
+}
+function _normalizeClient(docId, data){
+  const d = data || {};
+  return {
+    id: docId,
+    ...d,
+    createdAt: _toISO(d.createdAt) || new Date().toISOString(),
+    updatedAt: _toISO(d.updatedAt) || new Date().toISOString(),
+  };
+}
+async function fsClients_list(){
+  const snap = await db.collection('clients').orderBy('createdAt','desc').get();
+  return snap.docs.map(d => _normalizeClient(d.id, d.data()));
+}
+async function fsClients_upsert(client){
+  const now = new Date();
+  const id = client.id;
+  const payload = {
+    ...client,
+    createdAt: client.createdAt || now.toISOString(),
+    updatedAt: now.toISOString(),
+  };
+  await db.collection('clients').doc(id).set(payload, { merge:true });
+  return _normalizeClient(id, payload);
+}
+async function fsClients_create(client){
+  const now = new Date();
+  const payload = {
+    ...client,
+    createdAt: client.createdAt || now.toISOString(),
+    updatedAt: now.toISOString(),
+  };
+  const ref = await db.collection('clients').add(payload);
+  return _normalizeClient(ref.id, payload);
+}
+async function fsClients_delete(id){
+  await db.collection('clients').doc(id).delete();
+  return true;
+}
+
 // =================== AUTH ===================
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
@@ -957,12 +1011,30 @@ function doForgotPassword() {
   else showToast('Configure o Firebase para usar esta função.','warning');
 }
 
-function onLogin() {
+async function onLogin() {
   document.getElementById('login-page').classList.remove('active');
   document.getElementById('login-page').style.display='none';
   document.getElementById('app').style.display='flex';
-  seedDemoData(); updateUserUI(); loadBadges(); navigate('dashboard');
-  showToast('Bem-vindo, '+(currentUserData?.name||'usuário')+'!','success');
+
+  // No modo demo, usamos dados locais. No modo real, carregamos do Firestore.
+  if (USE_DEMO) {
+    seedDemoData();
+  } else {
+    try {
+      // Carrega clientes do Firestore para a memória (STORE) e renderiza.
+      const list = await fsClients_list();
+      STORE.clients = list;
+      // opcional: manter o cache local para fallback offline
+      localStorage.setItem('bimat_clients', JSON.stringify(STORE.clients));
+    } catch(e) {
+      console.warn('Falha ao carregar clientes do Firestore:', e.message);
+    }
+  }
+
+  updateUserUI();
+  loadBadges();
+  navigate('dashboard');
+  showToast('Bem-vindo, ' + ((currentUserData && currentUserData.name) || 'usuário') + '!','success');
 }
 
 function doLogout() {
@@ -1055,7 +1127,16 @@ function renderLeadsChart(){
 
 // =================== CLIENTS ===================
 let clientsPage=1, clientsFiltered=[];
-function loadClients(){clientsFiltered=[...STORE.clients];renderClientsTable();}
+async function loadClients(){
+  try{
+    if (isFirestoreReady()) {
+      STORE.clients = await fsClients_list();
+      localStorage.setItem('bimat_clients', JSON.stringify(STORE.clients));
+    }
+  } catch(e){ console.warn('loadClients Firestore:', e.message); }
+  clientsFiltered=[...STORE.clients];
+  renderClientsTable();
+}
 function filterClients(v){
   v=(v||document.querySelector('#section-clients .search-box input')?.value||'').toLowerCase();
   const origin=document.getElementById('client-origin-filter')?.value||'';
@@ -1087,16 +1168,78 @@ function openClientModal(id){
   if(c){document.getElementById('c-state').value=c.state||'SP';document.getElementById('c-origin').value=c.origin||'WhatsApp';document.getElementById('c-birth').value=c.birth||'';}
   openModal('client-modal');
 }
-function saveClient(){
-  const id=document.getElementById('client-id').value||'c'+Date.now();
-  const name=document.getElementById('c-name').value.trim(); const cpf=document.getElementById('c-cpf').value.trim();
+async function saveClient(){
+  const idField = document.getElementById('client-id');
+  const existingId = (idField && idField.value) ? idField.value : '';
+  const name=document.getElementById('c-name').value.trim();
+  const cpf=document.getElementById('c-cpf').value.trim();
   if(!name||!cpf){showToast('Nome e CPF são obrigatórios','error');return;}
-  const client={id,name,cpf,rg:ge('c-rg'),birth:ge('c-birth'),phone:ge('c-phone'),email:ge('c-email'),cep:ge('c-cep'),street:ge('c-street'),number:ge('c-number'),neighborhood:ge('c-neighborhood'),complement:ge('c-complement'),city:ge('c-city'),state:document.getElementById('c-state').value,origin:document.getElementById('c-origin').value,nb:ge('c-nb'),obs:ge('c-obs'),createdAt:STORE.clients.find(c=>c.id===id)?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
-  upsert(STORE.clients,client); saveStore('clients'); auditLog('client',id,'save',client.name);
-  closeModal('client-modal'); loadClients(); showToast('Cliente salvo!','success');
+
+  const client={
+    id: existingId, // pode estar vazio; Firestore gera no create
+    name,cpf,
+    rg:ge('c-rg'),birth:ge('c-birth'),phone:ge('c-phone'),email:ge('c-email'),
+    cep:ge('c-cep'),street:ge('c-street'),number:ge('c-number'),neighborhood:ge('c-neighborhood'),complement:ge('c-complement'),
+    city:ge('c-city'),state:document.getElementById('c-state').value,
+    origin:document.getElementById('c-origin').value,
+    nb:ge('c-nb'),obs:ge('c-obs'),
+    createdAt: (existingId ? (STORE.clients.find(c=>c.id===existingId)?.createdAt) : null) || new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  try{
+    if (isFirestoreReady()) {
+      let saved;
+      if (existingId) {
+        saved = await fsClients_upsert(client);
+      } else {
+        // cria e recebe o ID do Firestore
+        const { id, ...rest } = client;
+        saved = await fsClients_create(rest);
+        if (idField) idField.value = saved.id;
+      }
+      // atualiza o STORE local e cache
+      upsert(STORE.clients, saved);
+      localStorage.setItem('bimat_clients', JSON.stringify(STORE.clients));
+      auditLog('client', saved.id,'save', saved.name);
+    } else {
+      // fallback local (demo/offline)
+      const localId = existingId || ('c'+Date.now());
+      client.id = localId;
+      upsert(STORE.clients,client);
+      saveStore('clients');
+      auditLog('client',localId,'save',client.name);
+    }
+  } catch(e){
+    console.warn('saveClient Firestore:', e.message);
+    showToast('Falha ao salvar no Firestore: '+e.message,'error');
+    return;
+  }
+
+  closeModal('client-modal');
+  await loadClients();
+  showToast('Cliente salvo!','success');
 }
 function ge(id){return document.getElementById(id)?.value||'';}
-function deleteClient(id){if(!confirm('Excluir cliente?'))return;STORE.clients=STORE.clients.filter(c=>c.id!==id);saveStore('clients');loadClients();showToast('Cliente removido.','success');}
+async function deleteClient(id){
+  if(!confirm('Excluir cliente?')) return;
+  try{
+    if (isFirestoreReady()) {
+      await fsClients_delete(id);
+      STORE.clients = STORE.clients.filter(c=>c.id!==id);
+      localStorage.setItem('bimat_clients', JSON.stringify(STORE.clients));
+      auditLog('client',id,'delete','');
+    } else {
+      STORE.clients = STORE.clients.filter(c=>c.id!==id);
+      saveStore('clients');
+    }
+    await loadClients();
+    showToast('Cliente removido.','success');
+  } catch(e){
+    console.warn('deleteClient Firestore:', e.message);
+    showToast('Falha ao excluir: '+e.message,'error');
+  }
+}
 function exportClientsCSV(){downloadCSV('clientes_bimat.csv',['Nome','CPF','Telefone','Email','Cidade','UF','Origem','Data Cadastro'],clientsFiltered.map(c=>[c.name,c.cpf,c.phone||'',c.email||'',c.city||'',c.state||'',c.origin||'',fmtDate(c.createdAt)]));}
 function openClientDetail(id){
   const c=STORE.clients.find(x=>x.id===id); if(!c)return;
