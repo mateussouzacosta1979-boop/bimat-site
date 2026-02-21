@@ -1054,6 +1054,70 @@ async function ensureParcelasLoaded(){
   localStorage.setItem('bimat_parcelas', JSON.stringify(STORE.parcelas));
 }
 
+
+// =================== FIRESTORE: PROCESSOS & TAREFAS ===================
+function _normalizeProcess(docId, data){
+  const d = data || {};
+  return {
+    id: docId,
+    ...d,
+    createdAt: _toISO(d.createdAt) || new Date().toISOString(),
+    updatedAt: _toISO(d.updatedAt) || new Date().toISOString(),
+  };
+}
+async function fsProcesses_list(){
+  const snap = await db.collection('processes').orderBy('createdAt','desc').get();
+  return snap.docs.map(d => _normalizeProcess(d.id, d.data()));
+}
+async function fsProcesses_upsert(proc){
+  const now = new Date().toISOString();
+  const id = proc.id || ('pr'+Date.now());
+  const payload = { ...proc, id, updatedAt: now, createdAt: proc.createdAt || now };
+  await db.collection('processes').doc(id).set(payload, { merge:true });
+  return _normalizeProcess(id, payload);
+}
+async function fsProcesses_delete(id){
+  await db.collection('processes').doc(id).delete();
+  return true;
+}
+
+function _normalizeTask(docId, data){
+  const d = data || {};
+  return {
+    id: docId,
+    ...d,
+    createdAt: _toISO(d.createdAt) || new Date().toISOString(),
+    updatedAt: _toISO(d.updatedAt) || new Date().toISOString(),
+  };
+}
+async function fsTasks_list(){
+  const snap = await db.collection('tasks').orderBy('createdAt','desc').get();
+  return snap.docs.map(d => _normalizeTask(d.id, d.data()));
+}
+async function fsTasks_upsert(task){
+  const now = new Date().toISOString();
+  const id = task.id || ('t'+Date.now());
+  const payload = { ...task, id, updatedAt: now, createdAt: task.createdAt || now };
+  await db.collection('tasks').doc(id).set(payload, { merge:true });
+  return _normalizeTask(id, payload);
+}
+async function fsTasks_delete(id){
+  await db.collection('tasks').doc(id).delete();
+  return true;
+}
+
+// Helper: garante que STORE.processes / STORE.tasks estão em memória (Firestore -> STORE)
+async function ensureProcessesLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.processes = await fsProcesses_list();
+  localStorage.setItem('bimat_processes', JSON.stringify(STORE.processes));
+}
+async function ensureTasksLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.tasks = await fsTasks_list();
+  localStorage.setItem('bimat_tasks', JSON.stringify(STORE.tasks));
+}
+
 // =================== AUTH ===================
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
@@ -1101,11 +1165,17 @@ async function onLogin() {
     seedDemoData();
   } else {
     try {
-      // Carrega clientes do Firestore para a memória (STORE) e renderiza.
-      const list = await fsClients_list();
-      STORE.clients = list;
-      // opcional: manter o cache local para fallback offline
+      // Carrega dados principais do Firestore para a memória (STORE)
+      STORE.clients = await fsClients_list();
       localStorage.setItem('bimat_clients', JSON.stringify(STORE.clients));
+
+      // Propostas + Parcelas (financeiro)
+      await ensureProposalsLoaded();
+      await ensureParcelasLoaded();
+
+      // Processos INSS + Tarefas
+      await ensureProcessesLoaded();
+      await ensureTasksLoaded();
     } catch(e) {
       console.warn('Falha ao carregar clientes do Firestore:', e.message);
     }
@@ -1580,29 +1650,13 @@ function switchContractTab(tab,btn){['list','templates','docs'].forEach(t=>docum
 
 // =================== PROCESSES ===================
 let processesPage=1,processesFiltered=[];
-function loadProcesses(){processesFiltered=[...STORE.processes];renderProcessesTable();loadBadges();}
-function filterProcesses(v){v=(v||'').toLowerCase();processesFiltered=STORE.processes.filter(p=>p.clientName.toLowerCase().includes(v)||(p.protocol||'').includes(v));processesPage=1;renderProcessesTable();}
-function filterProcessesByStatus(v){processesFiltered=v?STORE.processes.filter(p=>p.status===v):[...STORE.processes];processesPage=1;renderProcessesTable();}
-function filterProcessesByType(v){processesFiltered=v?STORE.processes.filter(p=>p.type===v):[...STORE.processes];processesPage=1;renderProcessesTable();}
-function renderProcessesTable(){
-  const todayIn7=new Date(Date.now()+86400000*7).toISOString().split('T')[0];
-  const paged=paginate(processesFiltered,processesPage,10);
-  document.getElementById('processes-tbody').innerHTML=paged.data.length?paged.data.map(p=>{
-    const urgent=p.deadline&&p.deadline<=todayIn7&&p.status!=='Deferido'&&p.status!=='Encerrado';
-    return`<tr${urgent?' style="background:var(--amber-bg)"':''}>
-      <td class="td-name">${p.clientName}</td>
-      <td style="font-size:13px">${p.type}</td>
-      <td class="td-muted">${p.protocol||'—'}</td>
-      <td><span class="badge badge-${procStatusColor(p.status)}">${p.status}</span></td>
-      <td class="td-muted">${fmtDate(p.reqDate)}</td>
-      <td class="${urgent?'priority-alta':''}">${fmtDate(p.deadline)||'—'}</td>
-      <td class="td-muted">${p.responsible||'—'}</td>
-      <td><div class="td-actions">
-        <div class="td-btn" onclick="openProcessModal('${p.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
-        <div class="td-btn danger" onclick="deleteProcess('${p.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></div>
-      </div></td>
-    </tr>`;}).join(''):'<tr><td colspan="8"><div class="empty-state"><h3>Nenhum processo</h3><button class="btn btn-navy" onclick="openProcessModal()">Novo Processo</button></div></td></tr>';
-  document.getElementById('processes-pagination').innerHTML=renderPagination(paged,processesPage,'setProcessesPage');
+async function loadProcesses(){
+  try{
+    if (!USE_DEMO && isFirestoreReady()) await ensureProcessesLoaded();
+  }catch(e){ console.warn('Falha ao carregar processos:', e.message); }
+  processesFiltered=[...STORE.processes];
+  renderProcessesTable();
+  loadBadges();
 }
 function setProcessesPage(p){processesPage=p;renderProcessesTable();}
 let tempChecklist=[];
@@ -1621,20 +1675,73 @@ function renderChecklist(items){tempChecklist=[...items];document.getElementById
 function toggleCheckItem(i){tempChecklist[i].done=!tempChecklist[i].done;renderChecklist(tempChecklist);}
 function removeCheckItem(i){tempChecklist.splice(i,1);renderChecklist(tempChecklist);}
 function addChecklistItem(){const e=document.getElementById('proc-new-check');if(!e.value.trim())return;tempChecklist.push({text:e.value.trim(),done:false});e.value='';renderChecklist(tempChecklist);}
-function saveProcess(){
-  const id=document.getElementById('proc-id').value||'pr'+Date.now();
-  const clientId=document.getElementById('proc-client').value; if(!clientId){showToast('Selecione o cliente','error');return;}
+async function saveProcess(){
+  const id=document.getElementById('proc-id').value||('pr'+Date.now());
+  const clientId=document.getElementById('proc-client').value; 
+  if(!clientId){showToast('Selecione o cliente','error');return;}
   const client=STORE.clients.find(c=>c.id===clientId);
-  const proc={id,clientId,clientName:client?.name||'—',type:document.getElementById('proc-type').value,protocol:ge('proc-protocol'),reqDate:ge('proc-req-date'),status:ge('proc-status'),deadline:ge('proc-deadline'),responsible:document.getElementById('proc-responsible').value,proposalId:document.getElementById('proc-proposal').value,obs:ge('proc-obs'),checklist:[...tempChecklist],createdAt:STORE.processes.find(p=>p.id===id)?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
-  upsert(STORE.processes,proc); saveStore('processes'); auditLog('process',id,'save',proc.clientName+' — '+proc.type);
-  closeModal('process-modal'); loadProcesses(); showToast('Processo salvo!','success');
+  const existing = STORE.processes.find(p=>p.id===id);
+  const proc={
+    id,
+    clientId,
+    clientName:client?.name||'—',
+    type:document.getElementById('proc-type').value,
+    protocol:ge('proc-protocol'),
+    reqDate:ge('proc-req-date'),
+    status:ge('proc-status'),
+    deadline:ge('proc-deadline'),
+    responsible:document.getElementById('proc-responsible').value,
+    proposalId:document.getElementById('proc-proposal').value,
+    obs:ge('proc-obs'),
+    checklist:[...tempChecklist],
+    createdAt: existing?.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  try{
+    if (!USE_DEMO && isFirestoreReady()){
+      await fsProcesses_upsert(proc);
+      await ensureProcessesLoaded();
+    } else {
+      upsert(STORE.processes,proc); 
+      saveStore('processes');
+    }
+    auditLog('process',id,'save',proc.clientName+' — '+proc.type);
+    closeModal('process-modal');
+    await loadProcesses();
+    showToast('Processo salvo!','success');
+  }catch(e){
+    console.error(e);
+    showToast(e.message || 'Erro ao salvar processo','error');
+  }
 }
-function deleteProcess(id){if(!confirm('Excluir processo?'))return;STORE.processes=STORE.processes.filter(p=>p.id!==id);saveStore('processes');loadProcesses();}
+async function deleteProcess(id){
+  if(!confirm('Excluir processo?'))return;
+  try{
+    if (!USE_DEMO && isFirestoreReady()){
+      await fsProcesses_delete(id);
+      await ensureProcessesLoaded();
+    } else {
+      STORE.processes=STORE.processes.filter(p=>p.id!==id);
+      saveStore('processes');
+    }
+    await loadProcesses();
+    showToast('Processo excluído.','success');
+  }catch(e){
+    console.error(e);
+    showToast(e.message || 'Erro ao excluir processo','error');
+  }
+}
 function procStatusColor(s){const m={'Em análise':'navy','Exigência':'amber','Perícia':'purple','Deferido':'green','Indeferido':'red','Recurso':'amber','Encerrado':'gray'};return m[s]||'gray';}
 
 // =================== TASKS ===================
 let tasksFilter='todas';
-function loadTasks(){renderTasksTable();}
+async function loadTasks(){
+  try{
+    if (!USE_DEMO && isFirestoreReady()) await ensureTasksLoaded();
+  }catch(e){ console.warn('Falha ao carregar tarefas:', e.message); }
+  renderTasksTable();
+}
 function filterTasksByStatus(s,btn){tasksFilter=s;document.querySelectorAll('#section-tasks .tab').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderTasksTable();}
 function renderTasksTable(){
   const todayStr=new Date().toISOString().split('T')[0];
@@ -1657,7 +1764,25 @@ function renderTasksTable(){
       </div></td>
     </tr>`;}).join(''):'<tr><td colspan="7"><div class="empty-state"><h3>Nenhuma tarefa</h3><button class="btn btn-navy" onclick="openTaskModal()">Nova Tarefa</button></div></td></tr>';
 }
-function toggleTask(id){const t=STORE.tasks.find(x=>x.id===id);if(t){t.status=t.status==='concluida'?'pendente':'concluida';saveStore('tasks');renderTasksTable();loadBadges();}}
+async function toggleTask(id){
+  const t=STORE.tasks.find(x=>x.id===id);
+  if(!t) return;
+  t.status = (t.status==='concluida') ? 'pendente' : 'concluida';
+  t.updatedAt = new Date().toISOString();
+  try{
+    if (!USE_DEMO && isFirestoreReady()){
+      await fsTasks_upsert(t);
+      await ensureTasksLoaded();
+    } else {
+      saveStore('tasks');
+    }
+    renderTasksTable();
+    loadBadges();
+  }catch(e){
+    console.error(e);
+    showToast(e.message || 'Erro ao atualizar tarefa','error');
+  }
+}
 function openTaskModal(id){
   const t=id?STORE.tasks.find(x=>x.id===id):null;
   document.getElementById('task-modal-title').textContent=id?'Editar Tarefa':'Nova Tarefa';
@@ -1670,22 +1795,59 @@ function openTaskModal(id){
   document.getElementById('task-desc').value=t?.desc||'';
   openModal('task-modal');
 }
-function saveTask(){
-  const id=document.getElementById('task-id').value||'t'+Date.now();
-  const title=document.getElementById('task-title').value.trim(); if(!title){showToast('Título é obrigatório','error');return;}
-  const task={id,title,responsible:document.getElementById('task-responsible').value,priority:document.getElementById('task-priority').value,due:ge('task-due'),clientName:ge('task-client-name'),desc:ge('task-desc'),status:STORE.tasks.find(t=>t.id===id)?.status||'pendente',createdAt:STORE.tasks.find(t=>t.id===id)?.createdAt||new Date().toISOString()};
-  upsert(STORE.tasks,task); saveStore('tasks'); closeModal('task-modal'); loadTasks(); loadBadges(); showToast('Tarefa salva!','success');
+async function saveTask(){
+  const id=document.getElementById('task-id').value||('t'+Date.now());
+  const title=document.getElementById('task-title').value.trim(); 
+  if(!title){showToast('Título é obrigatório','error');return;}
+  const existing = STORE.tasks.find(t=>t.id===id);
+  const task={
+    id,
+    title,
+    responsible:document.getElementById('task-responsible').value,
+    priority:document.getElementById('task-priority').value,
+    due:ge('task-due'),
+    clientName:ge('task-client-name'),
+    desc:ge('task-desc'),
+    status: existing?.status || 'pendente',
+    createdAt: existing?.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  try{
+    if (!USE_DEMO && isFirestoreReady()){
+      await fsTasks_upsert(task);
+      await ensureTasksLoaded();
+    } else {
+      upsert(STORE.tasks,task); 
+      saveStore('tasks');
+    }
+    closeModal('task-modal');
+    await loadTasks();
+    loadBadges();
+    showToast('Tarefa salva!','success');
+  }catch(e){
+    console.error(e);
+    showToast(e.message || 'Erro ao salvar tarefa','error');
+  }
 }
-function deleteTask(id){if(!confirm('Excluir tarefa?'))return;STORE.tasks=STORE.tasks.filter(t=>t.id!==id);saveStore('tasks');loadTasks();loadBadges();}
+async function deleteTask(id){
+  if(!confirm('Excluir tarefa?'))return;
+  try{
+    if (!USE_DEMO && isFirestoreReady()){
+      await fsTasks_delete(id);
+      await ensureTasksLoaded();
+    } else {
+      STORE.tasks=STORE.tasks.filter(t=>t.id!==id);
+      saveStore('tasks');
+    }
+    await loadTasks();
+    loadBadges();
+    showToast('Tarefa excluída.','success');
+  }catch(e){
+    console.error(e);
+    showToast(e.message || 'Erro ao excluir tarefa','error');
+  }
+}
 
-// =================== FINANCIAL ===================
-let parcelasPage=1,parcelasFiltered=[];
-async function loadFinancial(){
-  try{ await ensureParcelasLoaded(); }catch(e){ console.warn('loadFinancial Firestore:', e.message); }
-  parcelasFiltered=[...STORE.parcelas];
-  renderFinancialStats();
-  renderParcelasTable();
-}
 function renderFinancialStats(){
   const total=STORE.parcelas.reduce((s,p)=>s+p.value,0);
   const rec=STORE.parcelas.filter(p=>p.status==='Paga').reduce((s,p)=>s+p.value,0);
