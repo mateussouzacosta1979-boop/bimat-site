@@ -974,6 +974,86 @@ async function fsClients_delete(id){
   return true;
 }
 
+
+// =================== FIRESTORE: PROPOSTAS & PARCELAS ===================
+function _normalizeProposal(docId, data){
+  const d = data || {};
+  return {
+    id: docId,
+    ...d,
+    createdAt: _toISO(d.createdAt) || new Date().toISOString(),
+    updatedAt: _toISO(d.updatedAt) || new Date().toISOString(),
+  };
+}
+async function fsProposals_list(){
+  const snap = await db.collection('proposals').orderBy('createdAt','desc').get();
+  return snap.docs.map(d => _normalizeProposal(d.id, d.data()));
+}
+async function fsProposals_upsert(prop){
+  const now = new Date();
+  const id = prop.id;
+  const payload = {
+    ...prop,
+    createdAt: prop.createdAt || now.toISOString(),
+    updatedAt: now.toISOString(),
+  };
+  await db.collection('proposals').doc(id).set(payload, { merge:true });
+  return _normalizeProposal(id, payload);
+}
+async function fsProposals_delete(id){
+  await db.collection('proposals').doc(id).delete();
+  return true;
+}
+
+function _normalizeParcela(docId, data){
+  const d = data || {};
+  return {
+    id: docId,
+    ...d,
+    createdAt: _toISO(d.createdAt) || new Date().toISOString(),
+    updatedAt: _toISO(d.updatedAt) || new Date().toISOString(),
+  };
+}
+async function fsParcelas_list(){
+  const snap = await db.collection('parcelas').orderBy('due','asc').get();
+  return snap.docs.map(d => _normalizeParcela(d.id, d.data()));
+}
+async function fsParcelas_deleteByProposal(proposalId){
+  const snap = await db.collection('parcelas').where('proposalId','==',proposalId).get();
+  if (snap.empty) return 0;
+  const batch = db.batch();
+  let count = 0;
+  snap.docs.forEach(doc=>{
+    batch.delete(doc.ref);
+    count++;
+  });
+  await batch.commit();
+  return count;
+}
+async function fsParcelas_upsertMany(parcelas){
+  const batch = db.batch();
+  const now = new Date().toISOString();
+  parcelas.forEach(p=>{
+    const id = p.id || ('pa'+Date.now()+Math.random().toString(36).slice(2,6));
+    const ref = db.collection('parcelas').doc(id);
+    batch.set(ref, { ...p, id, updatedAt: now, createdAt: p.createdAt || now }, { merge:true });
+  });
+  await batch.commit();
+  return true;
+}
+
+// Helper: garante que STORE.proposals / STORE.parcelas estão em memória (Firestore -> STORE)
+async function ensureProposalsLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.proposals = await fsProposals_list();
+  localStorage.setItem('bimat_proposals', JSON.stringify(STORE.proposals));
+}
+async function ensureParcelasLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.parcelas = await fsParcelas_list();
+  localStorage.setItem('bimat_parcelas', JSON.stringify(STORE.parcelas));
+}
+
 // =================== AUTH ===================
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
@@ -1070,7 +1150,9 @@ function navigate(section) {
 function loadSection(s){switch(s){case 'dashboard':loadDashboard();break;case 'clients':loadClients();break;case 'funnel':loadFunnel();break;case 'proposals':loadProposals();break;case 'contracts':loadContracts();break;case 'processes':loadProcesses();break;case 'tasks':loadTasks();break;case 'financial':loadFinancial();break;case 'reports':initReports();break;case 'users':loadUsers();break;case 'settings':loadSettings();break;}}
 
 // =================== DASHBOARD ===================
-function loadDashboard() {
+async function loadDashboard() {
+  try{ await Promise.all([ensureProposalsLoaded(), ensureParcelasLoaded()]); }catch(e){ console.warn('loadDashboard Firestore:', e.message); }
+
   const todayStr=new Date().toISOString().split('T')[0];
   const approved=STORE.proposals.filter(p=>p.status==='aprovada').length;
   const totalRec=STORE.parcelas.filter(p=>p.status==='Paga').reduce((s,p)=>s+p.value,0);
@@ -1263,7 +1345,9 @@ function newProposalForClient(){closeModal('client-detail-modal');setTimeout(()=
 
 // =================== FUNNEL ===================
 const FUNNEL_STAGES=['Lead novo','Em atendimento','Aguardando documentos','Análise técnica','Proposta enviada','Proposta aprovada','Contrato assinado','Processo protocolado','Indeferido','Deferido','Encerrado'];
-function loadFunnel(){
+async function loadFunnel(){
+  try{ await ensureProposalsLoaded(); }catch(e){ console.warn('loadFunnel Firestore:', e.message); }
+
   document.getElementById('kanban-board').innerHTML=FUNNEL_STAGES.map(stage=>{
     const cards=STORE.proposals.filter(p=>p.stage===stage);
     return`<div class="kanban-col"><div class="kanban-col-header"><span class="kanban-col-title">${stage}</span><span class="kanban-col-count">${cards.length}</span></div><div class="kanban-cards">${cards.map(p=>`<div class="kanban-card" onclick="openProposalModal('${p.id}')"><div class="kanban-card-name">${p.clientName}</div><div class="kanban-card-service">${p.service}</div><div class="kanban-card-meta"><span class="kanban-card-value">R$ ${fmt(p.value)}</span><span class="kanban-card-date">${fmtDate(p.createdAt)}</span></div>${statusBadgeHtml(p.status)}</div>`).join('')}</div><button class="kanban-add" onclick="openProposalModalWithStage('${stage}')">+ Adicionar</button></div>`;
@@ -1273,7 +1357,11 @@ function openProposalModalWithStage(stage){openProposalModal();setTimeout(()=>do
 
 // =================== PROPOSALS ===================
 let proposalsPage=1,proposalsFiltered=[];
-function loadProposals(){proposalsFiltered=[...STORE.proposals];renderProposalsTable();}
+async function loadProposals(){
+  try{ await ensureProposalsLoaded(); }catch(e){ console.warn('loadProposals Firestore:', e.message); }
+  proposalsFiltered=[...STORE.proposals];
+  renderProposalsTable();
+}
 function filterProposals(v){v=(v||'').toLowerCase();proposalsFiltered=STORE.proposals.filter(p=>p.clientName.toLowerCase().includes(v)||p.service.toLowerCase().includes(v));proposalsPage=1;renderProposalsTable();}
 function filterProposalsByStatus(v){proposalsFiltered=v?STORE.proposals.filter(p=>p.status===v):[...STORE.proposals];proposalsPage=1;renderProposalsTable();}
 function renderProposalsTable(){
@@ -1340,16 +1428,51 @@ function calcParcelas(){
   else{const vp=n>0?(value-entrada)/n:0;html=`<div>Entrada: <strong>R$ ${fmt(entrada)}</strong></div>`+Array.from({length:n},(_,i)=>`<div>${i+1}/${n}: <strong>R$ ${fmt(vp)}</strong></div>`).join('');}
   document.getElementById('prop-parcelas-list').innerHTML=html;
 }
-function saveProposal(){
+async function saveProposal(){
   const id=document.getElementById('prop-id').value||'p'+Date.now();
   const clientId=document.getElementById('prop-client').value;
   const service=document.getElementById('prop-service').value;
   const value=parseFloat(document.getElementById('prop-value').value)||0;
   if(!clientId||!service||!value){showToast('Cliente, serviço e valor são obrigatórios','error');return;}
   const client=STORE.clients.find(c=>c.id===clientId);
-  const prop={id,clientId,clientName:client?.name||'—',service,scope:ge('prop-scope'),value,payment:ge('prop-payment'),nParcelas:parseInt(ge('prop-n-parcelas'))||1,entrada:parseFloat(ge('prop-entrada'))||0,date:ge('prop-date'),expiry:ge('prop-expiry'),status:ge('prop-status'),stage:ge('prop-stage'),obs:ge('prop-obs'),createdAt:STORE.proposals.find(x=>x.id===id)?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
-  upsert(STORE.proposals,prop); saveStore('proposals'); auditLog('proposal',id,'save',prop.clientName+' — '+service);
-  closeModal('proposal-modal'); loadProposals(); if(document.getElementById('section-funnel').classList.contains('active'))loadFunnel();
+  const existing = STORE.proposals.find(x=>x.id===id);
+  const prop={
+    id,
+    clientId,
+    clientName:client?.name||'—',
+    service,
+    scope:ge('prop-scope'),
+    value,
+    payment:ge('prop-payment'),
+    nParcelas:parseInt(ge('prop-n-parcelas'))||1,
+    entrada:parseFloat(ge('prop-entrada'))||0,
+    date:ge('prop-date'),
+    expiry:ge('prop-expiry'),
+    status:ge('prop-status'),
+    stage:ge('prop-stage'),
+    obs:ge('prop-obs'),
+    createdAt: existing?.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  try{
+    if (isFirestoreReady()){
+      await fsProposals_upsert(prop);
+      await ensureProposalsLoaded();
+    } else {
+      upsert(STORE.proposals,prop); saveStore('proposals');
+    }
+  }catch(e){
+    console.warn('saveProposal Firestore:', e.message);
+    // fallback local
+    upsert(STORE.proposals,prop); saveStore('proposals');
+  }
+
+  auditLog('proposal',id,'save',prop.clientName+' — '+service);
+  closeModal('proposal-modal');
+  await loadProposals();
+  if(document.getElementById('section-funnel').classList.contains('active')) await loadFunnel();
+  if(document.getElementById('section-dashboard').classList.contains('active')) await loadDashboard();
   showToast('Proposta salva!','success');
 }
 function approveProposal(){const id=document.getElementById('prop-id').value;if(id){quickApproveProposal(id,true);}}
@@ -1557,7 +1680,12 @@ function deleteTask(id){if(!confirm('Excluir tarefa?'))return;STORE.tasks=STORE.
 
 // =================== FINANCIAL ===================
 let parcelasPage=1,parcelasFiltered=[];
-function loadFinancial(){parcelasFiltered=[...STORE.parcelas];renderFinancialStats();renderParcelasTable();}
+async function loadFinancial(){
+  try{ await ensureParcelasLoaded(); }catch(e){ console.warn('loadFinancial Firestore:', e.message); }
+  parcelasFiltered=[...STORE.parcelas];
+  renderFinancialStats();
+  renderParcelasTable();
+}
 function renderFinancialStats(){
   const total=STORE.parcelas.reduce((s,p)=>s+p.value,0);
   const rec=STORE.parcelas.filter(p=>p.status==='Paga').reduce((s,p)=>s+p.value,0);
@@ -1594,13 +1722,41 @@ function renderParcelasTable(){
   document.getElementById('parcelas-pagination').innerHTML=renderPagination(paged,parcelasPage,'setParcelasPage');
 }
 function setParcelasPage(p){parcelasPage=p;renderParcelasTable();}
-function generateParcelas(proposal){
-  STORE.parcelas=STORE.parcelas.filter(p=>p.proposalId!==proposal.id);
-  const base=new Date(); const parcelas=[];
-  if(proposal.payment==='avista'){parcelas.push(mkParcela(proposal,'1/1',proposal.value,addMonths(base,1)));}
-  else if(proposal.payment==='parcelado'){const vp=proposal.value/proposal.nParcelas;for(let i=0;i<proposal.nParcelas;i++)parcelas.push(mkParcela(proposal,`${i+1}/${proposal.nParcelas}`,vp,addMonths(base,i+1)));}
-  else{const rest=proposal.value-(proposal.entrada||0);const vp=proposal.nParcelas>0?rest/proposal.nParcelas:rest;if(proposal.entrada>0)parcelas.push(mkParcela(proposal,'Entrada',proposal.entrada,addMonths(base,0)));for(let i=0;i<proposal.nParcelas;i++)parcelas.push(mkParcela(proposal,`${i+1}/${proposal.nParcelas}`,vp,addMonths(base,i+1)));}
-  STORE.parcelas.push(...parcelas); saveStore('parcelas');
+async function generateParcelas(proposal){
+  // Gera lista local (para render imediato) e grava no Firestore quando possível
+  const base=new Date();
+  const parcelas=[];
+  if(proposal.payment==='avista'){
+    parcelas.push(mkParcela(proposal,'1/1',proposal.value,addMonths(base,1)));
+  } else if(proposal.payment==='parcelado'){
+    const vp=proposal.value/proposal.nParcelas;
+    for(let i=0;i<proposal.nParcelas;i++){
+      parcelas.push(mkParcela(proposal,`${i+1}/${proposal.nParcelas}`,vp,addMonths(base,i+1)));
+    }
+  } else { // entrada + parcelas
+    const rest=proposal.value-(proposal.entrada||0);
+    const vp=proposal.nParcelas>0?rest/proposal.nParcelas:rest;
+    if((proposal.entrada||0)>0) parcelas.push(mkParcela(proposal,'Entrada',proposal.entrada,addMonths(base,0)));
+    for(let i=0;i<proposal.nParcelas;i++){
+      parcelas.push(mkParcela(proposal,`${i+1}/${proposal.nParcelas}`,vp,addMonths(base,i+1)));
+    }
+  }
+
+  // Atualiza cache local
+  STORE.parcelas = STORE.parcelas.filter(p=>p.proposalId!==proposal.id);
+  STORE.parcelas.push(...parcelas);
+  saveStore('parcelas');
+
+  // Firestore: substitui parcelas da proposta por estas (evita duplicação)
+  try{
+    if (isFirestoreReady()){
+      await fsParcelas_deleteByProposal(proposal.id);
+      await fsParcelas_upsertMany(parcelas);
+      await ensureParcelasLoaded();
+    }
+  }catch(e){
+    console.warn('generateParcelas Firestore:', e.message);
+  }
 }
 function mkParcela(prop,label,value,due){return{id:'pa'+Date.now()+Math.random().toString(36).slice(2,5),proposalId:prop.id,clientId:prop.clientId,clientName:prop.clientName,service:prop.service,parcela:label,value:Math.round(value*100)/100,due:due.toISOString().split('T')[0],status:'Aberta',createdAt:new Date().toISOString()};}
 function addMonths(d,m){const nd=new Date(d);nd.setMonth(nd.getMonth()+m);return nd;}
