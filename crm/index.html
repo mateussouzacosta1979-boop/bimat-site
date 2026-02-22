@@ -2424,4 +2424,30 @@ function updateFirebaseStatus(){
     el.innerHTML='<span style="color:var(--red)">❌ Firebase configurado mas não inicializado — verifique as credenciais</span>';
   }
 }
-docum
+document.addEventListener('DOMContentLoaded',async ()=>{
+  initFirebase();
+  const saved=sessionStorage.getItem('bimat_session');
+  if(saved){
+    try{
+      currentUser=JSON.parse(saved);
+      let userData=STORE.users.find(x=>x.email===currentUser.email||x.id===currentUser.uid);
+      if(!userData && db && auth){
+        try{
+          const snap=await db.collection('users').doc(currentUser.uid||currentUser.email).get();
+          if(snap.exists) userData=snap.data();
+        }catch(e){}
+      }
+      currentUserData=userData||{id:currentUser.uid||'admin',name:'Admin BIMAT',email:currentUser.email,role:'admin'};
+      onLogin();
+    }catch(e){
+      console.warn('Session restore:',e);
+      showLoginPage();
+    }
+  } else {
+    showLoginPage();
+  }
+  setTimeout(updateFirebaseStatus,500);
+});
+</script>
+</body>
+</html>
