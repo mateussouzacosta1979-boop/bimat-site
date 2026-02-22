@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>BIMAT CRM | Sistema de Gestão</title>
 <meta name="theme-color" content="#0B3D6B"/>
+<link rel="icon" type="image/png" href="icone.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -32,7 +33,7 @@ button{cursor:pointer}
 .login-orb{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 70%);top:-100px;left:-100px;pointer-events:none}
 .login-left{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px;color:white;position:relative;z-index:1}
 .login-logo{display:flex;align-items:center;gap:16px;margin-bottom:48px}
-.login-logo-mark{width:64px;height:64px;background:rgba(255,255,255,.12);border:2px solid rgba(201,168,76,.4);border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--gold-lt)}
+.login-logo-mark{width:64px;height:64px;background:rgba(255,255,255,.08);border:2px solid rgba(201,168,76,.3);border-radius:16px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .login-logo-txt .name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:white}
 .login-logo-txt .sub{font-size:11px;font-weight:600;color:var(--gold-lt);letter-spacing:1.5px;text-transform:uppercase}
 .login-headline{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;line-height:1.1;color:white;text-align:center;margin-bottom:20px}
@@ -64,7 +65,7 @@ button{cursor:pointer}
 #sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy-deep);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:width .3s;position:relative;z-index:100}
 #sidebar.collapsed{width:64px}
 .sidebar-logo{padding:0 20px;height:var(--topbar-h);display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
-.sidebar-logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--navy),var(--gold));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:white;flex-shrink:0}
+.sidebar-logo-mark{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
 .sidebar-logo-txt{overflow:hidden;white-space:nowrap}
 .sidebar-logo-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:white}
 .sidebar-logo-sub{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.8px;text-transform:uppercase}
@@ -288,7 +289,7 @@ tbody tr:last-child td{border-bottom:none}
   <div class="login-orb"></div>
   <div class="login-left">
     <div class="login-logo">
-      <div class="login-logo-mark">B</div>
+      <div class="login-logo-mark"><img src="icone.png" style="width:44px;height:44px;object-fit:contain;border-radius:8px;" alt="BIMAT"/></div>
       <div class="login-logo-txt"><div class="name">BIMAT</div><div class="sub">Soluções Jurídicas</div></div>
     </div>
     <h1 class="login-headline">Gestão inteligente<br>de benefícios <span>INSS</span></h1>
@@ -309,6 +310,7 @@ tbody tr:last-child td{border-bottom:none}
       <div class="form-group"><label>Senha</label><input class="form-input" type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/></div>
       <button class="btn-primary" id="login-btn" onclick="doLogin()"><span id="login-btn-text">Entrar no CRM</span></button>
       <span class="login-forgot" onclick="doForgotPassword()">Esqueci minha senha</span>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:16px">Demo: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a4b4e4743446a4843474b5e04494547044858">[email&#160;protected]</a> / bimat2024</p>
     </div>
   </div>
 </div>
@@ -317,7 +319,7 @@ tbody tr:last-child td{border-bottom:none}
 <div id="app" style="display:none">
   <nav id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-mark">B</div>
+      <div class="sidebar-logo-mark"><img src="icone.png" style="width:26px;height:26px;object-fit:contain;border-radius:6px;" alt="B"/></div>
       <div class="sidebar-logo-txt"><div class="sidebar-logo-name">BIMAT</div><div class="sidebar-logo-sub">CRM</div></div>
     </div>
     <div class="sidebar-nav">
