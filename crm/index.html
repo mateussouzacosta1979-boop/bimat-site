@@ -309,7 +309,7 @@ tbody tr:last-child td{border-bottom:none}
       <div class="form-group"><label>Senha</label><input class="form-input" type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/></div>
       <button class="btn-primary" id="login-btn" onclick="doLogin()"><span id="login-btn-text">Entrar no CRM</span></button>
       <span class="login-forgot" onclick="doForgotPassword()">Esqueci minha senha</span>
-      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:16px">Demo: admin@bimat.com.br / bimat2024</p>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:16px">Demo: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a4b4e4743446a4843474b5e04494547044858">[email&#160;protected]</a> / bimat2024</p>
     </div>
   </div>
 </div>
@@ -586,10 +586,21 @@ tbody tr:last-child td{border-bottom:none}
       <div class="content-section" id="section-users">
         <div class="page-header">
           <div class="page-header-left"><h1>Usuários &amp; Permissões</h1><p>Gestão de acesso e perfis RBAC</p></div>
-          <button class="btn btn-navy" onclick="openUserModal()">+ Novo Usuário</button>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-outline btn-sm" onclick="resetPermissions()">↺ Resetar Permissões</button>
+            <button class="btn btn-navy" onclick="openUserModal()">+ Novo Usuário</button>
+          </div>
         </div>
         <div class="card" style="margin-bottom:24px"><div class="table-wrap"><table><thead><tr><th>Usuário</th><th>E-mail</th><th>Perfil</th><th>Último acesso</th><th>Status</th><th>Ações</th></tr></thead><tbody id="users-tbody"></tbody></table></div></div>
-        <div class="card"><div class="card-header"><h3>Matriz de Permissões por Perfil</h3></div><div class="card-body"><div class="table-wrap"><table><thead><tr><th>Módulo</th><th style="text-align:center">Admin</th><th style="text-align:center">Gestor</th><th style="text-align:center">Operacional</th><th style="text-align:center">Comercial</th><th style="text-align:center">Financeiro</th><th style="text-align:center">Leitura</th></tr></thead><tbody id="perms-tbody"></tbody></table></div></div></div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Matriz de Permissões por Perfil</h3>
+          </div>
+          <div class="card-body">
+            <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Marque as caixas para personalizar as permissões de cada perfil. <strong>V</strong>=Visualizar, <strong>C</strong>=Criar/Editar, <strong>D</strong>=Excluir. Alterações são salvas automaticamente. Admin sempre tem acesso total.</p>
+            <div class="table-wrap"><table><thead><tr><th>Módulo</th><th style="text-align:center">Admin</th><th style="text-align:center">Gestor</th><th style="text-align:center">Operacional</th><th style="text-align:center">Comercial</th><th style="text-align:center">Financeiro</th><th style="text-align:center">Leitura</th></tr></thead><tbody id="perms-tbody"></tbody></table></div>
+          </div>
+        </div>
       </div>
 
       <!-- SETTINGS -->
@@ -599,6 +610,7 @@ tbody tr:last-child td{border-bottom:none}
           <div class="card">
             <div class="card-header"><h3>🔧 Configuração Firebase</h3></div>
             <div class="card-body">
+              <div id="fb-status" style="padding:10px 14px;border-radius:8px;background:var(--cream);margin-bottom:16px;font-size:13px;border:1px solid var(--border)">Verificando conexão...</div>
               <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Cole as configurações do seu projeto Firebase para ativar autenticação real e banco de dados em nuvem. Após salvar, recarregue a página.</p>
               <div class="form-field"><label class="form-label">API Key</label><input class="input" type="text" id="fb-api-key" placeholder="AIzaSy..."/></div>
               <div class="form-field"><label class="form-label">Auth Domain</label><input class="input" type="text" id="fb-auth-domain" placeholder="projeto.firebaseapp.com"/></div>
@@ -624,6 +636,7 @@ service cloud.firestore {
     match /tasks/{id} { allow read: if isAuth(); allow write: if isAuth(); }
     match /users/{id} { allow read: if isAuth(); allow write: if isAdmin(); }
     match /audit_logs/{id} { allow read: if isGestor(); allow create: if isAuth(); }
+    match /config/{id} { allow read: if isAuth(); allow write: if isAdmin(); }
   }
 }</pre>
             </div>
@@ -792,13 +805,18 @@ service cloud.firestore {
 <!-- User Modal -->
 <div class="modal-overlay" id="user-modal">
   <div class="modal">
-    <div class="modal-header"><h2>Novo Usuário</h2><button class="modal-close" onclick="closeModal('user-modal')">✕</button></div>
+    <div class="modal-header"><h2 id="user-modal-title">Novo Usuário</h2><button class="modal-close" onclick="closeModal('user-modal')">✕</button></div>
     <div class="modal-body">
+      <input type="hidden" id="u-id"/>
       <div class="form-field"><label class="form-label">Nome completo <span>*</span></label><input class="input" type="text" id="u-name" placeholder="Nome do usuário"/></div>
       <div class="form-field"><label class="form-label">E-mail <span>*</span></label><input class="input" type="email" id="u-email" placeholder="email@bimat.com.br"/></div>
-      <div class="form-row"><div class="form-field"><label class="form-label">Perfil / Função</label><select class="select-input" id="u-role"><option value="admin">Admin</option><option value="gestor">Gestor</option><option value="operacional">Operacional</option><option value="comercial">Comercial</option><option value="financeiro">Financeiro</option><option value="leitura">Leitura</option></select></div><div class="form-field"><label class="form-label">Senha inicial</label><input class="input" type="password" id="u-pass" placeholder="Senha temporária"/></div></div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">Perfil / Função</label><select class="select-input" id="u-role"><option value="admin">Admin</option><option value="gestor">Gestor</option><option value="operacional">Operacional</option><option value="comercial">Comercial</option><option value="financeiro">Financeiro</option><option value="leitura">Leitura</option></select></div>
+        <div class="form-field" id="u-pass-group"><label class="form-label">Senha inicial <span>*</span></label><input class="input" type="password" id="u-pass" placeholder="Mínimo 6 caracteres"/></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">💡 Com Firebase ativo, o usuário será criado no Firebase Authentication e poderá fazer login imediatamente. Em modo demo, o usuário é salvo localmente.</p>
     </div>
-    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('user-modal')">Cancelar</button><button class="btn btn-navy" onclick="saveUser()">Criar Usuário</button></div>
+    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('user-modal')">Cancelar</button><button class="btn btn-navy" onclick="saveUser()">Salvar Usuário</button></div>
   </div>
 </div>
 
@@ -836,7 +854,7 @@ service cloud.firestore {
 
 <!-- MODALS FOR USER / PAYMENT / RENEGOTIATION / CONTRACT VIEW / TEMPLATE / CLIENT DETAIL already included above -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // =================== FIREBASE CONFIG ===================
 const FIREBASE_CONFIG = {
   apiKey: localStorage.getItem('fb-api-key') || "DEMO_MODE",
@@ -1054,6 +1072,122 @@ async function ensureParcelasLoaded(){
   localStorage.setItem('bimat_parcelas', JSON.stringify(STORE.parcelas));
 }
 
+// =================== FIRESTORE: PROCESSOS ===================
+function _normalizeProcess(docId, data){
+  const d = data || {};
+  return { id: docId, ...d, createdAt: _toISO(d.createdAt)||new Date().toISOString(), updatedAt: _toISO(d.updatedAt)||new Date().toISOString() };
+}
+async function fsProcesses_list(){
+  const snap = await db.collection('processes').orderBy('createdAt','desc').get();
+  return snap.docs.map(d => _normalizeProcess(d.id, d.data()));
+}
+async function fsProcesses_upsert(proc){
+  const now = new Date().toISOString();
+  const payload = { ...proc, updatedAt: now, createdAt: proc.createdAt||now };
+  await db.collection('processes').doc(proc.id).set(payload, { merge:true });
+  return _normalizeProcess(proc.id, payload);
+}
+async function fsProcesses_delete(id){
+  await db.collection('processes').doc(id).delete();
+  return true;
+}
+async function ensureProcessesLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.processes = await fsProcesses_list();
+  localStorage.setItem('bimat_processes', JSON.stringify(STORE.processes));
+}
+
+// =================== FIRESTORE: TAREFAS ===================
+function _normalizeTask(docId, data){
+  const d = data || {};
+  return { id: docId, ...d, createdAt: _toISO(d.createdAt)||new Date().toISOString() };
+}
+async function fsTasks_list(){
+  const snap = await db.collection('tasks').orderBy('due','asc').get();
+  return snap.docs.map(d => _normalizeTask(d.id, d.data()));
+}
+async function fsTasks_upsert(task){
+  const now = new Date().toISOString();
+  const payload = { ...task, updatedAt: now, createdAt: task.createdAt||now };
+  await db.collection('tasks').doc(task.id).set(payload, { merge:true });
+  return _normalizeTask(task.id, payload);
+}
+async function fsTasks_delete(id){
+  await db.collection('tasks').doc(id).delete();
+  return true;
+}
+async function ensureTasksLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.tasks = await fsTasks_list();
+  localStorage.setItem('bimat_tasks', JSON.stringify(STORE.tasks));
+}
+
+// =================== FIRESTORE: USUÁRIOS ===================
+function _normalizeUser(docId, data){
+  const d = data || {};
+  return { id: docId, ...d, createdAt: _toISO(d.createdAt)||new Date().toISOString() };
+}
+async function fsUsers_list(){
+  const snap = await db.collection('users').orderBy('createdAt','asc').get();
+  return snap.docs.map(d => _normalizeUser(d.id, d.data()));
+}
+async function fsUsers_upsert(user){
+  const now = new Date().toISOString();
+  const payload = { ...user, updatedAt: now, createdAt: user.createdAt||now };
+  await db.collection('users').doc(user.id).set(payload, { merge:true });
+  return _normalizeUser(user.id, payload);
+}
+async function fsUsers_delete(id){
+  await db.collection('users').doc(id).delete();
+  return true;
+}
+async function ensureUsersLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.users = await fsUsers_list();
+  localStorage.setItem('bimat_users', JSON.stringify(STORE.users));
+}
+
+// =================== FIRESTORE: PERMISSÕES CUSTOMIZADAS ===================
+// Permissões padrão por perfil (V=visualizar, C=criar/editar, D=excluir)
+const DEFAULT_PERMISSIONS = {
+  admin:      { clients:['V','C','D'], proposals:['V','C','D'], contracts:['V','C','D'], processes:['V','C','D'], financial:['V','C','D'], tasks:['V','C','D'], reports:['V','C','D'], users:['V','C','D'] },
+  gestor:     { clients:['V','C','D'], proposals:['V','C','D'], contracts:['V','C','D'], processes:['V','C','D'], financial:['V','C','D'], tasks:['V','C','D'], reports:['V','C','D'], users:['V'] },
+  operacional:{ clients:['V','C'],     proposals:['V','C'],     contracts:['V'],         processes:['V','C'],     financial:['V'],         tasks:['V','C'],     reports:['V'],         users:[] },
+  comercial:  { clients:['V','C'],     proposals:['V','C','D'], contracts:['V'],         processes:['V'],         financial:['V'],         tasks:['V','C'],     reports:['V'],         users:[] },
+  financeiro: { clients:['V'],         proposals:['V'],         contracts:['V'],         processes:['V'],         financial:['V','C','D'], tasks:['V'],         reports:['V'],         users:[] },
+  leitura:    { clients:['V'],         proposals:['V'],         contracts:['V'],         processes:['V'],         financial:['V'],         tasks:['V'],         reports:['V'],         users:[] },
+};
+let CUSTOM_PERMISSIONS = JSON.parse(localStorage.getItem('bimat_permissions')||'null') || null;
+
+function getPermissions(){ return CUSTOM_PERMISSIONS || DEFAULT_PERMISSIONS; }
+function userCan(action, module){
+  const role = currentUserData?.role || 'leitura';
+  const perms = getPermissions();
+  const rolePerms = perms[role] || perms['leitura'];
+  const modulePerms = rolePerms[module] || [];
+  return modulePerms.includes(action);
+}
+function userCanView(module){ return currentUserData?.role==='admin' || userCan('V', module); }
+
+async function savePermissionsToFirestore(perms){
+  if(isFirestoreReady()){
+    try{ await db.collection('config').doc('permissions').set({data: JSON.stringify(perms), updatedAt: new Date().toISOString()}); }
+    catch(e){ console.warn('Permissions Firestore:', e.message); }
+  }
+  localStorage.setItem('bimat_permissions', JSON.stringify(perms));
+  CUSTOM_PERMISSIONS = perms;
+}
+async function loadPermissionsFromFirestore(){
+  if(!isFirestoreReady()) return;
+  try{
+    const snap = await db.collection('config').doc('permissions').get();
+    if(snap.exists){
+      CUSTOM_PERMISSIONS = JSON.parse(snap.data().data);
+      localStorage.setItem('bimat_permissions', JSON.stringify(CUSTOM_PERMISSIONS));
+    }
+  }catch(e){ console.warn('loadPermissions:', e.message); }
+}
+
 // =================== AUTH ===================
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
@@ -1096,25 +1230,50 @@ async function onLogin() {
   document.getElementById('login-page').style.display='none';
   document.getElementById('app').style.display='flex';
 
-  // No modo demo, usamos dados locais. No modo real, carregamos do Firestore.
   if (USE_DEMO) {
     seedDemoData();
   } else {
     try {
-      // Carrega clientes do Firestore para a memória (STORE) e renderiza.
-      const list = await fsClients_list();
-      STORE.clients = list;
-      // opcional: manter o cache local para fallback offline
-      localStorage.setItem('bimat_clients', JSON.stringify(STORE.clients));
+      await loadPermissionsFromFirestore();
+      const [clients, proposals, parcelas, processes, tasks, users] = await Promise.all([
+        fsClients_list().catch(e=>{console.warn('clients:',e.message);return STORE.clients;}),
+        fsProposals_list().catch(e=>{console.warn('proposals:',e.message);return STORE.proposals;}),
+        fsParcelas_list().catch(e=>{console.warn('parcelas:',e.message);return STORE.parcelas;}),
+        fsProcesses_list().catch(e=>{console.warn('processes:',e.message);return STORE.processes;}),
+        fsTasks_list().catch(e=>{console.warn('tasks:',e.message);return STORE.tasks;}),
+        fsUsers_list().catch(e=>{console.warn('users:',e.message);return STORE.users;}),
+      ]);
+      STORE.clients=clients; STORE.proposals=proposals; STORE.parcelas=parcelas;
+      STORE.processes=processes; STORE.tasks=tasks; STORE.users=users;
+      if(currentUser){
+        const fsUser=users.find(u=>u.id===currentUser.uid||u.email===currentUser.email);
+        if(fsUser) currentUserData=fsUser;
+      }
+      ['clients','proposals','parcelas','processes','tasks','users'].forEach(k=>localStorage.setItem('bimat_'+k,JSON.stringify(STORE[k])));
     } catch(e) {
-      console.warn('Falha ao carregar clientes do Firestore:', e.message);
+      console.warn('Falha ao carregar do Firestore:', e.message);
     }
   }
 
   updateUserUI();
+  applyPermissionsToNav();
   loadBadges();
   navigate('dashboard');
   showToast('Bem-vindo, ' + ((currentUserData && currentUserData.name) || 'usuário') + '!','success');
+}
+
+function applyPermissionsToNav(){
+  const role = currentUserData?.role || 'operacional';
+  const perms = getPermissions();
+  const rolePerms = perms[role] || {};
+  const navMap = { clients:'clients', proposals:'proposals', contracts:'contracts', processes:'processes', tasks:'tasks', financial:'financial', reports:'reports' };
+  Object.entries(navMap).forEach(([module,section])=>{
+    const el = document.querySelector('.nav-item[data-section="'+section+'"]');
+    if(!el) return;
+    el.style.display = (role==='admin'||(rolePerms[module]||[]).includes('V')) ? '' : 'none';
+  });
+  const navUsers = document.getElementById('nav-users');
+  if(navUsers) navUsers.style.display = role==='admin' ? '' : 'none';
 }
 
 function doLogout() {
@@ -1133,7 +1292,7 @@ function updateUserUI() {
   document.getElementById('sidebar-name').textContent=n;
   document.getElementById('sidebar-role').textContent=capitalize(r);
   document.getElementById('sidebar-avatar').textContent=n.charAt(0).toUpperCase();
-  if (r!=='admin') document.getElementById('nav-users').style.display='none';
+  // Visibilidade de nav gerenciada por applyPermissionsToNav()
 }
 
 // =================== NAVIGATION ===================
@@ -1147,7 +1306,16 @@ function navigate(section) {
   document.getElementById('topbar-breadcrumb').textContent='BIMAT CRM › '+(PAGE_TITLES[section]||section);
   loadSection(section);
 }
-function loadSection(s){switch(s){case 'dashboard':loadDashboard();break;case 'clients':loadClients();break;case 'funnel':loadFunnel();break;case 'proposals':loadProposals();break;case 'contracts':loadContracts();break;case 'processes':loadProcesses();break;case 'tasks':loadTasks();break;case 'financial':loadFinancial();break;case 'reports':initReports();break;case 'users':loadUsers();break;case 'settings':loadSettings();break;}}
+function loadSection(s){switch(s){case 'dashboard':loadDashboard();break;case 'clients':loadClients();break;case 'funnel':loadFunnel();break;case 'proposals':loadProposals();break;case 'contracts':loadContracts();break;case 'processes':loadProcessesSection();break;case 'tasks':loadTasksSection();break;case 'financial':loadFinancial();break;case 'reports':initReports();break;case 'users':loadUsers();break;case 'settings':loadSettings();break;}}
+
+async function loadProcessesSection(){
+  try{ await ensureProcessesLoaded(); }catch(e){ console.warn('processes Firestore:',e.message); }
+  loadProcesses();
+}
+async function loadTasksSection(){
+  try{ await ensureTasksLoaded(); }catch(e){ console.warn('tasks Firestore:',e.message); }
+  loadTasks();
+}
 
 // =================== DASHBOARD ===================
 async function loadDashboard() {
@@ -1181,7 +1349,7 @@ function renderTasksToday(todayStr){
   const tasks=STORE.tasks.filter(t=>t.status!=='concluida'&&t.due===todayStr);
   document.getElementById('dash-tasks-today').innerHTML=tasks.length?tasks.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)"><div class="check-box" onclick="toggleTaskById('${t.id}',this)"></div><div style="flex:1"><div style="font-size:13.5px;font-weight:500">${t.title}</div><div style="font-size:12px;color:var(--muted)">${t.responsible||'—'}</div></div><span class="badge badge-${t.priority==='alta'?'red':t.priority==='media'?'amber':'green'}">${t.priority}</span></div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">Nenhuma tarefa para hoje</div>';
 }
-function toggleTaskById(id,el){const t=STORE.tasks.find(x=>x.id===id);if(t){t.status=t.status==='concluida'?'pendente':'concluida';el.classList.toggle('checked');saveStore('tasks');loadBadges();}}
+async function toggleTaskById(id,el){const t=STORE.tasks.find(x=>x.id===id);if(t){t.status=t.status==='concluida'?'pendente':'concluida';el.classList.toggle('checked');if(isFirestoreReady()){try{await fsTasks_upsert(t);}catch(e){console.warn(e);}}saveStore('tasks');loadBadges();}}
 function renderFunnelChart(){
   const ctx=document.getElementById('chart-funnel'); if(!ctx)return;
   if(charts.funnel)charts.funnel.destroy();
@@ -1621,15 +1789,28 @@ function renderChecklist(items){tempChecklist=[...items];document.getElementById
 function toggleCheckItem(i){tempChecklist[i].done=!tempChecklist[i].done;renderChecklist(tempChecklist);}
 function removeCheckItem(i){tempChecklist.splice(i,1);renderChecklist(tempChecklist);}
 function addChecklistItem(){const e=document.getElementById('proc-new-check');if(!e.value.trim())return;tempChecklist.push({text:e.value.trim(),done:false});e.value='';renderChecklist(tempChecklist);}
-function saveProcess(){
+async function saveProcess(){
   const id=document.getElementById('proc-id').value||'pr'+Date.now();
   const clientId=document.getElementById('proc-client').value; if(!clientId){showToast('Selecione o cliente','error');return;}
   const client=STORE.clients.find(c=>c.id===clientId);
   const proc={id,clientId,clientName:client?.name||'—',type:document.getElementById('proc-type').value,protocol:ge('proc-protocol'),reqDate:ge('proc-req-date'),status:ge('proc-status'),deadline:ge('proc-deadline'),responsible:document.getElementById('proc-responsible').value,proposalId:document.getElementById('proc-proposal').value,obs:ge('proc-obs'),checklist:[...tempChecklist],createdAt:STORE.processes.find(p=>p.id===id)?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
-  upsert(STORE.processes,proc); saveStore('processes'); auditLog('process',id,'save',proc.clientName+' — '+proc.type);
+  try{
+    if(isFirestoreReady()){ await fsProcesses_upsert(proc); }
+    else { upsert(STORE.processes,proc); saveStore('processes'); }
+    upsert(STORE.processes,proc); localStorage.setItem('bimat_processes',JSON.stringify(STORE.processes));
+    auditLog('process',id,'save',proc.clientName+' — '+proc.type);
+  }catch(e){ showToast('Erro ao salvar processo: '+e.message,'error'); return; }
   closeModal('process-modal'); loadProcesses(); showToast('Processo salvo!','success');
 }
-function deleteProcess(id){if(!confirm('Excluir processo?'))return;STORE.processes=STORE.processes.filter(p=>p.id!==id);saveStore('processes');loadProcesses();}
+async function deleteProcess(id){
+  if(!confirm('Excluir processo?'))return;
+  try{
+    if(isFirestoreReady()){ await fsProcesses_delete(id); }
+    STORE.processes=STORE.processes.filter(p=>p.id!==id);
+    localStorage.setItem('bimat_processes',JSON.stringify(STORE.processes));
+  }catch(e){ showToast('Erro ao excluir: '+e.message,'error'); return; }
+  loadProcesses();
+}
 function procStatusColor(s){const m={'Em análise':'navy','Exigência':'amber','Perícia':'purple','Deferido':'green','Indeferido':'red','Recurso':'amber','Encerrado':'gray'};return m[s]||'gray';}
 
 // =================== TASKS ===================
@@ -1657,7 +1838,7 @@ function renderTasksTable(){
       </div></td>
     </tr>`;}).join(''):'<tr><td colspan="7"><div class="empty-state"><h3>Nenhuma tarefa</h3><button class="btn btn-navy" onclick="openTaskModal()">Nova Tarefa</button></div></td></tr>';
 }
-function toggleTask(id){const t=STORE.tasks.find(x=>x.id===id);if(t){t.status=t.status==='concluida'?'pendente':'concluida';saveStore('tasks');renderTasksTable();loadBadges();}}
+async function toggleTask(id){const t=STORE.tasks.find(x=>x.id===id);if(t){t.status=t.status==='concluida'?'pendente':'concluida';if(isFirestoreReady()){try{await fsTasks_upsert(t);}catch(e){console.warn(e);}}saveStore('tasks');renderTasksTable();loadBadges();}}
 function openTaskModal(id){
   const t=id?STORE.tasks.find(x=>x.id===id):null;
   document.getElementById('task-modal-title').textContent=id?'Editar Tarefa':'Nova Tarefa';
@@ -1670,13 +1851,26 @@ function openTaskModal(id){
   document.getElementById('task-desc').value=t?.desc||'';
   openModal('task-modal');
 }
-function saveTask(){
+async function saveTask(){
   const id=document.getElementById('task-id').value||'t'+Date.now();
   const title=document.getElementById('task-title').value.trim(); if(!title){showToast('Título é obrigatório','error');return;}
   const task={id,title,responsible:document.getElementById('task-responsible').value,priority:document.getElementById('task-priority').value,due:ge('task-due'),clientName:ge('task-client-name'),desc:ge('task-desc'),status:STORE.tasks.find(t=>t.id===id)?.status||'pendente',createdAt:STORE.tasks.find(t=>t.id===id)?.createdAt||new Date().toISOString()};
-  upsert(STORE.tasks,task); saveStore('tasks'); closeModal('task-modal'); loadTasks(); loadBadges(); showToast('Tarefa salva!','success');
+  try{
+    if(isFirestoreReady()){ await fsTasks_upsert(task); }
+    else { upsert(STORE.tasks,task); saveStore('tasks'); }
+    upsert(STORE.tasks,task); localStorage.setItem('bimat_tasks',JSON.stringify(STORE.tasks));
+  }catch(e){ showToast('Erro ao salvar tarefa: '+e.message,'error'); return; }
+  closeModal('task-modal'); loadTasks(); loadBadges(); showToast('Tarefa salva!','success');
 }
-function deleteTask(id){if(!confirm('Excluir tarefa?'))return;STORE.tasks=STORE.tasks.filter(t=>t.id!==id);saveStore('tasks');loadTasks();loadBadges();}
+async function deleteTask(id){
+  if(!confirm('Excluir tarefa?'))return;
+  try{
+    if(isFirestoreReady()){ await fsTasks_delete(id); }
+    STORE.tasks=STORE.tasks.filter(t=>t.id!==id);
+    localStorage.setItem('bimat_tasks',JSON.stringify(STORE.tasks));
+  }catch(e){ showToast('Erro ao excluir: '+e.message,'error'); return; }
+  loadTasks(); loadBadges();
+}
 
 // =================== FINANCIAL ===================
 let parcelasPage=1,parcelasFiltered=[];
@@ -1852,31 +2046,181 @@ function exportReportPDF(){
 function saveReportModel(){showToast('Modelo salvo (funcionalidade disponível com Firebase)','success');}
 
 // =================== USERS ===================
-function loadUsers(){
+const MODULE_KEYS   = ['clients','proposals','contracts','processes','financial','tasks','reports','users'];
+const MODULE_LABELS = ['Clientes','Propostas','Contratos','Processos INSS','Financeiro','Tarefas','Relatórios','Usuários'];
+const ROLE_KEYS     = ['admin','gestor','operacional','comercial','financeiro','leitura'];
+const PERM_ACTIONS  = ['V','C','D']; // Visualizar, Criar/Editar, Excluir
+
+async function loadUsers(){
+  if(isFirestoreReady()){
+    try{ STORE.users = await fsUsers_list(); localStorage.setItem('bimat_users',JSON.stringify(STORE.users)); }
+    catch(e){ console.warn('loadUsers Firestore:',e.message); }
+  }
   document.getElementById('users-tbody').innerHTML=STORE.users.map(u=>`<tr>
-    <td><div style="display:flex;align-items:center;gap:10px"><div class="user-avatar" style="width:32px;height:32px;font-size:12px">${u.name.charAt(0).toUpperCase()}</div><span class="td-name">${u.name}</span></div></td>
+    <td><div style="display:flex;align-items:center;gap:10px"><div class="user-avatar" style="width:32px;height:32px;font-size:12px">${u.name.charAt(0).toUpperCase()}</div><div><div style="font-weight:600;color:var(--navy)">${u.name}</div><div style="font-size:12px;color:var(--muted)">${u.uid||''}</div></div></div></td>
     <td class="td-muted">${u.email}</td>
     <td>${roleBadge(u.role)}</td>
-    <td class="td-muted">${fmtDate(u.lastAccess)}</td>
+    <td class="td-muted">${fmtDate(u.lastAccess)||'—'}</td>
     <td><span class="badge badge-${u.status==='ativo'?'green':'red'}">${u.status||'ativo'}</span></td>
     <td><div class="td-actions">
-      <div class="td-btn" onclick="toggleUserStatus('${u.id}')" title="Ativar/Desativar">⟳</div>
+      <div class="td-btn" onclick="openEditUserModal('${u.id}')" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+      <div class="td-btn" onclick="toggleUserStatus('${u.id}')" title="${u.status==='ativo'?'Desativar':'Ativar'}">⟳</div>
       <div class="td-btn danger" onclick="deleteUser('${u.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></div>
     </div></td>
   </tr>`).join('');
-  const modules=['Clientes','Propostas','Contratos','Processos INSS','Financeiro','Tarefas','Relatórios','Usuários'];
-  const perms={admin:'V C E D',gestor:'V C E —',operacional:'V C — —',comercial:'V C — —',financeiro:'V — E —',leitura:'V — — —'};
-  document.getElementById('perms-tbody').innerHTML=modules.map(m=>`<tr><td style="font-weight:500">${m}</td>${['admin','gestor','operacional','comercial','financeiro','leitura'].map(r=>`<td style="text-align:center;font-size:13px;color:var(--navy)">${perms[r]}</td>`).join('')}</tr>`).join('');
+  renderPermissionsTable();
 }
-function openUserModal(){document.getElementById('u-name').value='';document.getElementById('u-email').value='';document.getElementById('u-role').value='operacional';document.getElementById('u-pass').value='';openModal('user-modal');}
-function saveUser(){
-  const name=document.getElementById('u-name').value.trim(); const email=document.getElementById('u-email').value.trim();
+
+function renderPermissionsTable(){
+  const perms = getPermissions();
+  // Header
+  const modeNote = CUSTOM_PERMISSIONS ? '<span style="font-size:11px;color:var(--amber);margin-left:8px">✏️ Personalizado</span>' : '<span style="font-size:11px;color:var(--muted);margin-left:8px">Padrão</span>';
+  const cardHeader = document.querySelector('#section-users .card:last-child .card-header h3');
+  if(cardHeader) cardHeader.innerHTML = 'Matriz de Permissões por Perfil' + modeNote;
+
+  document.getElementById('perms-tbody').innerHTML = MODULE_KEYS.map((mod,mi)=>`
+    <tr>
+      <td style="font-weight:500">${MODULE_LABELS[mi]}</td>
+      ${ROLE_KEYS.map(role=>{
+        const rp = perms[role]||{};
+        const mp = rp[mod]||[];
+        return '<td style="text-align:center">'+PERM_ACTIONS.map(a=>`
+          <label title="${a==='V'?'Visualizar':a==='C'?'Criar/Editar':'Excluir'}" style="cursor:${role==='admin'?'default':'pointer'};margin:0 2px">
+            <input type="checkbox" data-role="${role}" data-mod="${mod}" data-action="${a}" 
+              ${mp.includes(a)?'checked':''} ${role==='admin'?'disabled':''}
+              onchange="onPermChange(this)" style="cursor:${role==='admin'?'default':'pointer'}">
+            <span style="font-size:10px;color:var(--muted)">${a}</span>
+          </label>`).join('')+'</td>';
+      }).join('')}
+    </tr>`).join('');
+}
+
+function onPermChange(el){
+  const perms = JSON.parse(JSON.stringify(getPermissions()));
+  const role=el.dataset.role, mod=el.dataset.mod, action=el.dataset.action;
+  if(!perms[role]) perms[role]={};
+  if(!perms[role][mod]) perms[role][mod]=[];
+  if(el.checked){ if(!perms[role][mod].includes(action)) perms[role][mod].push(action); }
+  else { perms[role][mod]=perms[role][mod].filter(a=>a!==action); }
+  // Se remover V, remove C e D também
+  if(action==='V'&&!el.checked){ perms[role][mod]=[]; document.querySelectorAll(`[data-role="${role}"][data-mod="${mod}"]`).forEach(x=>x.checked=false); }
+  savePermissionsToFirestore(perms).then(()=>{ applyPermissionsToNav(); showToast('Permissão atualizada!','success'); });
+}
+
+function resetPermissions(){
+  if(!confirm('Resetar permissões para o padrão?')) return;
+  CUSTOM_PERMISSIONS=null; localStorage.removeItem('bimat_permissions');
+  if(isFirestoreReady()) db.collection('config').doc('permissions').delete().catch(()=>{});
+  applyPermissionsToNav(); loadUsers(); showToast('Permissões resetadas!','success');
+}
+
+function openUserModal(){
+  document.getElementById('user-modal-title').textContent='Novo Usuário';
+  document.getElementById('u-id').value='';
+  document.getElementById('u-name').value='';
+  document.getElementById('u-email').value='';
+  document.getElementById('u-email').disabled=false;
+  document.getElementById('u-role').value='operacional';
+  document.getElementById('u-pass').value='';
+  document.getElementById('u-pass-group').style.display='';
+  openModal('user-modal');
+}
+function openEditUserModal(id){
+  const u=STORE.users.find(x=>x.id===id); if(!u)return;
+  document.getElementById('user-modal-title').textContent='Editar Usuário';
+  document.getElementById('u-id').value=u.id;
+  document.getElementById('u-name').value=u.name;
+  document.getElementById('u-email').value=u.email;
+  document.getElementById('u-email').disabled=true;
+  document.getElementById('u-role').value=u.role||'operacional';
+  document.getElementById('u-pass').value='';
+  document.getElementById('u-pass-group').style.display='none';
+  openModal('user-modal');
+}
+async function saveUser(){
+  const editId=document.getElementById('u-id').value;
+  const name=document.getElementById('u-name').value.trim();
+  const email=document.getElementById('u-email').value.trim();
+  const role=document.getElementById('u-role').value;
+  const pass=document.getElementById('u-pass').value;
   if(!name||!email){showToast('Nome e e-mail são obrigatórios','error');return;}
-  STORE.users.push({id:'u'+Date.now(),name,email,role:document.getElementById('u-role').value,status:'ativo',lastAccess:new Date().toISOString()});
-  saveStore('users'); closeModal('user-modal'); loadUsers(); showToast('Usuário criado!','success');
+
+  if(editId){
+    // Editar usuário existente
+    const u=STORE.users.find(x=>x.id===editId);
+    if(u){ u.name=name; u.role=role; }
+    try{
+      if(isFirestoreReady()){ await fsUsers_upsert({...u,name,role}); }
+      else { saveStore('users'); }
+      upsert(STORE.users,{...u,name,role});
+      localStorage.setItem('bimat_users',JSON.stringify(STORE.users));
+    }catch(e){ showToast('Erro: '+e.message,'error'); return; }
+    closeModal('user-modal'); loadUsers(); applyPermissionsToNav(); showToast('Usuário atualizado!','success');
+    return;
+  }
+
+  // Criar novo usuário
+  if(!pass||pass.length<6){showToast('Senha deve ter ao menos 6 caracteres','error');return;}
+  const now=new Date().toISOString();
+
+  if(isFirestoreReady()&&auth){
+    // Cria via Firebase Auth usando app secundária para não deslogar o admin
+    try{
+      let secondaryApp;
+      try{
+        secondaryApp=firebase.app('secondary');
+      }catch(e){
+        secondaryApp=firebase.initializeApp(FIREBASE_CONFIG,'secondary');
+      }
+      const secondaryAuth=secondaryApp.auth();
+      const uc=await secondaryAuth.createUserWithEmailAndPassword(email,pass);
+      const uid=uc.user.uid;
+      await secondaryAuth.signOut();
+      const newUser={id:uid,uid,name,email,role,status:'ativo',createdAt:now,lastAccess:now};
+      await fsUsers_upsert(newUser);
+      STORE.users.push(newUser);
+      localStorage.setItem('bimat_users',JSON.stringify(STORE.users));
+      closeModal('user-modal'); loadUsers(); showToast('Usuário criado no Firebase Auth + Firestore!','success');
+    }catch(e){
+      if(e.code==='auth/email-already-in-use'){
+        // Usuário já existe no Auth, só salva no Firestore
+        const uid='u'+Date.now();
+        const newUser={id:uid,name,email,role,status:'ativo',createdAt:now,lastAccess:now};
+        await fsUsers_upsert(newUser);
+        STORE.users.push(newUser);
+        localStorage.setItem('bimat_users',JSON.stringify(STORE.users));
+        closeModal('user-modal'); loadUsers(); showToast('E-mail já existe no Auth. Dados salvos no Firestore.','warning');
+      } else { showToast('Erro ao criar usuário: '+e.message,'error'); }
+    }
+  } else {
+    // Modo demo / offline
+    const uid='u'+Date.now();
+    const newUser={id:uid,name,email,role,status:'ativo',createdAt:now,lastAccess:now};
+    STORE.users.push(newUser);
+    saveStore('users');
+    closeModal('user-modal'); loadUsers(); showToast('Usuário criado localmente (modo demo).','success');
+  }
 }
-function toggleUserStatus(id){const u=STORE.users.find(x=>x.id===id);if(u){u.status=u.status==='ativo'?'inativo':'ativo';saveStore('users');loadUsers();}}
-function deleteUser(id){if(!confirm('Excluir usuário?'))return;STORE.users=STORE.users.filter(u=>u.id!==id);saveStore('users');loadUsers();}
+async function toggleUserStatus(id){
+  const u=STORE.users.find(x=>x.id===id); if(!u)return;
+  u.status=u.status==='ativo'?'inativo':'ativo';
+  try{
+    if(isFirestoreReady()){ await fsUsers_upsert(u); }
+    else { saveStore('users'); }
+    localStorage.setItem('bimat_users',JSON.stringify(STORE.users));
+  }catch(e){ showToast('Erro: '+e.message,'error'); return; }
+  loadUsers();
+}
+async function deleteUser(id){
+  if(id===currentUser?.uid||STORE.users.find(x=>x.id===id)?.email===currentUser?.email){showToast('Não é possível excluir o próprio usuário.','error');return;}
+  if(!confirm('Excluir usuário? Esta ação não pode ser desfeita.'))return;
+  try{
+    if(isFirestoreReady()){ await fsUsers_delete(id); }
+    STORE.users=STORE.users.filter(u=>u.id!==id);
+    localStorage.setItem('bimat_users',JSON.stringify(STORE.users));
+  }catch(e){ showToast('Erro ao excluir: '+e.message,'error'); return; }
+  loadUsers(); showToast('Usuário removido.','success');
+}
 function roleBadge(role){const m={admin:'navy',gestor:'gold',operacional:'purple',comercial:'green',financeiro:'amber',leitura:'gray'};return`<span class="badge badge-${m[role]||'gray'}">${capitalize(role)}</span>`;}
 
 // =================== SETTINGS ===================
@@ -1888,6 +2232,7 @@ function loadSettings(){
   document.getElementById('fb-project-id').value=localStorage.getItem('fb-project-id')||'';
   document.getElementById('fb-storage-bucket').value=localStorage.getItem('fb-storage-bucket')||'';
   document.getElementById('fb-app-id').value=localStorage.getItem('fb-app-id')||'';
+  updateFirebaseStatus();
 }
 function saveFirebaseConfig(){['api-key','auth-domain','project-id','storage-bucket','app-id'].forEach(k=>{const v=document.getElementById('fb-'+k).value.trim();if(v)localStorage.setItem('fb-'+k,v);});showToast('Configuração salva! Recarregue a página.','success');}
 function updateProfile(){const name=document.getElementById('profile-name').value.trim();if(!name){showToast('Nome obrigatório','error');return;}if(currentUserData)currentUserData.name=name;updateUserUI();showToast('Perfil atualizado!','success');}
@@ -1966,13 +2311,39 @@ async function fetchCEP(){
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('collapsed');}
 
 // =================== INIT ===================
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded',async ()=>{
   initFirebase();
   const saved=sessionStorage.getItem('bimat_session');
-  if(saved){try{currentUser=JSON.parse(saved);const u=STORE.users.find(x=>x.email===currentUser.email)||{name:'Admin BIMAT',email:currentUser.email,role:'admin'};currentUserData=u;onLogin();}catch(e){}}
+  if(saved){
+    try{
+      currentUser=JSON.parse(saved);
+      // Tenta restaurar dados do usuário: primeiro do STORE local
+      let userData=STORE.users.find(x=>x.email===currentUser.email||x.id===currentUser.uid);
+      // Se Firebase está disponível, tenta buscar do Firestore
+      if(!userData && db && auth){
+        try{
+          const snap=await db.collection('users').doc(currentUser.uid||currentUser.email).get();
+          if(snap.exists) userData=snap.data();
+        }catch(e){}
+      }
+      // Fallback: se não encontrou, assume admin (evita perda de acesso)
+      currentUserData=userData||{id:currentUser.uid||'admin',name:'Admin BIMAT',email:currentUser.email,role:'admin'};
+      onLogin();
+    }catch(e){console.warn('Session restore:',e);}
+  }
+  // Mostra status Firebase na tela de configurações
+  setTimeout(updateFirebaseStatus,500);
 });
-document.getElementById('login-email').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-document.getElementById('login-password').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-</script>
-</body>
-</html>
+
+function updateFirebaseStatus(){
+  const el=document.getElementById('fb-status');
+  if(!el)return;
+  if(USE_DEMO){
+    el.innerHTML='<span style="color:var(--amber)">⚠️ Modo Demo — dados salvos apenas localmente (localStorage)</span>';
+  } else if(db){
+    el.innerHTML='<span style="color:var(--green)">✅ Conectado ao Firebase — dados sincronizados em nuvem</span>';
+  } else {
+    el.innerHTML='<span style="color:var(--red)">❌ Firebase configurado mas não inicializado — verifique as credenciais</span>';
+  }
+}
+docum
