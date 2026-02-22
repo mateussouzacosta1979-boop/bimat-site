@@ -854,7 +854,7 @@ service cloud.firestore {
 
 <!-- MODALS FOR USER / PAYMENT / RENEGOTIATION / CONTRACT VIEW / TEMPLATE / CLIENT DETAIL already included above -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // =================== FIREBASE CONFIG ===================
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCdMU-WFapAM0PW59o7laToWvhqZHpcqkM",
@@ -1192,31 +1192,103 @@ async function loadPermissionsFromFirestore(){
 // =================== AUTH ===================
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
-  const pass = document.getElementById('login-password').value;
+  const pass  = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
   errEl.classList.remove('show');
-  if (!email||!pass) { errEl.textContent='Preencha e-mail e senha.'; errEl.classList.add('show'); return; }
-  const btn = document.getElementById('login-btn');
-  btn.disabled = true;
-  document.getElementById('login-btn-text').innerHTML = '<span class="spinner"></span>';
-  await new Promise(r=>setTimeout(r,600));
-  if (USE_DEMO || !auth) {
-    const ok = (email==='admin@bimat.com.br'&&pass==='bimat2024') || STORE.users.find(u=>u.email===email);
-    if (ok) {
-      const u = STORE.users.find(x=>x.email===email)||{id:'admin',name:'Admin BIMAT',email,role:'admin'};
-      currentUser={uid:u.id,email:u.email}; currentUserData=u;
-      sessionStorage.setItem('bimat_session',JSON.stringify(currentUser)); onLogin();
-    } else { errEl.textContent='Credenciais inválidas. Demo: admin@bimat.com.br / bimat2024'; errEl.classList.add('show'); }
-  } else {
-    try {
-      const uc = await auth.signInWithEmailAndPassword(email, pass);
-      currentUser = uc.user;
-      const snap = await db.collection('users').doc(currentUser.uid).get();
-      currentUserData = snap.exists ? snap.data() : {name:email,role:'operacional'};
-      sessionStorage.setItem('bimat_session',JSON.stringify({uid:currentUser.uid,email:currentUser.email})); onLogin();
-    } catch(e) { errEl.textContent=e.message; errEl.classList.add('show'); }
+
+  if (!email || !pass) {
+    errEl.textContent = 'Preencha e-mail e senha.';
+    errEl.classList.add('show');
+    return;
   }
-  btn.disabled=false; document.getElementById('login-btn-text').textContent='Entrar no CRM';
+
+  const btn     = document.getElementById('login-btn');
+  const btnText = document.getElementById('login-btn-text');
+  btn.disabled  = true;
+  btnText.innerHTML = '<span class="spinner"></span> Entrando...';
+
+  try {
+    if (USE_DEMO || !auth) {
+      // ---- MODO DEMO / offline ----
+      const ok = (email==='admin@bimat.com.br' && pass==='bimat2024')
+               || STORE.users.find(u => u.email===email);
+      if (!ok) throw new Error('Credenciais inválidas. Demo: admin@bimat.com.br / bimat2024');
+      const u = STORE.users.find(x => x.email===email)
+              || {id:'admin', name:'Admin BIMAT', email, role:'admin'};
+      currentUser     = {uid: u.id, email: u.email};
+      currentUserData = u;
+      sessionStorage.setItem('bimat_session', JSON.stringify(currentUser));
+      await onLogin();
+
+    } else {
+      // ---- FIREBASE AUTH ----
+      let uc;
+      try {
+        uc = await auth.signInWithEmailAndPassword(email, pass);
+      } catch(authErr) {
+        const msgs = {
+          'auth/user-not-found':    'E-mail não cadastrado.',
+          'auth/wrong-password':    'Senha incorreta.',
+          'auth/invalid-credential':'E-mail ou senha incorretos.',
+          'auth/invalid-email':     'E-mail inválido.',
+          'auth/too-many-requests': 'Muitas tentativas. Tente novamente em alguns minutos.',
+          'auth/network-request-failed': 'Sem conexão com a internet.',
+          'auth/user-disabled':     'Usuário desativado.',
+        };
+        throw new Error(msgs[authErr.code] || authErr.message);
+      }
+
+      currentUser = uc.user;
+
+      // Busca dados do perfil no Firestore (não obrigatório — pode não existir ainda)
+      let userData = null;
+      try {
+        const snap = await db.collection('users').doc(currentUser.uid).get();
+        userData = snap.exists ? snap.data() : null;
+      } catch(fsErr) {
+        console.warn('Firestore users read:', fsErr.message);
+      }
+
+      // Se não tem documento no Firestore, cria um (primeiro login do admin)
+      if (!userData) {
+        const isKnownAdmin = email === 'admin@bimat.com.br';
+        userData = {
+          id: currentUser.uid,
+          uid: currentUser.uid,
+          name: isKnownAdmin ? 'Admin BIMAT' : email.split('@')[0],
+          email: currentUser.email,
+          role: isKnownAdmin ? 'admin' : 'operacional',
+          status: 'ativo',
+          createdAt: new Date().toISOString(),
+          lastAccess: new Date().toISOString(),
+        };
+        try {
+          await db.collection('users').doc(currentUser.uid).set(userData);
+          STORE.users.push(userData);
+          localStorage.setItem('bimat_users', JSON.stringify(STORE.users));
+        } catch(e) {
+          console.warn('Não foi possível criar perfil no Firestore:', e.message);
+        }
+      } else {
+        // Atualiza lastAccess
+        try {
+          await db.collection('users').doc(currentUser.uid).update({ lastAccess: new Date().toISOString() });
+        } catch(e) {}
+      }
+
+      currentUserData = userData;
+      sessionStorage.setItem('bimat_session', JSON.stringify({uid: currentUser.uid, email: currentUser.email}));
+      await onLogin();
+    }
+
+  } catch(e) {
+    errEl.textContent = e.message || 'Erro desconhecido. Tente novamente.';
+    errEl.classList.add('show');
+    console.error('doLogin error:', e);
+  } finally {
+    btn.disabled = false;
+    btnText.textContent = 'Entrar no CRM';
+  }
 }
 
 function doForgotPassword() {
