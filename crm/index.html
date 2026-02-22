@@ -26,8 +26,8 @@ button{cursor:pointer}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
 
-#app{display:flex;height:100vh;overflow:hidden}
-#login-page{display:none;height:100vh;background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 60%,#1a5a9e 100%);position:relative;overflow:hidden}
+#app{display:none;height:100vh;overflow:hidden}
+#login-page{display:flex;align-items:stretch;height:100vh;background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 60%,#1a5a9e 100%);position:relative;overflow:hidden}
 #login-page.active{display:flex;align-items:stretch}
 .login-orb{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 70%);top:-100px;left:-100px;pointer-events:none}
 .login-left{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px;color:white;position:relative;z-index:1}
@@ -857,13 +857,14 @@ service cloud.firestore {
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // =================== FIREBASE CONFIG ===================
 const FIREBASE_CONFIG = {
-  apiKey: localStorage.getItem('fb-api-key') || "DEMO_MODE",
-  authDomain: localStorage.getItem('fb-auth-domain') || "bimat-crm.firebaseapp.com",
-  projectId: localStorage.getItem('fb-project-id') || "bimat-crm",
-  storageBucket: localStorage.getItem('fb-storage-bucket') || "bimat-crm.appspot.com",
-  appId: localStorage.getItem('fb-app-id') || "1:0:web:0"
+  apiKey: "AIzaSyCdMU-WFapAM0PW59o7laToWvhqZHpcqkM",
+  authDomain: "crm-bimat.firebaseapp.com",
+  projectId: "crm-bimat",
+  storageBucket: "crm-bimat.firebasestorage.app",
+  messagingSenderId: "631604580761",
+  appId: "1:631604580761:web:fdc867c8cfbb7af3e70308"
 };
-const USE_DEMO = !localStorage.getItem('fb-api-key') || FIREBASE_CONFIG.apiKey === 'DEMO_MODE';
+const USE_DEMO = false;
 let currentUser = null, currentUserData = null, db = null, auth = null, storage = null;
 let charts = {};
 const STORE = {
@@ -1282,9 +1283,7 @@ function doLogout() {
   sessionStorage.removeItem('bimat_session');
   Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}});
   charts={};
-  document.getElementById('app').style.display='none';
-  document.getElementById('login-page').style.display='flex';
-  document.getElementById('login-page').classList.add('active');
+  showLoginPage();
 }
 
 function updateUserUI() {
@@ -2317,23 +2316,30 @@ document.addEventListener('DOMContentLoaded',async ()=>{
   if(saved){
     try{
       currentUser=JSON.parse(saved);
-      // Tenta restaurar dados do usuário: primeiro do STORE local
       let userData=STORE.users.find(x=>x.email===currentUser.email||x.id===currentUser.uid);
-      // Se Firebase está disponível, tenta buscar do Firestore
       if(!userData && db && auth){
         try{
           const snap=await db.collection('users').doc(currentUser.uid||currentUser.email).get();
           if(snap.exists) userData=snap.data();
         }catch(e){}
       }
-      // Fallback: se não encontrou, assume admin (evita perda de acesso)
       currentUserData=userData||{id:currentUser.uid||'admin',name:'Admin BIMAT',email:currentUser.email,role:'admin'};
       onLogin();
-    }catch(e){console.warn('Session restore:',e);}
+    }catch(e){
+      console.warn('Session restore:',e);
+      showLoginPage();
+    }
+  } else {
+    showLoginPage();
   }
-  // Mostra status Firebase na tela de configurações
   setTimeout(updateFirebaseStatus,500);
 });
+
+function showLoginPage(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('login-page').classList.add('active');
+}
 
 function updateFirebaseStatus(){
   const el=document.getElementById('fb-status');
