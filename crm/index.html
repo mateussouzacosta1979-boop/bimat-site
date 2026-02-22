@@ -1060,6 +1060,12 @@ async function fsParcelas_upsertMany(parcelas){
   await batch.commit();
   return true;
 }
+async function fsParcelas_upsert(parcela){
+  const now = new Date().toISOString();
+  const payload = { ...parcela, updatedAt: now, createdAt: parcela.createdAt||now };
+  await db.collection('parcelas').doc(parcela.id).set(payload, { merge:true });
+  return payload;
+}
 
 // Helper: garante que STORE.proposals / STORE.parcelas estão em memória (Firestore -> STORE)
 async function ensureProposalsLoaded(){
@@ -2128,14 +2134,30 @@ function openPaymentModal(id){
   document.getElementById('pay-obs').value='';
   openModal('payment-modal');
 }
-function savePayment(){
+async function savePayment(){
   const id=ge('pay-parcela-id'); const p=STORE.parcelas.find(x=>x.id===id); if(!p)return;
   p.status='Paga'; p.paidAt=ge('pay-date'); p.payMethod=document.getElementById('pay-method').value;
   p.paidAmount=parseFloat(ge('pay-amount'))||p.value; p.payObs=ge('pay-obs');
-  saveStore('parcelas'); auditLog('parcela',id,'payment',p.clientName+' '+p.parcela);
+  try{
+    if(isFirestoreReady()){ await fsParcelas_upsert(p); }
+    else { saveStore('parcelas'); }
+    localStorage.setItem('bimat_parcelas', JSON.stringify(STORE.parcelas));
+    auditLog('parcela',id,'payment',p.clientName+' '+p.parcela);
+  }catch(e){ showToast('Erro ao salvar pagamento: '+e.message,'error'); return; }
   closeModal('payment-modal'); loadFinancial(); renderFinancialStats(); showToast('Pagamento registrado!','success');
 }
-function cancelParcela(id){if(!confirm('Cancelar parcela?'))return;const p=STORE.parcelas.find(x=>x.id===id);if(p){p.status='Cancelada';saveStore('parcelas');loadFinancial();showToast('Parcela cancelada.','success');}}
+async function cancelParcela(id){
+  if(!confirm('Cancelar parcela?'))return;
+  const p=STORE.parcelas.find(x=>x.id===id); if(!p)return;
+  p.status='Cancelada';
+  try{
+    if(isFirestoreReady()){ await fsParcelas_upsert(p); }
+    else { saveStore('parcelas'); }
+    localStorage.setItem('bimat_parcelas', JSON.stringify(STORE.parcelas));
+    auditLog('parcela',id,'cancel',p.clientName+' '+p.parcela);
+  }catch(e){ p.status='Aberta'; showToast('Erro ao cancelar: '+e.message,'error'); return; }
+  loadFinancial(); showToast('Parcela cancelada.','success');
+}
 function openRenegotiationModal(id){
   const p=STORE.parcelas.find(x=>x.id===id); if(!p)return;
   document.getElementById('reneg-parcela-id').value=id;
@@ -2145,14 +2167,38 @@ function openRenegotiationModal(id){
   document.getElementById('reneg-reason').value='';
   openModal('renegotiation-modal');
 }
-function saveRenegotiation(){
+async function saveRenegotiation(){
   const id=ge('reneg-parcela-id'); const value=parseFloat(ge('reneg-value'))||0; const n=parseInt(ge('reneg-n'))||1;
   const firstDue=new Date(ge('reneg-first-due')+'T12:00'); const reason=ge('reneg-reason');
   if(!value||!n){showToast('Preencha todos os campos','error');return;}
   const orig=STORE.parcelas.find(x=>x.id===id); if(!orig)return;
-  orig.status='Renegociada'; const vp=value/n;
-  for(let i=0;i<n;i++){STORE.parcelas.push({id:'pa'+Date.now()+i,proposalId:orig.proposalId,clientId:orig.clientId,clientName:orig.clientName,service:orig.service,parcela:`RN${i+1}/${n}`,value:Math.round(vp*100)/100,due:addMonths(firstDue,i).toISOString().split('T')[0],status:'Aberta',isRenegotiation:true,renegReason:reason,createdAt:new Date().toISOString()});}
-  saveStore('parcelas'); auditLog('parcela',id,'renegotiation',orig.clientName+' — '+reason);
+  const prevStatus=orig.status;
+  orig.status='Renegociada';
+  const vp=value/n;
+  const novas=[];
+  for(let i=0;i<n;i++){
+    novas.push({
+      id:'pa'+Date.now()+i,proposalId:orig.proposalId,clientId:orig.clientId,
+      clientName:orig.clientName,service:orig.service,parcela:`RN${i+1}/${n}`,
+      value:Math.round(vp*100)/100,due:addMonths(firstDue,i).toISOString().split('T')[0],
+      status:'Aberta',isRenegotiation:true,renegReason:reason,
+      renegOriginalId:id,createdAt:new Date().toISOString()
+    });
+  }
+  try{
+    if(isFirestoreReady()){
+      await fsParcelas_upsert(orig);
+      await fsParcelas_upsertMany(novas);
+    } else {
+      saveStore('parcelas');
+    }
+    novas.forEach(p=>STORE.parcelas.push(p));
+    localStorage.setItem('bimat_parcelas', JSON.stringify(STORE.parcelas));
+    auditLog('parcela',id,'renegotiation',orig.clientName+' — '+(reason||'sem motivo'));
+  }catch(e){
+    orig.status=prevStatus;
+    showToast('Erro ao renegociar: '+e.message,'error'); return;
+  }
   closeModal('renegotiation-modal'); loadFinancial(); showToast('Renegociação criada!','success');
 }
 function switchFinTab(tab,btn){['receivable','renegotiation'].forEach(t=>document.getElementById('fin-tab-'+t).style.display=t===tab?'block':'none');document.querySelectorAll('#section-financial .tab').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
