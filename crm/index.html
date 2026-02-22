@@ -1148,6 +1148,54 @@ async function ensureUsersLoaded(){
   localStorage.setItem('bimat_users', JSON.stringify(STORE.users));
 }
 
+// =================== FIRESTORE: CONTRATOS ===================
+function _normalizeContract(docId, data){
+  const d = data || {};
+  return { id: docId, ...d, createdAt: _toISO(d.createdAt)||new Date().toISOString(), updatedAt: _toISO(d.updatedAt)||new Date().toISOString() };
+}
+async function fsContracts_list(){
+  const snap = await db.collection('contracts').orderBy('createdAt','desc').get();
+  return snap.docs.map(d => _normalizeContract(d.id, d.data()));
+}
+async function fsContracts_upsert(contract){
+  const now = new Date().toISOString();
+  const payload = { ...contract, updatedAt: now, createdAt: contract.createdAt||now };
+  await db.collection('contracts').doc(contract.id).set(payload, { merge:true });
+  return _normalizeContract(contract.id, payload);
+}
+async function fsContracts_delete(id){
+  await db.collection('contracts').doc(id).delete();
+}
+async function ensureContractsLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.contracts = await fsContracts_list();
+  localStorage.setItem('bimat_contracts', JSON.stringify(STORE.contracts));
+}
+
+// =================== FIRESTORE: TEMPLATES ===================
+function _normalizeTemplate(docId, data){
+  const d = data || {};
+  return { id: docId, ...d, createdAt: _toISO(d.createdAt)||new Date().toISOString() };
+}
+async function fsTemplates_list(){
+  const snap = await db.collection('templates').orderBy('createdAt','asc').get();
+  return snap.docs.map(d => _normalizeTemplate(d.id, d.data()));
+}
+async function fsTemplates_upsert(template){
+  const now = new Date().toISOString();
+  const payload = { ...template, updatedAt: now, createdAt: template.createdAt||now };
+  await db.collection('templates').doc(template.id).set(payload, { merge:true });
+  return _normalizeTemplate(template.id, payload);
+}
+async function fsTemplates_delete(id){
+  await db.collection('templates').doc(id).delete();
+}
+async function ensureTemplatesLoaded(){
+  if (!isFirestoreReady()) return;
+  STORE.templates = await fsTemplates_list();
+  localStorage.setItem('bimat_templates', JSON.stringify(STORE.templates));
+}
+
 // =================== FIRESTORE: PERMISSÕES CUSTOMIZADAS ===================
 // Permissões padrão por perfil (V=visualizar, C=criar/editar, D=excluir)
 const DEFAULT_PERMISSIONS = {
@@ -1308,21 +1356,24 @@ async function onLogin() {
   } else {
     try {
       await loadPermissionsFromFirestore();
-      const [clients, proposals, parcelas, processes, tasks, users] = await Promise.all([
+      const [clients, proposals, parcelas, processes, tasks, users, contracts, templates] = await Promise.all([
         fsClients_list().catch(e=>{console.warn('clients:',e.message);return STORE.clients;}),
         fsProposals_list().catch(e=>{console.warn('proposals:',e.message);return STORE.proposals;}),
         fsParcelas_list().catch(e=>{console.warn('parcelas:',e.message);return STORE.parcelas;}),
         fsProcesses_list().catch(e=>{console.warn('processes:',e.message);return STORE.processes;}),
         fsTasks_list().catch(e=>{console.warn('tasks:',e.message);return STORE.tasks;}),
         fsUsers_list().catch(e=>{console.warn('users:',e.message);return STORE.users;}),
+        fsContracts_list().catch(e=>{console.warn('contracts:',e.message);return STORE.contracts;}),
+        fsTemplates_list().catch(e=>{console.warn('templates:',e.message);return STORE.templates;}),
       ]);
       STORE.clients=clients; STORE.proposals=proposals; STORE.parcelas=parcelas;
       STORE.processes=processes; STORE.tasks=tasks; STORE.users=users;
+      STORE.contracts=contracts; STORE.templates=templates;
       if(currentUser){
         const fsUser=users.find(u=>u.id===currentUser.uid||u.email===currentUser.email);
         if(fsUser) currentUserData=fsUser;
       }
-      ['clients','proposals','parcelas','processes','tasks','users'].forEach(k=>localStorage.setItem('bimat_'+k,JSON.stringify(STORE[k])));
+      ['clients','proposals','parcelas','processes','tasks','users','contracts','templates'].forEach(k=>localStorage.setItem('bimat_'+k,JSON.stringify(STORE[k])));
     } catch(e) {
       console.warn('Falha ao carregar do Firestore:', e.message);
     }
@@ -1377,8 +1428,14 @@ function navigate(section) {
   document.getElementById('topbar-breadcrumb').textContent='BIMAT CRM › '+(PAGE_TITLES[section]||section);
   loadSection(section);
 }
-function loadSection(s){switch(s){case 'dashboard':loadDashboard();break;case 'clients':loadClients();break;case 'funnel':loadFunnel();break;case 'proposals':loadProposals();break;case 'contracts':loadContracts();break;case 'processes':loadProcessesSection();break;case 'tasks':loadTasksSection();break;case 'financial':loadFinancial();break;case 'reports':initReports();break;case 'users':loadUsers();break;case 'settings':loadSettings();break;}}
+function loadSection(s){switch(s){case 'dashboard':loadDashboard();break;case 'clients':loadClients();break;case 'funnel':loadFunnel();break;case 'proposals':loadProposals();break;case 'contracts':loadContractsSection();break;case 'processes':loadProcessesSection();break;case 'tasks':loadTasksSection();break;case 'financial':loadFinancial();break;case 'reports':initReports();break;case 'users':loadUsers();break;case 'settings':loadSettings();break;}}
 
+async function loadContractsSection(){
+  try{
+    await Promise.all([ensureContractsLoaded(), ensureTemplatesLoaded()]);
+  }catch(e){ console.warn('contracts Firestore:',e.message); }
+  loadContracts();
+}
 async function loadProcessesSection(){
   try{ await ensureProcessesLoaded(); }catch(e){ console.warn('processes Firestore:',e.message); }
   loadProcesses();
@@ -1752,14 +1809,21 @@ function loadTemplates(){
   document.getElementById('templates-grid').innerHTML=STORE.templates.map(t=>`<div class="card" style="padding:20px"><div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px">${t.name}</div><span class="badge badge-navy">${t.service}</span><div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-outline btn-sm" onclick="openTemplateModal('${t.id}')">Editar</button><button class="btn btn-danger btn-sm" onclick="deleteTemplate('${t.id}')">Excluir</button></div></div>`).join('')+`<div style="border:2px dashed var(--border);border-radius:var(--r-lg);padding:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent;min-height:120px" onclick="openTemplateModal()"><div style="text-align:center;color:var(--muted);font-size:13px">+ Novo Template</div></div>`;
 }
 function getDefaultContractContent(){return`CONTRATO DE PRESTAÇÃO DE SERVIÇOS\n\nCLÁUSULA 1 – DAS PARTES\nCONTRATADA: BIMAT Soluções Jurídicas.\nCONTRATANTE: {{CLIENTE_NOME}}, CPF {{CLIENTE_CPF}}, residente em {{CLIENTE_ENDERECO}}.\n\nCLÁUSULA 2 – DO OBJETO\nA CONTRATADA realizará {{SERVICO}} perante o INSS.\n\nCLÁUSULA 3 – DA REMUNERAÇÃO\nValor: {{VALOR_TOTAL}} — {{FORMA_PAGAMENTO}}.\n\nCLÁUSULA 4 – DO FORO\nForo de São Paulo/SP.\n\nSão Paulo, {{DATA_HOJE}}.`;}
-function generateContract(proposal){
+async function generateContract(proposal){
   const template=STORE.templates[0]; const client=STORE.clients.find(c=>c.id===proposal.clientId);
   const addr=[client?.street,client?.number,client?.neighborhood,client?.city+'/'+(client?.state||'SP')].filter(Boolean).join(', ')||'—';
   const raw=(template?.content||getDefaultContractContent()).replace(/\\n/g,'\n');
-  const content=raw.replace(/{{CLIENTE_NOME}}/g,client?.name||'—').replace(/{{CLIENTE_CPF}}/g,client?.cpf||'—').replace(/{{CLIENTE_ENDERECO}}/g,addr).replace(/{{SERVICO}}/g,proposal.service).replace(/{{VALOR_TOTAL}}/g,'R$ '+fmt(proposal.value)).replace(/{{FORMA_PAGAMENTO}}/g,paymentLabel(proposal.payment,proposal.nParcelas)).replace(/{{DATA_HOJE}}/g,new Date().toLocaleDateString('pt-BR'));
+  const contractContent=raw.replace(/{{CLIENTE_NOME}}/g,client?.name||'—').replace(/{{CLIENTE_CPF}}/g,client?.cpf||'—').replace(/{{CLIENTE_ENDERECO}}/g,addr).replace(/{{SERVICO}}/g,proposal.service).replace(/{{VALOR_TOTAL}}/g,'R$ '+fmt(proposal.value)).replace(/{{FORMA_PAGAMENTO}}/g,paymentLabel(proposal.payment,proposal.nParcelas)).replace(/{{DATA_HOJE}}/g,new Date().toLocaleDateString('pt-BR'));
   const prev=STORE.contracts.find(c=>c.proposalId===proposal.id); const version=prev?prev.version+1:1;
-  const contract={id:'ct'+Date.now(),proposalId:proposal.id,clientId:proposal.clientId,clientName:proposal.clientName,service:proposal.service,version,content,signed:false,createdAt:new Date().toISOString()};
-  STORE.contracts.unshift(contract); saveStore('contracts'); return contract;
+  const contract={id:'ct'+Date.now(),proposalId:proposal.id,clientId:proposal.clientId,clientName:proposal.clientName,service:proposal.service,version,content:contractContent,signed:false,createdAt:new Date().toISOString()};
+  try{
+    if(isFirestoreReady()){ await fsContracts_upsert(contract); }
+    else { saveStore('contracts'); }
+    STORE.contracts.unshift(contract);
+    localStorage.setItem('bimat_contracts', JSON.stringify(STORE.contracts));
+    auditLog('contract', contract.id, 'create', contract.clientName+' — '+contract.service+' v'+version);
+  }catch(e){ console.warn('generateContract Firestore:', e.message); showToast('Erro ao salvar contrato: '+e.message,'error'); }
+  return contract;
 }
 function openContractView(id){
   const c=STORE.contracts.find(x=>x.id===id); if(!c)return;
@@ -1769,9 +1833,25 @@ function openContractView(id){
   document.getElementById('contract-preview-content').innerHTML=`<div class="cp-header"><div class="cp-logo-text">BIMAT</div><div class="cp-subtitle">Soluções Jurídicas</div></div><div class="cp-title">CONTRATO DE PRESTAÇÃO DE SERVIÇOS</div>${lines.map(l=>!l.trim()?'<br>':l.startsWith('CLÁUSULA')||l.startsWith('CONTRAT')||l.startsWith('OUTORG')?`<span class="cp-clause">${l}</span>`:`<p>${l}</p>`).join('')}<div class="cp-sign"><div class="sign-block"><div class="sign-line"></div><div class="sign-name">BIMAT Soluções Jurídicas</div><div class="sign-role">CONTRATADA</div></div><div class="sign-block"><div class="sign-line"></div><div class="sign-name">${c.clientName}</div><div class="sign-role">CONTRATANTE</div></div></div>`;
   openModal('contract-view-modal');
 }
-function openContractForProposal(proposalId){const c=STORE.contracts.find(x=>x.proposalId===proposalId);if(c){navigate('contracts');setTimeout(()=>openContractView(c.id),100);}else{const p=STORE.proposals.find(x=>x.id===proposalId);if(p){generateContract(p);navigate('contracts');setTimeout(()=>openContractView(STORE.contracts[0]?.id),100);}}}
-function toggleContractSigned(id){const c=STORE.contracts.find(x=>x.id===id);if(c){c.signed=!c.signed;saveStore('contracts');loadContracts();showToast(c.signed?'Marcado como assinado':'Assinatura removida','success');}}
-function regenerateContract(){const id=window._viewContractId;const c=STORE.contracts.find(x=>x.id===id);if(c){const p=STORE.proposals.find(x=>x.id===c.proposalId);if(p){closeModal('contract-view-modal');generateContract(p);loadContracts();showToast('Nova versão gerada!','success');}}}
+async function openContractForProposal(proposalId){
+  const c=STORE.contracts.find(x=>x.proposalId===proposalId);
+  if(c){navigate('contracts');setTimeout(()=>openContractView(c.id),100);}
+  else{const p=STORE.proposals.find(x=>x.id===proposalId);if(p){await generateContract(p);navigate('contracts');setTimeout(()=>openContractView(STORE.contracts[0]?.id),100);}}
+}
+async function toggleContractSigned(id){
+  const c=STORE.contracts.find(x=>x.id===id); if(!c)return;
+  c.signed=!c.signed;
+  try{
+    if(isFirestoreReady()){ await fsContracts_upsert(c); }
+    else { saveStore('contracts'); }
+    localStorage.setItem('bimat_contracts', JSON.stringify(STORE.contracts));
+  }catch(e){ c.signed=!c.signed; showToast('Erro: '+e.message,'error'); return; }
+  loadContracts(); showToast(c.signed?'Marcado como assinado':'Assinatura removida','success');
+}
+async function regenerateContract(){
+  const id=window._viewContractId; const c=STORE.contracts.find(x=>x.id===id);
+  if(c){const p=STORE.proposals.find(x=>x.id===c.proposalId);if(p){closeModal('contract-view-modal');await generateContract(p);loadContracts();showToast('Nova versão gerada!','success');}}
+}
 function downloadContractPDF(){downloadContractPDFById(window._viewContractId);}
 function downloadContractPDFById(id){const c=STORE.contracts.find(x=>x.id===id);if(c)genContractPDF(c);}
 function genContractPDF(contract){
@@ -1808,13 +1888,27 @@ function openTemplateModal(id){
   document.getElementById('template-modal').dataset.editId=id||'';
   openModal('template-modal');
 }
-function saveTemplate(){
+async function saveTemplate(){
   const id=document.getElementById('template-modal').dataset.editId||'tmpl'+Date.now();
   const name=document.getElementById('tmpl-name').value.trim(); if(!name){showToast('Nome é obrigatório','error');return;}
-  upsert(STORE.templates,{id,name,service:document.getElementById('tmpl-service').value,content:document.getElementById('tmpl-content').value,createdAt:new Date().toISOString()});
-  saveStore('templates'); closeModal('template-modal'); loadTemplates(); showToast('Template salvo!','success');
+  const tmpl={id,name,service:document.getElementById('tmpl-service').value,content:document.getElementById('tmpl-content').value,createdAt:STORE.templates.find(t=>t.id===id)?.createdAt||new Date().toISOString()};
+  try{
+    if(isFirestoreReady()){ await fsTemplates_upsert(tmpl); }
+    else { saveStore('templates'); }
+    upsert(STORE.templates, tmpl);
+    localStorage.setItem('bimat_templates', JSON.stringify(STORE.templates));
+  }catch(e){ showToast('Erro ao salvar template: '+e.message,'error'); return; }
+  closeModal('template-modal'); loadTemplates(); showToast('Template salvo!','success');
 }
-function deleteTemplate(id){if(!confirm('Excluir template?'))return;STORE.templates=STORE.templates.filter(t=>t.id!==id);saveStore('templates');loadTemplates();}
+async function deleteTemplate(id){
+  if(!confirm('Excluir template?'))return;
+  try{
+    if(isFirestoreReady()){ await fsTemplates_delete(id); }
+    STORE.templates=STORE.templates.filter(t=>t.id!==id);
+    localStorage.setItem('bimat_templates', JSON.stringify(STORE.templates));
+  }catch(e){ showToast('Erro ao excluir template: '+e.message,'error'); return; }
+  loadTemplates();
+}
 function switchContractTab(tab,btn){['list','templates','docs'].forEach(t=>document.getElementById('contracts-tab-'+t).style.display=t===tab?'block':'none');document.querySelectorAll('#section-contracts .tab').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
 
 // =================== PROCESSES ===================
