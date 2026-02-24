@@ -1200,32 +1200,146 @@
     .form-success p { font-size: 14px; color: var(--muted); }
 
     /* ===================== RESPONSIVE ===================== */
+
+    /* ════════════════════════════════════════════════════
+       RESPONSIVIDADE — 4 BREAKPOINTS
+       1024px  → Tablet paisagem / notebook pequeno
+        768px  → Tablet retrato
+        480px  → Smartphone grande
+        360px  → Smartphone pequeno
+    ════════════════════════════════════════════════════ */
+
+    /* Mobile menu */
+    .mobile-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1098;
+      background: rgba(6,30,56,.55); backdrop-filter: blur(4px);
+    }
+    .mobile-menu {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 1099;
+      width: min(320px, 88vw);
+      background: var(--white);
+      box-shadow: -8px 0 48px rgba(11,61,107,.22);
+      display: flex; flex-direction: column;
+      transform: translateX(110%);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-overlay.open { display: block; }
+    .mobile-menu-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .mobile-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); padding: 6px; border-radius: var(--r-sm);
+      transition: background .2s;
+    }
+    .mobile-close:hover { background: var(--cream); color: var(--navy); }
+    .mobile-nav {
+      display: flex; flex-direction: column; padding: 12px 12px;
+      gap: 4px; flex: 1;
+    }
+    .mobile-nav-a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 14px; border-radius: var(--r-md);
+      font-size: 15px; font-weight: 500; color: var(--text);
+      transition: all .2s;
+    }
+    .mobile-nav-a:hover { background: var(--cream); color: var(--navy); }
+    .mobile-nav-a.blog { color: var(--gold); font-weight: 700; background: rgba(201,168,76,.06); }
+    .mobile-nav-a.blog:hover { background: rgba(201,168,76,.12); }
+    .mobile-menu-footer {
+      padding: 16px 20px 28px; border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .blog-link { color: var(--gold) !important; font-weight: 600 !important; }
+
+    /* ── 1024px: Tablet landscape / Notebook pequeno ── */
     @media (max-width: 1024px) {
-      .hero-grid { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr; gap: 0; }
       .lead-card { display: none; }
+      .hero { min-height: auto; padding: 60px 0 48px; }
+      .hero-btns { flex-wrap: wrap; gap: 12px; }
       .benefits-grid { grid-template-columns: repeat(2, 1fr); }
       .about-grid { grid-template-columns: 1fr; }
       .about-img-wrap { aspect-ratio: 16/7; max-height: 340px; }
+      .about-features { grid-template-columns: repeat(2,1fr); }
       .process-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
       .process-steps::before { display: none; }
-      .testimonials { grid-template-columns: 1fr; }
+      .testimonials { grid-template-columns: 1fr 1fr; gap: 20px; }
       .urgency-inner { grid-template-columns: 1fr; text-align: center; }
-      .urgency-action { flex-direction: row; }
+      .urgency-action { flex-direction: row; justify-content: center; }
       .lead-section-inner { grid-template-columns: 1fr; }
       .faq-inner { grid-template-columns: 1fr; }
       .faq-sticky { position: static; }
-      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ── 768px: Tablet retrato ── */
     @media (max-width: 768px) {
       nav, .header-actions { display: none; }
-      .ham { display: block; }
-      .benefits-grid { grid-template-columns: 1fr; }
-      .stats-inner { gap: 8px; }
+      .ham { display: flex; align-items: center; justify-content: center; padding: 8px; }
+      .container { padding: 0 16px; }
+      .hero { min-height: auto; padding: 48px 0 40px; }
+      .hero h1 { font-size: clamp(1.9rem, 6vw, 2.8rem); }
+      .hero-desc { font-size: .95rem; }
+      .hero-btns { flex-direction: column; gap: 10px; }
+      .hero-btns .btn-cta { justify-content: center; width: 100%; }
+      .hero-trust { flex-wrap: wrap; gap: 16px; }
+      .hero-trust-divider { display: none; }
+      .stats-inner { gap: 8px; flex-wrap: wrap; }
       .stat-divider { display: none; }
-      .hero h1 { font-size: 36px; }
-      .hero-trust { gap: 20px; }
-      .urgency-inner { padding: 40px 28px; }
+      .stat-item { min-width: 100px; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .about-features { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr; }
+      .testimonials { grid-template-columns: 1fr; }
+      .urgency-inner { padding: 36px 24px; }
+      .urgency-action { flex-direction: column; align-items: center; }
+      .team-grid { grid-template-columns: 1fr; }
+      .trust-logos { gap: 24px; flex-wrap: wrap; justify-content: center; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .section-tag { font-size: 10px; }
+      section { padding: 56px 0 !important; }
+    }
+
+    /* ── 480px: Smartphone grande ── */
+    @media (max-width: 480px) {
+      .container { padding: 0 14px; }
+      .header-inner { height: 56px; }
+      .logo-name { font-size: 17px; }
+      .logo-sub { display: none; }
+      .logo-mark { width: 38px; height: 38px; }
+      .hero { padding: 36px 0 32px; }
+      .hero h1 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+      .hero-eyebrow { font-size: 10px; }
+      .hero-btns .btn-cta.lg { padding: 14px 20px; font-size: 14px; }
+      .hero-trust { gap: 12px; }
+      .hero-trust-num { font-size: 1.3rem; }
+      .stats-inner { justify-content: center; gap: 16px; }
+      .stat-val { font-size: 1.6rem; }
+      section { padding: 44px 0 !important; }
+      .section-title-main { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+      .benefit-card { padding: 24px 20px; }
+      .process-step { padding: 24px 20px; }
+      .urgency-inner { padding: 28px 18px; }
+      .faq-question { padding: 16px 18px; font-size: 14px; }
+      .faq-body p { padding: 0 18px 16px; font-size: .9rem; }
+      .footer-bottom { font-size: 11px; }
+      .wa-btn span { display: none; }
+      .wa-float { bottom: 16px; right: 16px; }
+      .btn-cta.lg { padding: 13px 20px !important; font-size: 14px !important; }
+    }
+
+    /* ── 360px: Smartphone pequeno ── */
+    @media (max-width: 360px) {
+      .container { padding: 0 12px; }
+      .hero h1 { font-size: 1.6rem; }
+      .logo-mark { width: 34px; height: 34px; }
+      .hero-btns .btn-cta.lg { padding: 12px 16px; font-size: 13px; }
     }
   </style>
 </head>
@@ -1244,12 +1358,12 @@
           <div class="logo-sub">Soluções Jurídicas</div>
         </div>
       </a>
-      <nav>
+      <nav id="main-nav">
         <a href="#beneficios" class="nav-a">Benefícios</a>
         <a href="#como-funciona" class="nav-a">Como Funciona</a>
         <a href="#depoimentos" class="nav-a">Depoimentos</a>
         <a href="#faq" class="nav-a">Dúvidas</a>
-        <a href="./blog/" class="nav-a" style="color:var(--gold);font-weight:600;">📝 Blog</a>
+        <a href="./blog/" class="nav-a blog-link">📝 Blog</a>
       </nav>
       <div class="header-actions">
         <a href="tel:+5511993193084" class="btn-ghost">
@@ -1263,7 +1377,53 @@
       </button>
     </div>
   </div>
-</header>
+
+<!-- ==================== MOBILE MENU ==================== -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div class="logo">
+      <div class="logo-mark"><img src="./icone.png" alt="Bimat" style="width:100%;height:100%;object-fit:contain;border-radius:8px;"/></div>
+      <div class="logo-text">
+        <div class="logo-name">BIMAT</div>
+        <div class="logo-sub">Soluções Jurídicas</div>
+      </div>
+    </div>
+    <button class="mobile-close" onclick="closeMenu()" aria-label="Fechar menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <a href="#beneficios" class="mobile-nav-a" onclick="closeMenu()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Benefícios
+    </a>
+    <a href="#como-funciona" class="mobile-nav-a" onclick="closeMenu()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Como Funciona
+    </a>
+    <a href="#depoimentos" class="mobile-nav-a" onclick="closeMenu()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Depoimentos
+    </a>
+    <a href="#faq" class="mobile-nav-a" onclick="closeMenu()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Dúvidas
+    </a>
+    <a href="./blog/" class="mobile-nav-a blog">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Blog & Artigos
+    </a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <a href="https://wa.me/5511993193084?text=Olá!+Vim+pelo+site+da+Bimat." class="btn-cta wapp" target="_blank" rel="noopener" style="justify-content:center;width:100%;padding:15px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Falar no WhatsApp
+    </a>
+    <a href="#analise" class="btn-cta gold" onclick="closeMenu()" style="justify-content:center;width:100%;padding:15px;margin-top:10px;">Análise Gratuita</a>
+    <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted)">(11) 99319-3084 · Seg–Sex 09h–18h</div>
+  </div>
+</div>
 
 <!-- ==================== HERO ==================== -->
 <section class="hero">
@@ -1952,8 +2112,8 @@
         <div class="footer-col-title">Blog & Artigos</div>
         <ul class="footer-links">
           <li><a href="./blog/" style="color:inherit">📝 Todos os artigos</a></li>
-          <li><a href="./blog/como-dar-entrada-auxilio-doenca-inss/" style="color:inherit">Auxílio-Doença INSS</a></li>
-          <li><a href="./blog/bpc-loas-quem-tem-direito/" style="color:inherit">BPC / LOAS 2025</a></li>
+          <li><a href="./blog/como-dar-entrada-auxilio-doenca-inss/" style="color:inherit">Auxílio-Doença</a></li>
+          <li><a href="./blog/bpc-loas-quem-tem-direito/" style="color:inherit">BPC / LOAS</a></li>
           <li><a href="./blog/inss-negou-o-que-fazer/" style="color:inherit">INSS negou: o que fazer</a></li>
           <li><a href="./blog/pensao-por-morte-documentos/" style="color:inherit">Pensão por Morte</a></li>
         </ul>
@@ -2060,10 +2220,19 @@
   }, { threshold: 0.5 });
   counterObs.observe(counterEl);
 
-  /* ========= MENU MOBILE (placeholder) ========= */
+  /* ========= MENU MOBILE ========= */
   function toggleMenu() {
-    alert('Menu mobile: adicione sua lógica aqui!');
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('mobileOverlay').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
   }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('mobileOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Fechar com ESC
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
   /* ========= SMOOTH SCROLL ========= */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
