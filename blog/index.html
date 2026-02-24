@@ -723,6 +723,135 @@
       .footer-inner { grid-template-columns: 1fr; }
       .nl-row { flex-direction: column; }
     }
+  
+    /* ════════════════════════════════════════════════════
+       RESPONSIVIDADE — 4 BREAKPOINTS
+    ════════════════════════════════════════════════════ */
+
+    /* Mobile menu overlay (blog/artigos) */
+    .mob-overlay {
+      display:none;position:fixed;inset:0;z-index:1098;
+      background:rgba(6,30,56,.55);backdrop-filter:blur(4px);
+    }
+    .mob-menu {
+      position:fixed;top:0;right:0;bottom:0;z-index:1099;
+      width:min(300px,88vw);background:var(--white);
+      box-shadow:-8px 0 48px rgba(11,61,107,.22);
+      display:flex;flex-direction:column;
+      transform:translateX(110%);
+      transition:transform .35s cubic-bezier(.4,0,.2,1);
+      overflow-y:auto;
+    }
+    .mob-menu.open{transform:translateX(0)}
+    .mob-overlay.open{display:block}
+    .mob-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+    .mob-close{background:none;border:none;cursor:pointer;color:var(--muted);padding:6px;border-radius:var(--r-sm);transition:background .2s}
+    .mob-close:hover{background:var(--cream);color:var(--navy)}
+    .mob-nav{display:flex;flex-direction:column;padding:10px;gap:2px;flex:1}
+    .mob-nav-a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r-md);font-size:15px;font-weight:500;color:var(--text);transition:all .2s}
+    .mob-nav-a:hover{background:var(--cream);color:var(--navy)}
+    .mob-nav-a.gold{color:var(--gold);font-weight:700}
+    .mob-footer{padding:16px 18px 28px;border-top:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+
+    /* ── 1024px ── */
+    @media(max-width:1024px){
+      .blog-grid{grid-template-columns:1fr}
+      .sidebar{order:-1}
+      .sidebar-card.cta{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+      .newsletter-inner{grid-template-columns:1fr;gap:28px}
+      .footer-inner{grid-template-columns:1fr 1fr;gap:28px}
+      .articles-grid{grid-template-columns:repeat(2,1fr)}
+      .related-grid{grid-template-columns:repeat(2,1fr)}
+      .blog-hero-stats{gap:24px}
+      /* artigo */
+      .art-grid{grid-template-columns:1fr}
+    }
+
+    /* ── 768px ── */
+    @media(max-width:768px){
+      nav{display:none}
+      .btn-cta-sm{display:none}
+      .ham-blog{display:flex !important}
+      .container{padding:0 16px}
+      /* blog hero */
+      .blog-hero{padding:48px 0 40px}
+      .blog-hero h1{font-size:clamp(1.7rem,5.5vw,2.4rem)}
+      .blog-hero p{font-size:.9rem}
+      .hero-search{max-width:100%}
+      .blog-hero-stats{gap:16px;padding-top:24px;margin-top:28px;flex-wrap:wrap}
+      .hero-stat-val{font-size:1.5rem}
+      /* categorias */
+      .cats-bar{top:56px}
+      /* blog grid */
+      .articles-grid{grid-template-columns:1fr}
+      .article-featured{grid-template-columns:1fr}
+      .featured-img{min-height:200px}
+      .featured-content{padding:24px 22px}
+      .featured-content h2{font-size:1.35rem}
+      /* sidebar */
+      .sidebar-card.cta{grid-template-columns:1fr}
+      /* newsletter */
+      .nl-row{flex-direction:column}
+      /* footer */
+      .footer-inner{grid-template-columns:1fr;gap:24px}
+      /* related */
+      .related-grid{grid-template-columns:1fr}
+      /* artigo */
+      .art-hero{padding:40px 0 0}
+      .art-hero h1{font-size:clamp(1.6rem,5vw,2.2rem)}
+      .art-hero-img img{height:220px}
+      .art-body{padding:24px 18px}
+      .art-author{flex-direction:column;text-align:center}
+      .art-share{flex-wrap:wrap;gap:8px}
+      .docs-table{font-size:.8rem}
+      .docs-table th,.docs-table td{padding:8px 10px}
+      .step{flex-direction:column;gap:10px}
+    }
+
+    /* ── 480px ── */
+    @media(max-width:480px){
+      .container{padding:0 14px}
+      .header-inner{height:54px}
+      .logo-name{font-size:17px}
+      .logo-sub{display:none}
+      .logo-mark{width:36px;height:36px}
+      /* blog */
+      .cats-inner{gap:6px}
+      .cat-btn{padding:6px 12px;font-size:12px}
+      .blog-hero{padding:36px 0 32px}
+      .blog-hero h1{font-size:1.65rem}
+      .blog-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .hero-search input{font-size:14px}
+      .card-body h3{font-size:1rem}
+      .article-list-item{flex-direction:column;gap:8px}
+      .list-num{font-size:1.4rem}
+      /* artigo */
+      .art-body{padding:20px 16px}
+      .art-hero-meta{gap:10px;font-size:12px}
+      .art-cta-inline{padding:24px 18px}
+      .art-cta-inline h3{font-size:1.25rem}
+      .btn-wapp-inline{padding:11px 18px;font-size:13px}
+      .callout{padding:14px 16px}
+      .related-body h4{font-size:.85rem}
+      /* newsletter */
+      .newsletter-text h2{font-size:1.5rem}
+      /* footer */
+      .footer-bottom{font-size:11px}
+      /* whatsapp float */
+      .wa-float{bottom:14px;right:14px}
+      .wa-btn{padding:11px 16px;font-size:13px;gap:8px}
+    }
+
+    /* ── 360px ── */
+    @media(max-width:360px){
+      .container{padding:0 12px}
+      .blog-hero h1{font-size:1.5rem}
+      .art-hero h1{font-size:1.45rem}
+      .logo-mark{width:32px;height:32px}
+      .logo-name{font-size:16px}
+      .blog-hero-stats{grid-template-columns:1fr}
+    }
+
   </style>
 </head>
 <body>
@@ -750,9 +879,39 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Análise Gratuita
       </a>
+      <button class="ham-blog" id="hamBtn" onclick="toggleMobMenu()" aria-label="Menu" style="display:none;background:none;border:none;cursor:pointer;color:var(--text);padding:8px;margin-left:auto">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- MOBILE MENU -->
+<div class="mob-overlay" id="mobOverlay" onclick="closeMobMenu()"></div>
+<div class="mob-menu" id="mobMenu">
+  <div class="mob-header">
+    <div class="logo">
+      <div class="logo-mark"><img src="./icone.png" alt="BIMAT" style="width:100%;height:100%;object-fit:contain;border-radius:8px"/></div>
+      <div class="logo-text"><div class="logo-name">BIMAT</div><div class="logo-sub">Soluções Jurídicas</div></div>
+    </div>
+    <button class="mob-close" onclick="closeMobMenu()" aria-label="Fechar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mob-nav">
+    <a href="https://bimat.com.br/#servicos" class="mob-nav-a" onclick="closeMobMenu()">Serviços</a>
+    <a href="https://bimat.com.br/#sobre" class="mob-nav-a" onclick="closeMobMenu()">Sobre</a>
+    <a href="./" class="mob-nav-a" onclick="closeMobMenu()">Blog</a>
+    <a href="https://bimat.com.br/#contato" class="mob-nav-a" onclick="closeMobMenu()">Contato</a>
+  </nav>
+  <div class="mob-footer">
+    <a href="https://wa.me/5511993193084?text=Olá!+Vim+pelo+blog+da+Bimat+e+quero+análise+gratuita." target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:linear-gradient(135deg,#22C55E,#16A34A);color:white;border-radius:var(--r-sm);font-size:14px;font-weight:700">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Falar no WhatsApp
+    </a>
+    <div style="text-align:center;font-size:12px;color:var(--muted)">(11) 99319-3084 · Seg–Sex 09h–18h</div>
+  </div>
+</div>
 
 <!-- ══════════════════════ BREADCRUMB ══════════════════════ -->
 <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -1154,6 +1313,20 @@
       if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  /* MOBILE MENU */
+  function toggleMobMenu(){
+    document.getElementById('mobMenu').classList.toggle('open');
+    document.getElementById('mobOverlay').classList.toggle('open');
+    document.body.style.overflow=document.getElementById('mobMenu').classList.contains('open')?'hidden':'';
+  }
+  function closeMobMenu(){
+    document.getElementById('mobMenu').classList.remove('open');
+    document.getElementById('mobOverlay').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobMenu()});
+
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
   /* ── Filtro de categorias ── */
