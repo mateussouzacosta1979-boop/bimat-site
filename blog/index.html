@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-  <!-- ════ GOOGLE ANALYTICS 4 ════ -->
-  <script async
-    src="https://www.googletagmanager.com/gtag/js?id=G-7NSCKW36T1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-7NSCKW36T1');
-  </script>
-
-  <!-- ════ GOOGLE SEARCH CONSOLE ════ -->
-<meta name="google-site-verification" content="0VEfsoxqxWNaBadanvK0YbQHGSwqozEAQQqHTRDVAuc" />
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -226,7 +212,7 @@
     /* ══════════ HERO DO BLOG ══════════ */
     .blog-hero {
       background: var(--navy-deep);
-      padding: 72px 0 60px;
+      padding: 44px 0 36px;
       position: relative;
       overflow: hidden;
     }
@@ -251,7 +237,83 @@
         linear-gradient(90deg, var(--gold) 1px, transparent 1px);
       background-size: 48px 48px;
     }
-    .blog-hero-content { position: relative; z-index: 1; }
+    .blog-hero-inner {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 48px;
+      align-items: start;
+    }
+    .blog-hero-content { }
+    /* Card do artigo em destaque no hero */
+    .hero-featured-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      transition: transform .3s, box-shadow .3s;
+      text-decoration: none;
+      display: block;
+    }
+    .hero-featured-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 56px rgba(0,0,0,.4);
+      border-color: rgba(201,168,76,.3);
+    }
+    .hero-card-img {
+      position: relative;
+      height: 178px;
+      overflow: hidden;
+    }
+    .hero-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s;
+    }
+    .hero-featured-card:hover .hero-card-img img { transform: scale(1.05); }
+    .hero-card-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(6,30,56,.85));
+    }
+    .hero-card-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: linear-gradient(135deg,#EF4444,#DC2626);
+      color: white; font-size: 10px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
+      letter-spacing: .5px;
+      box-shadow: 0 4px 12px rgba(220,38,38,.4);
+    }
+    .hero-card-body {
+      padding: 16px 20px 18px;
+    }
+    .hero-card-cat {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--gold-lt); margin-bottom: 8px;
+    }
+    .hero-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; color: white; line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .hero-card-desc {
+      font-size: .825rem; color: rgba(255,255,255,.55);
+      line-height: 1.6; margin-bottom: 16px;
+    }
+    .hero-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-card-meta { font-size: 12px; color: rgba(255,255,255,.4); }
+    .hero-card-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; background: var(--gold);
+      color: var(--navy-deep); border-radius: 20px;
+      font-size: 12px; font-weight: 700;
+      transition: background .2s, transform .15s;
+    }
+    .hero-featured-card:hover .hero-card-cta {
+      background: var(--gold-lt); transform: translateX(2px);
+    }
     .blog-tag {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 4px 12px; border-radius: 20px;
@@ -262,15 +324,15 @@
       margin-bottom: 20px;
     }
     .blog-hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-size: clamp(1.9rem, 4vw, 3rem);
       color: var(--white);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       max-width: 700px;
     }
     .blog-hero h1 em { color: var(--gold-lt); font-style: italic; }
     .blog-hero p {
-      font-size: 1.1rem; color: rgba(255,255,255,.72);
-      max-width: 560px; margin-bottom: 32px;
+      font-size: 1rem; color: rgba(255,255,255,.65);
+      max-width: 560px; margin-bottom: 20px;
     }
     .hero-search {
       display: flex; max-width: 520px;
@@ -295,8 +357,8 @@
     }
     .hero-search button:hover { background: var(--gold-lt); }
     .blog-hero-stats {
-      display: flex; gap: 32px; margin-top: 40px;
-      padding-top: 32px;
+      display: flex; gap: 32px; margin-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid rgba(255,255,255,.1);
     }
     .hero-stat-val {
@@ -304,6 +366,8 @@
       font-size: 2rem; font-weight: 700; color: var(--gold-lt);
     }
     .hero-stat-lbl { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 2px; }
+    .hero-stat-item { display: flex; flex-direction: column; }
+    .hero-stat-sep { width: 1px; height: 36px; background: rgba(255,255,255,.12); align-self: center; }
 
     /* ══════════ CATEGORIAS ══════════ */
     .cats-bar {
@@ -769,6 +833,8 @@
 
     /* ── 1024px ── */
     @media(max-width:1024px){
+      .blog-hero-inner{grid-template-columns:1fr;gap:32px}
+      .hero-featured-card{max-width:520px}
       .blog-grid{grid-template-columns:1fr}
       .sidebar{order:-1}
       .sidebar-card.cta{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
@@ -783,12 +849,15 @@
 
     /* ── 768px ── */
     @media(max-width:768px){
+      .blog-hero-inner{gap:24px}
+      .hero-featured-card{display:none}
+      .hero-stat-sep{display:none}
       nav{display:none}
       .btn-cta-sm{display:none}
       .ham-blog{display:flex !important}
       .container{padding:0 16px}
       /* blog hero */
-      .blog-hero{padding:48px 0 40px}
+      .blog-hero{padding:36px 0 28px}
       .blog-hero h1{font-size:clamp(1.7rem,5.5vw,2.4rem)}
       .blog-hero p{font-size:.9rem}
       .hero-search{max-width:100%}
@@ -832,7 +901,7 @@
       /* blog */
       .cats-inner{gap:6px}
       .cat-btn{padding:6px 12px;font-size:12px}
-      .blog-hero{padding:36px 0 32px}
+      .blog-hero{padding:28px 0 20px}
       .blog-hero h1{font-size:1.65rem}
       .blog-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
       .hero-search input{font-size:14px}
@@ -928,45 +997,77 @@
 </div>
 
 <!-- ══════════════════════ BREADCRUMB ══════════════════════ -->
-<nav class="breadcrumb" aria-label="Breadcrumb">
-  <div class="container">
-    <div class="breadcrumb-inner">
-      <a href="https://bimat.com.br">Início</a>
-      <span class="bc-sep">›</span>
-      <span>Blog</span>
-    </div>
-  </div>
-</nav>
-
 <!-- ══════════════════════ HERO ══════════════════════ -->
 <section class="blog-hero">
   <div class="blog-hero-grid"></div>
   <div class="container">
-    <div class="blog-hero-content">
-      <div class="blog-tag">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        Central de Conhecimento
-      </div>
-      <h1>Entenda seus <em>direitos no INSS</em> — guias gratuitos</h1>
-      <p>Artigos escritos por especialistas para ajudar você a entender benefícios, prazos, documentos e seus direitos previdenciários.</p>
-      <div class="hero-search" role="search">
-        <input type="search" placeholder="Busque: aposentadoria, auxílio-doença, BPC…" aria-label="Buscar artigos" />
-        <button type="submit" aria-label="Buscar">Buscar</button>
-      </div>
-      <div class="blog-hero-stats">
-        <div>
-          <div class="hero-stat-val">12+</div>
-          <div class="hero-stat-lbl">Artigos publicados</div>
+    <div class="blog-hero-inner">
+
+      <!-- COLUNA ESQUERDA: texto -->
+      <div class="blog-hero-content">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:nowrap;margin-bottom:20px">
+          <div class="blog-tag">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Central de Conhecimento
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#fca5a5">
+            🔥 Em alta agora
+          </div>
         </div>
-        <div>
-          <div class="hero-stat-val">100%</div>
-          <div class="hero-stat-lbl">Conteúdo gratuito</div>
+        <h1>Entenda seus <em>direitos no INSS</em> — guias gratuitos</h1>
+        <p>Artigos escritos por especialistas para ajudar você a entender benefícios, prazos, documentos e seus direitos previdenciários.</p>
+        <div class="hero-search" role="search">
+          <input type="search" placeholder="Busque: aposentadoria, auxílio-doença, BPC…" aria-label="Buscar artigos" />
+          <button type="submit" aria-label="Buscar">Buscar</button>
         </div>
-        <div>
-          <div class="hero-stat-val">47+</div>
-          <div class="hero-stat-lbl">Casos resolvidos</div>
+        <div class="blog-hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-val">13+</div>
+            <div class="hero-stat-lbl">Artigos publicados</div>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-val">100%</div>
+            <div class="hero-stat-lbl">Conteúdo gratuito</div>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-val">47+</div>
+            <div class="hero-stat-lbl">Casos resolvidos</div>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-val">5★</div>
+            <div class="hero-stat-lbl">Avaliação Google</div>
+          </div>
         </div>
       </div>
+
+      <!-- COLUNA DIREITA: card do artigo em destaque -->
+      <a href="https://bimat.com.br/blog/licenca-maternidade-desempregada" class="hero-featured-card">
+        <div class="hero-card-img">
+          <img
+            src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=600&auto=format&fit=crop&q=80"
+            alt="Licença-maternidade para desempregada"
+            width="420" height="200" loading="eager"
+          />
+          <div class="hero-card-img-overlay"></div>
+          <div class="hero-card-badge">🔥 Novo artigo</div>
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-cat">Maternidade · Mar 2025</div>
+          <div class="hero-card-title">Licença-maternidade para desempregada: você tem direito e pode não saber</div>
+          <div class="hero-card-desc">Perdeu o emprego e está grávida? O período de graça pode garantir seu salário-maternidade mesmo sem carteira assinada.</div>
+          <div class="hero-card-footer">
+            <span class="hero-card-meta">⏱ 7 min de leitura</span>
+            <span class="hero-card-cta">
+              Ler agora
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -975,11 +1076,12 @@
 <div class="cats-bar" role="navigation" aria-label="Categorias do blog">
   <div class="container">
     <div class="cats-inner">
-      <button class="cat-btn active" onclick="filterCat(this,'all')">Todos <span class="cat-count">12</span></button>
+      <button class="cat-btn active" onclick="filterCat(this,'all')">Todos <span class="cat-count">13</span></button>
       <button class="cat-btn" onclick="filterCat(this,'aposentadoria')">Aposentadoria <span class="cat-count">4</span></button>
       <button class="cat-btn" onclick="filterCat(this,'incapacidade')">Auxílio-Doença <span class="cat-count">3</span></button>
       <button class="cat-btn" onclick="filterCat(this,'bpc')">BPC / LOAS <span class="cat-count">2</span></button>
       <button class="cat-btn" onclick="filterCat(this,'pensao')">Pensão por Morte <span class="cat-count">2</span></button>
+      <button class="cat-btn" onclick="filterCat(this,'maternidade')">Maternidade <span class="cat-count">2</span></button>
       <button class="cat-btn" onclick="filterCat(this,'recursos')">Recursos e Revisões <span class="cat-count">1</span></button>
     </div>
   </div>
@@ -994,28 +1096,31 @@
       <div>
 
         <!-- Artigo Destaque -->
-        <div class="featured-label">Artigo em Destaque</div>
-        <article class="article-featured reveal" data-cat="incapacidade">
+        <div class="featured-label" style="display:flex;align-items:center;gap:10px">
+          Artigo em Destaque
+          <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);font-size:10px;font-weight:700;color:#ef4444;letter-spacing:.5px">🔥 NOVO</span>
+        </div>
+        <article class="article-featured reveal" data-cat="maternidade">
           <div class="featured-img">
             <img
-              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop&q=80"
-              alt="Pessoa preenchendo formulário para auxílio-doença no INSS"
+              src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=800&auto=format&fit=crop&q=80"
+              alt="Mãe desempregada com bebê — direito à licença-maternidade pelo INSS"
               width="600" height="400"
               loading="eager"
             />
             <div class="featured-img-overlay"></div>
-            <div class="featured-badge">⭐ Mais lido</div>
+            <div class="featured-badge">🔥 Em alta</div>
           </div>
           <div class="featured-content">
-            <div class="art-cat">Auxílio-Doença</div>
-            <h2>Como dar entrada no auxílio-doença pelo INSS em 2025 (passo a passo)</h2>
+            <div class="art-cat">Maternidade</div>
+            <h2>Licença-maternidade para desempregada: você tem direito e pode não saber</h2>
             <div class="art-meta">
-              <span>Jan 2025</span>
+              <span>Mar 2025</span>
               <span class="art-meta-dot"></span>
-              <span class="read-time">⏱ 8 min de leitura</span>
+              <span class="read-time">⏱ 7 min de leitura</span>
             </div>
-            <p>Descubra exatamente quais documentos você precisa, como agendar a perícia médica, o que esperar no dia e o que fazer se o benefício for negado.</p>
-            <a href="https://bimat.com.br/blog/como-dar-entrada-auxilio-doenca-inss" class="btn-read">
+            <p>Perdeu o emprego e está grávida? Saiba como o <strong>período de graça</strong> garante seu salário-maternidade — e a estratégia de uma única contribuição que pode renovar seu direito quando o prazo está quase no fim.</p>
+            <a href="https://bimat.com.br/blog/licenca-maternidade-desempregada" class="btn-read">
               Ler artigo completo
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -1025,9 +1130,30 @@
         <!-- Grade de artigos -->
         <div class="section-title">
           <h2>Artigos recentes</h2>
-          <a href="#" class="see-all">Ver todos →</a>
+          <a href="https://bimat.com.br/blog" class="see-all">Ver todos →</a>
         </div>
         <div class="articles-grid">
+
+          <article class="article-card reveal" data-cat="incapacidade">
+            <div class="card-img">
+              <img
+                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&fit=crop&q=80"
+                alt="Pessoa preenchendo formulário para auxílio-doença no INSS"
+                width="400" height="300"
+                loading="lazy"
+              />
+              <div class="card-img-overlay"></div>
+              <span class="card-cat-badge">Auxílio-Doença</span>
+            </div>
+            <div class="card-body">
+              <h3>Como dar entrada no auxílio-doença pelo INSS em 2025 (passo a passo)</h3>
+              <p>Documentos necessários, como agendar a perícia médica e o que fazer se o benefício for negado.</p>
+              <div class="card-footer">
+                <span class="card-meta">Jan 2025 · 8 min</span>
+                <a href="https://bimat.com.br/blog/como-dar-entrada-auxilio-doenca-inss" class="card-read">Ler →</a>
+              </div>
+            </div>
+          </article>
 
           <article class="article-card reveal" data-cat="aposentadoria">
             <div class="card-img">
