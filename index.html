@@ -269,15 +269,17 @@
     /* HERO */
     .hero {
       position: relative;
-      min-height: min(760px, calc(100svh - 68px));
+      min-height: auto;
+      height: auto;
+      max-height: none;
       display: grid;
-      place-items: center;
-      overflow: hidden;
+      align-items: center;
+      overflow: visible;
       background:
         linear-gradient(115deg, rgba(4,18,38,.96), rgba(8,46,82,.86) 58%, rgba(11,61,107,.46)),
         url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1800&auto=format&fit=crop&q=80') center/cover;
       color: white;
-      padding: clamp(3rem, 7vw, 5rem) 0;
+      padding: clamp(1.8rem, 4vw, 3.2rem) 0;
     }
     .hero::before {
       content: '';
@@ -295,42 +297,124 @@
       z-index: 1;
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(310px, .8fr);
-      gap: clamp(2rem, 6vw, 4.5rem);
-      align-items: center;
+      gap: clamp(1.5rem, 4vw, 3.4rem);
+      align-items: stretch;
     }
-    .hero-copy { max-width: 760px; }
+    .hero-copy {
+      max-width: 760px;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto auto auto auto 1fr auto;
+      align-content: start;
+      padding-block: .25rem;
+    }
     .hero h1 {
-      margin-top: 1.2rem;
-      font-size: clamp(2.35rem, 7vw, 5.1rem);
+      margin-top: .55rem;
+      font-size: clamp(1.95rem, 4.8vw, 3.95rem);
       letter-spacing: -.04em;
       max-width: 850px;
     }
     .hero h1 em { color: var(--gold-light); font-style: normal; }
     .hero p {
-      margin-top: 1.1rem;
+      margin-top: .65rem;
       max-width: 700px;
       color: rgba(255,255,255,.82);
-      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      font-size: clamp(.96rem, 1.45vw, 1.08rem);
     }
     .hero-buttons {
       display: flex;
       align-items: center;
       gap: .8rem;
       flex-wrap: wrap;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
-    .hero-proof {
+    .hero-insight {
+      margin-top: clamp(1rem, 2vw, 1.5rem);
+      max-width: 720px;
       display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(190px, .42fr);
+      gap: .9rem;
+      align-items: stretch;
+    }
+    .insight-main {
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.075);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: .95rem 1rem;
+      backdrop-filter: blur(8px);
+    }
+    .insight-main strong {
+      display: block;
+      color: var(--gold-light);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.25rem, 2vw, 1.65rem);
+      line-height: 1.05;
+      margin-bottom: .35rem;
+    }
+    .insight-main span {
+      display: block;
+      color: rgba(255,255,255,.76);
+      font-size: clamp(.86rem, 1.2vw, .96rem);
+      line-height: 1.5;
+    }
+    .insight-list {
+      display: grid;
+      gap: .45rem;
+    }
+    .insight-list span {
+      display: flex;
+      align-items: center;
+      min-height: 2.25rem;
+      padding: .48rem .7rem;
+      border-radius: .8rem;
+      background: rgba(6,30,56,.32);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.82);
+      font-size: .82rem;
+      font-weight: 800;
+    }
+    .insight-list span::before {
+      content: '•';
+      color: var(--gold-light);
+      margin-right: .45rem;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .hero-support {
+      grid-row: 6;
+      align-self: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem .9rem;
+      margin-top: clamp(1rem, 2vw, 1.45rem);
+      max-width: 760px;
+      color: rgba(255,255,255,.82);
+      font-size: clamp(.82rem, 1.2vw, .94rem);
+      font-weight: 700;
+    }
+    .hero-support span {
+      display: inline-flex;
+      align-items: center;
+      padding: .48rem .7rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-proof {
+      display: none;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: .85rem;
-      margin-top: clamp(1.8rem, 4vw, 3rem);
+      margin-top: clamp(.8rem, 1.8vw, 1.35rem);
       max-width: 720px;
     }
     .proof-card {
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.07);
       border-radius: var(--radius-md);
-      padding: 1rem;
+      padding: .68rem;
       backdrop-filter: blur(10px);
     }
     .proof-card strong {
@@ -343,15 +427,18 @@
     .proof-card span { display: block; margin-top: .35rem; color: rgba(255,255,255,.68); font-size: .82rem; }
 
     .lead-card {
+      text-align: center;
       width: 100%;
       background: rgba(255,255,255,.98);
       color: var(--text);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-lg);
-      padding: clamp(1.25rem, 4vw, 2rem);
+      padding: clamp(.9rem, 1.8vw, 1.25rem);
       border: 1px solid rgba(255,255,255,.35);
     }
     .lead-card .badge {
+      margin-left: auto;
+      margin-right: auto;
       display: inline-block;
       background: #EAF7EF;
       color: var(--green);
@@ -362,17 +449,17 @@
       text-transform: uppercase;
       letter-spacing: .06em;
     }
-    .lead-card h2 { color: var(--navy); font-size: clamp(1.55rem, 3vw, 2rem); margin-top: .8rem; }
-    .lead-card p { color: var(--muted); margin-top: .45rem; font-size: .95rem; }
-    .lead-form { display: grid; gap: .8rem; margin-top: 1.25rem; }
+    .lead-card h2 { color: var(--navy); font-size: clamp(1.38rem, 2.35vw, 1.72rem); margin-top: .55rem; }
+    .lead-card p { color: var(--muted); margin-top: .25rem; font-size: .86rem; }
+    .lead-form { text-align: left; display: grid; gap: .48rem; margin-top: .68rem; }
     .field { display: grid; gap: .35rem; }
     .field label { font-size: .85rem; color: var(--text); font-weight: 700; }
     .field input, .field select, .field textarea {
       width: 100%;
       border: 1px solid var(--border);
       background: #F8FAFC;
-      border-radius: .9rem;
-      padding: .85rem .95rem;
+      border-radius: .75rem;
+      padding: .58rem .78rem;
       outline: none;
       transition: border .2s ease, background .2s ease, box-shadow .2s ease;
     }
@@ -381,7 +468,8 @@
       background: white;
       box-shadow: 0 0 0 4px rgba(11,61,107,.08);
     }
-    .privacy-note { font-size: .78rem; color: var(--muted); text-align: center; }
+    .field textarea { min-height: 58px; max-height: 86px; resize: vertical; }
+    .privacy-note { font-size: .75rem; color: var(--muted); text-align: center; }
 
     /* SECTIONS */
     section { padding: var(--section) 0; }
@@ -643,11 +731,131 @@
     }
     .mobile-panel .btn { margin-top: 1rem; width: 100%; }
 
+    @media (min-width: 1081px) and (max-height: 760px) {
+      .hero {
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
+      }
+      .hero-proof {
+        display: none;
+      }
+      .hero-insight {
+        margin-top: .8rem;
+        grid-template-columns: 1fr;
+        gap: .5rem;
+      }
+      .insight-main {
+        padding: .68rem .8rem;
+      }
+      .insight-main strong {
+        font-size: 1.25rem;
+      }
+      .insight-main span {
+        font-size: .78rem;
+        line-height: 1.38;
+      }
+      .insight-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: .35rem;
+      }
+      .insight-list span {
+        min-height: auto;
+        padding: .34rem .45rem;
+        font-size: .68rem;
+      }
+      .hero-support {
+        margin-top: .8rem;
+        gap: .4rem .55rem;
+        font-size: .78rem;
+      }
+      .hero-support span {
+        padding: .34rem .55rem;
+      }
+      .hero h1 {
+        font-size: clamp(2.15rem, 4.4vw, 3.65rem);
+        line-height: 1.04;
+      }
+      .hero p {
+        font-size: .96rem;
+        line-height: 1.55;
+      }
+      .lead-card {
+        padding: 1rem 1.15rem;
+      }
+      .lead-form {
+        gap: .42rem;
+        margin-top: .55rem;
+      }
+      .field {
+        gap: .2rem;
+      }
+      .field label {
+        font-size: .76rem;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        padding: .48rem .7rem;
+        font-size: .86rem;
+      }
+      .field textarea {
+        min-height: 48px;
+        max-height: 58px;
+      }
+      .privacy-note {
+        display: none;
+      }
+    }
+
+    /* CENTRALIZAÇÃO DO CONTEÚDO PRINCIPAL DO HERO */
+    .hero-copy {
+      text-align: center;
+      justify-items: center;
+    }
+    .hero-copy .tag {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-copy h1,
+    .hero-copy p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* CENTRALIZAÇÃO DOS ELEMENTOS DE APOIO DO HERO */
+    .hero-buttons {
+      justify-content: center;
+      max-width: 680px;
+    }
+    .hero-insight {
+      margin-left: auto;
+      margin-right: auto;
+      width: min(100%, 680px);
+    }
+    .insight-main {
+      text-align: center;
+      border-left: 0;
+      border-top: 3px solid var(--gold);
+      border-radius: var(--radius-md);
+    }
+    .insight-list span {
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-support {
+      justify-content: center;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     /* RESPONSIVIDADE REAL */
     @media (max-width: 1080px) {
+      .hero { height: auto; max-height: none; min-height: auto; }
       .desktop-nav, .header-actions { display: none; }
       .menu-btn { display: inline-flex; }
-      .hero-grid { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr; align-items: center; }
+      .hero-copy { display: block; height: auto; padding-block: 0; }
       .lead-card { max-width: 560px; }
       .benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .about-grid, .faq-grid { grid-template-columns: 1fr; }
@@ -657,8 +865,12 @@
     }
 
     @media (max-width: 700px) {
-      .hero { min-height: auto; text-align: left; }
+      .hero { min-height: auto; height: auto; max-height: none; text-align: left; }
+      .hero-copy { display: block; }
       .hero-buttons, .cta-actions, .contact-buttons { flex-direction: column; align-items: stretch; }
+      .hero-support { display: grid; grid-template-columns: 1fr; }
+      .hero-insight { grid-template-columns: 1fr; }
+      .insight-list { grid-template-columns: 1fr; }
       .btn { width: 100%; white-space: normal; }
       .hero-proof { grid-template-columns: 1fr; }
       .benefit-grid, .steps { grid-template-columns: 1fr; }
@@ -728,6 +940,24 @@
           <div class="hero-buttons">
             <a class="btn btn-whatsapp" href="https://wa.me/5511993193084?text=Ol%C3%A1%21+Vim+pelo+site+da+BIMAT.+Gostaria+de+saber+se+tenho+direito+a+algum+benef%C3%ADcio+do+INSS." target="_blank" rel="noopener">Quero falar com a BIMAT</a>
             <a class="btn btn-outline" href="#beneficios">Ver benefícios atendidos</a>
+          </div>
+
+          <div class="hero-insight" aria-label="Por que preparar o pedido antes de protocolar">
+            <div class="insight-main">
+              <strong>Antes de pedir, organize a prova.</strong>
+              <span>Documentos incompletos, CNIS com erro e informações desencontradas podem gerar exigências, atrasos ou indeferimento.</span>
+            </div>
+            <div class="insight-list">
+              <span>CNIS e vínculos</span>
+              <span>Documentos pessoais</span>
+              <span>Comprovantes e anexos</span>
+            </div>
+          </div>
+
+          <div class="hero-support" aria-label="Diferenciais do atendimento BIMAT">
+            <span>✓ Análise inicial do caso</span>
+            <span>✓ Organização dos documentos</span>
+            <span>✓ Acompanhamento administrativo</span>
           </div>
 
           <div class="hero-proof" aria-label="Diferenciais da BIMAT">
